@@ -1,0 +1,90 @@
+01_Fundamentos_Python/
+│
+├── 01_Introduccion_A_Python_Profesional/
+│   ├── Que_es_python_y_para_que_se_usa.md
+│   ├── Python_en_backend_data_y_ia.md
+│   ├── Filosofia_pythonica.md
+│   └── Errores_de_principiante.md
+│
+├── 02_Sintaxis_Y_Estructura/
+│   ├── Indentacion_y_legibilidad.md
+│   ├── Comentarios_y_documentacion.md
+│   ├── Script_vs_modulo.md
+│   └── Estilo_de_codigo_profesional.md
+│
+├── 03_Tipos_De_Datos_Primitivos/
+│   ├── int_float_bool_none.py
+│   ├── strings_en_profesional.py
+│   ├── conversiones_y_casting.py
+│   └── errores_comunes_tipos.py
+│
+├── 04_Estructuras_De_Datos_Basicas/
+│   ├── listas_en_backend.py
+│   ├── tuplas_cuando_usarlas.py
+│   ├── sets_como_hash_sets.py
+│   ├── diccionarios_como_hash_maps.py
+│   └── complejidad_basica.md
+│
+├── 05_Control_De_Flujo/
+│   ├── condicionales_if_else.py
+│   ├── bucles_for_while.py
+│   ├── break_continue_pass.py
+│   └── errores_logicos_frecuentes.py
+│
+├── 06_Funciones/
+│   ├── definicion_y_llamadas.py
+│   ├── parametros_y_retorno.py
+│   ├── argumentos_posicionales_y_nominales.py
+│   ├── funciones_puras.md
+│   └── buenas_practicas_funciones.md
+│
+├── 07_Manejo_De_Errores/
+│   ├── try_except_else_finally.py
+│   ├── excepciones_comunes.py
+│   ├── crear_excepciones.py
+│   └── errores_controlados_vs_crasheos.md
+│
+├── 08_Modulos_Y_Paquetes/
+│   ├── import_y_from.py
+│   ├── estructura_de_paquetes.md
+│   ├── __init__explicado.md
+│   └── modularizacion_real.md
+│
+├── 09_Input_Output/
+│   ├── input_y_output_basico.py
+│   ├── lectura_escritura_archivos.py
+│   ├── rutas_y_paths.md
+│   └── errores_frecuentes_io.md
+│
+├── 10_Strings_Avanzados/
+│   ├── slicing_y_formateo.py
+│   ├── f_strings_profesional.py
+│   ├── metodos_importantes_strings.py
+│   └── strings_en_backend_y_datos.md
+│
+├── 11_Iterables_Y_Comprensiones/
+│   ├── iterables_vs_iteradores.md
+│   ├── list_dict_set_comprehensions.py
+│   ├── legibilidad_vs_magia.md
+│   └── errores_comunes_comprehensions.py
+│
+├── 12_Funciones_Utiles_De_Python/
+│   ├── funciones_built_in_clave.py
+│   ├── map_filter_zip_en_contexto.py
+│   ├── any_all_en_backend.py
+│   └── cuando_usarlas_y_cuando_no.md
+│
+├── 13_Complejidad_Y_Rendimiento_Basico/
+│   ├── big_o_notacion_basica.md
+│   ├── coste_de_operaciones.py
+│   └── decisiones_eficientes_desde_el_inicio.md
+│
+├── 14_Buenas_Practicas_Desde_Fundamentos/
+│   ├── codigo_legible_y_mantenible.md
+│   ├── errores_de_codigo_spaghetti.md
+│   └── mentalidad_profesional.md
+│
+└── 15_Resumen_Y_Ejercicios/
+    ├── resumen_fundamentos.py
+    ├── ejercicios_guiados.py
+    └── checklist_dominas_fundamentos.md

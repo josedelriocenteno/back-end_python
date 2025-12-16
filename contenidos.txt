@@ -1,0 +1,43 @@
+back-end_python/
+│
+├── 00_Entorno_Y_Herramientas/
+│
+├── 01_Fundamentos_Python/
+│
+├── 02_Estructuras_De_Datos/
+│
+├── 03_Control_De_Flujo_Y_Funciones/
+│
+├── 04_POO_Python_Profesional/
+│
+├── 05_Python_Limpio_Y_Buenas_Practicas/
+│
+├── 06_Manejo_De_Errores_Y_Debugging/
+│
+├── 07_Archivos_Y_Persistencia/
+│
+├── 08_SQL_Y_Acceso_A_Datos/
+│
+├── 09_Backend_Python_APIs/
+│
+├── 10_Seguridad_Backend/
+│
+├── 11_Testing_Y_Calidad/
+│
+├── 12_Asincronia_Y_Concurrencia/
+│
+├── 13_Docker_Y_Entorno_Reproducible/
+│
+├── 14_Arquitectura_Backend/
+│
+├── 15_Git_Y_Flujo_Profesional/
+│
+├── 16_Cloud_Fundamentals_Backend/
+│
+├── 17_Observabilidad_Y_Monitorizacion/
+│
+├── 18_Performance_Y_Escalabilidad/
+│
+├── 19_Puente_Hacia_ML_Y_IA/
+│
+└── 20_Proyecto_Final_Backend_Profesional/

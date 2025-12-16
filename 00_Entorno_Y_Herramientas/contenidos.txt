@@ -1,0 +1,74 @@
+00_Entorno_Y_Herramientas/
+│
+├── 01_Introduccion_Al_Entorno_Backend/
+│   ├── Que_es_un_entorno_profesional.md
+│   ├── Diferencia_entre_codigo_y_entorno.md
+│   └── Errores_comunes_de_juniors.md
+│
+├── 02_Python_Y_Versionado/
+│   ├── Versiones_de_Python_en_produccion.md
+│   ├── Compatibilidad_y_ecosistema.md
+│   ├── Python_LTS_vs_ultima_version.md
+│   └── Politica_de_versionado_del_proyecto.md
+│
+├── 03_Entornos_Virtuales/
+│   ├── Que_es_un_entorno_virtual.md
+│   ├── venv_vs_virtualenv.md
+│   ├── Buenas_practicas_con_entornos.md
+│   └── Errores_criticos_a_evitar.md
+│
+├── 04_Gestion_De_Dependencias/
+│   ├── pip_y_requirements.txt.md
+│   ├── Dependencias_directas_vs_transitivas.md
+│   ├── Versiones_fijas_vs_flexibles.md
+│   └── Congelacion_del_entorno.md
+│
+├── 05_Estructura_De_Proyecto_Backend/
+│   ├── Separacion_por_capas.md
+│   ├── Convenciones_de_nombres.md
+│   ├── Modularidad_y_escalabilidad.md
+│   └── Estructura_real_usada_en_empresas.md
+│
+├── 06_IDE_Y_Herramientas_De_Desarrollo/
+│   ├── VSCode_configuracion_profesional.md
+│   ├── Extensiones_imprescindibles.md
+│   ├── Debugger_y_breakpoints.md
+│   └── Productividad_y_flujo_de_trabajo.md
+│
+├── 07_Terminal_Y_Shell/
+│   ├── Bash_vs_PowerShell_vs_CMD.md
+│   ├── Comandos_esenciales_backend.md
+│   ├── Automatizacion_basica.sh
+│   └── Mentalidad_de_trabajo_en_terminal.md
+│
+├── 08_Control_De_Versiones_Git/
+│   ├── Flujo_basico_profesional.md
+│   ├── Commits_limpios_y_semanticos.md
+│   ├── Ramas_y_trabajo_en_equipo.md
+│   └── Git_como_herramienta_diaria.md
+│
+├── 09_Gitignore_Y_Higiene_Del_Proyecto/
+│   ├── Archivos_que_nunca_se_suben.md
+│   ├── Seguridad_y_privacidad.md
+│   └── Estandares_profesionales.md
+│
+├── 10_Linters_Y_Formatters/
+│   ├── Codigo_legible_y_mantenible.md
+│   ├── Black_Flake8_Mypy.md
+│   └── Calidad_automatica_del_codigo.md
+│
+├── 11_Variables_De_Entorno_Y_Configuracion/
+│   ├── Separar_codigo_y_configuracion.md
+│   ├── Uso_de_.env.md
+│   ├── Seguridad_basica.md
+│   └── Configuracion_por_entornos.md
+│
+├── 12_Buenas_Practicas_Desde_El_Dia_1/
+│   ├── Mentalidad_backend_profesional.md
+│   ├── Errores_de_estudiante_que_no_debes_cometer.md
+│   └── Como_evitar_deuda_tecnica.md
+│
+└── 13_Resumen_Y_Checklist/
+    ├── Checklist_de_entorno_profesional.md
+    ├── Que_debes_dominar_antes_de_seguir.md
+    └── Señales_de_que_vas_por_el_buen_camino.md
