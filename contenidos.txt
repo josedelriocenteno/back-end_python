@@ -1,43 +1,67 @@
 back-end_python/
 │
 ├── 00_Entorno_Y_Herramientas/
+│   // Sistema, terminal, Python, venv, Poetry, VS Code, debugging, hábitos profesionales
 │
 ├── 01_Fundamentos_Python/
+│   // Sintaxis sólida, tipos, memoria, mutabilidad, modelo de objetos
 │
-├── 02_Estructuras_De_Datos/
+├── 02_Estructuras_De_Datos_Y_Algoritmia/
+│   // list, dict, set, tuple como estructuras reales (hash maps, stacks, queues)
 │
 ├── 03_Control_De_Flujo_Y_Funciones/
+│   // funciones limpias, scope, closures, decorators (uso real)
 │
 ├── 04_POO_Python_Profesional/
+│   // diseño de clases, composición vs herencia, principios SOLID aplicados
 │
 ├── 05_Python_Limpio_Y_Buenas_Practicas/
+│   // clean code, tipado, linters, convenciones, refactorización
 │
 ├── 06_Manejo_De_Errores_Y_Debugging/
+│   // excepciones, logging profesional, debugging real
 │
-├── 07_Archivos_Y_Persistencia/
+├── 07_Archivos_Y_Persistencia_De_Datos/
+│   // CSV, JSON, Parquet, serialización, lectura/escritura eficiente
 │
-├── 08_SQL_Y_Acceso_A_Datos/
+├── 08_SQL_Y_Modelado_De_Datos/
+│   // SQL fuerte, joins, índices, normalización, PostgreSQL
 │
-├── 09_Backend_Python_APIs/
+├── 09_Acceso_A_Datos_Desde_Python/
+│   // psycopg2, SQLAlchemy, ORM vs SQL puro, rendimiento
 │
-├── 10_Seguridad_Backend/
+├── 10_Backend_Python_Y_APIs/
+│   // FastAPI, REST, diseño de endpoints, validación, versionado
 │
-├── 11_Testing_Y_Calidad/
+├── 11_Seguridad_Backend_Y_Datos/
+│   // auth, JWT, roles, secretos, OWASP básico
 │
-├── 12_Asincronia_Y_Concurrencia/
+├── 12_Testing_Y_Calidad_De_Codigo/
+│   // pytest, tests de datos, tests de APIs, coverage
 │
-├── 13_Docker_Y_Entorno_Reproducible/
+├── 13_Asincronia_Y_Procesamiento_Concurrente/
+│   // async/await, multiprocessing, I/O intensivo (pipelines)
 │
-├── 14_Arquitectura_Backend/
+├── 14_Docker_Y_Entornos_Reproducibles/
+│   // Docker real: imágenes, volúmenes, redes, docker-compose
 │
 ├── 15_Git_Y_Flujo_Profesional/
+│   // Git CLI, branching, PRs, code review, GitHub profesional
 │
-├── 16_Cloud_Fundamentals_Backend/
+├── 16_Data_Engineering_Fundamentals/
+│   // ETL, ELT, pipelines, batch vs streaming, calidad de datos
 │
-├── 17_Observabilidad_Y_Monitorizacion/
+├── 17_Cloud_Fundamentals_Para_Data_Engineers/
+│   // GCP core: storage, compute, IAM, BigQuery (base cert)
 │
-├── 18_Performance_Y_Escalabilidad/
+├── 18_Observabilidad_Y_Monitorizacion/
+│   // logs, métricas, alertas, data validation
 │
-├── 19_Puente_Hacia_ML_Y_IA/
+├── 19_Performance_Y_Escalabilidad_De_Datos/
+│   // optimización SQL, particiones, paralelismo, costes
 │
-└── 20_Proyecto_Final_Backend_Profesional/
+├── 20_Puente_Hacia_Machine_Learning/
+│   // datasets, features, training pipelines, serving básico
+│
+└── 21_Proyecto_Final_Data_Backend_Profesional/
+    // Proyecto real tipo Data Engineer (portfolio + TFG)
