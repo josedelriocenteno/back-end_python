@@ -1,0 +1,134 @@
+04_POO_Python_Profesional/
+│
+├── 00_Introduccion_POO_Profesional/
+│   ├── que_es_poo_en_python.py
+│   │   // Qué aporta la POO en sistemas reales
+│   ├── poo_vs_funcional.py
+│   │   // Cuándo usar cada paradigma
+│
+├── 01_Clases_Y_Objetos/
+│   ├── definicion_clases.py
+│   │   // class, __init__, atributos
+│   ├── atributos_instancia_vs_clase.py
+│   │   // Estado compartido vs estado propio
+│   ├── metodos_instancia_clase_estaticos.py
+│   │   // @classmethod, @staticmethod
+│   └── ejemplos_backend_basicos.py
+│       // Modelos simples orientados a dominio
+│
+├── 02_Encapsulacion_Y_Abstraccion/
+│   ├── encapsulacion_python.py
+│   │   // _protected, __private (name mangling)
+│   ├── propiedades_property.py
+│   │   // @property, setters, validaciones
+│   ├── abstraccion_real.py
+│   │   // Interfaces conceptuales bien diseñadas
+│   └── errores_encapsulacion_comunes.py
+│       // Clases anémicas, getters inútiles
+│
+├── 03_Herencia/
+│   ├── herencia_basica.py
+│   │   // extends en Python
+│   ├── super_y_mro.py
+│   │   // Method Resolution Order
+│   ├── herencia_multiple.py
+│   │   // Uso controlado (y peligros)
+│   └── errores_herencia.py
+│       // Jerarquías rígidas y frágiles
+│
+├── 04_Composicion_Vs_Herencia/
+│   ├── composicion_basica.py
+│   │   // "tiene un" vs "es un"
+│   ├── composicion_en_backend.py
+│   │   // Servicios, repositorios, clientes
+│   ├── refactor_herencia_a_composicion.py
+│   │   // Caso real
+│   └── reglas_decision.md
+│       // Cuándo usar cada una
+│
+├── 05_Clases_Inmutables_Y_Value_Objects/
+│   ├── objetos_inmutables.py
+│   │   // Seguridad y predictibilidad
+│   ├── dataclasses_basico.py
+│   │   // @dataclass bien usado
+│   ├── dataclasses_frozen.py
+│   │   // Value Objects reales
+│   └── value_objects_backend.py
+│       // IDs, DTOs, configs
+│
+├── 06_Metodos_Especiales_Dunder/
+│   ├── str_repr.py
+│   │   // __str__ vs __repr__
+│   ├── eq_hash.py
+│   │   // Igualdad, hashing, sets, dicts
+│   ├── comparadores.py
+│   │   // __lt__, __gt__, sorting
+│   └── dunder_avanzados.py
+│       // __call__, __len__, __iter__
+│
+├── 07_Interfaces_Y_ABC/
+│   ├── abc_basico.py
+│   │   // Abstract Base Classes
+│   ├── contratos_clases.py
+│   │   // Diseñar APIs internas
+│   ├── interfaces_backend.py
+│   │   // Repositorios, servicios
+│   └── errores_interfaces.py
+│       // Interfaces mal definidas
+│
+├── 08_Principios_SOLID_Aplicados/
+│   ├── solid_introduccion.md
+│   │   // Qué es SOLID y por qué importa
+│   ├── srp_single_responsibility.py
+│   │   // Clases con una responsabilidad
+│   ├── ocp_open_closed.py
+│   │   // Extender sin modificar
+│   ├── lsp_liskov.py
+│   │   // Sustitución correcta
+│   ├── isp_interface_segregation.py
+│   │   // Interfaces pequeñas y claras
+│   └── dip_dependency_inversion.py
+│       // Desacoplar dependencias
+│
+├── 09_Patrones_De_Diseno_Basicos/
+│   ├── factory_pattern.py
+│   │   // Creación controlada de objetos
+│   ├── singleton_pattern.py
+│   │   // Uso real (y cuándo evitarlo)
+│   ├── strategy_pattern.py
+│   │   // Algoritmos intercambiables
+│   ├── repository_pattern.py
+│   │   // Acceso a datos limpio
+│   └── service_layer_pattern.py
+│       // Lógica de negocio desacoplada
+│
+├── 10_POO_En_Backend_Y_Data/
+│   ├── modelos_dominio.py
+│   │   // Entidades del negocio
+│   ├── servicios.py
+│   │   // Casos de uso
+│   ├── repositorios.py
+│   │   // Persistencia desacoplada
+│   └── arquitectura_capas.py
+│       // Domain, Application, Infrastructure
+│
+├── 11_Testabilidad_Y_Mantenibilidad/
+│   ├── diseno_para_tests.py
+│   │   // Clases fáciles de testear
+│   ├── inyeccion_dependencias.py
+│   │   // Sin frameworks mágicos
+│   └── mocks_y_stubs.py
+│       // Aislar componentes
+│
+├── 12_Ejercicios_Practicos/
+│   ├── ejercicios_clases_basicas.py
+│   ├── ejercicios_composicion.py
+│   ├── ejercicios_solid.py
+│   ├── ejercicios_patrones.py
+│   └── mini_proyecto_poo.py
+│
+└── 13_Resumen_Y_Guia_De_Diseno/
+    ├── resumen_poo_profesional.py
+    │   // Todo el tema condensado
+    └── checklist_diseno_backend.md
+        // Checklist real de diseño profesional

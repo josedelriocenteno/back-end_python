@@ -1,0 +1,108 @@
+02_Estructuras_De_Datos_Y_Algoritmia/
+│
+├── 00_Introduccion_Estructuras_De_Datos/
+│   ├── que_son_estructuras_datos.py
+│   │   // Concepto de estructura de datos, por qué existen, coste computacional
+│   ├── mutabilidad_y_memoria.py
+│   │   // Mutable vs inmutable, referencias, copia superficial/profunda
+│
+├── 01_Listas_List/
+│   ├── listas_basico.py
+│   │   // Creación, acceso, slicing, métodos principales
+│   ├── listas_internals.py
+│   │   // Cómo funciona list internamente (array dinámico)
+│   ├── listas_complejidad.py
+│   │   // Coste temporal: append, insert, pop, remove
+│   ├── listas_patrones.py
+│   │   // Uso como stack, buffer, acumulador
+│   └── listas_errores_comunes.py
+│       // Copias, referencias, nested lists
+│
+├── 02_Tuplas_Tuple/
+│   ├── tuplas_basico.py
+│   │   // Inmutabilidad, uso correcto
+│   ├── tuplas_vs_listas.py
+│   │   // Cuándo usar tuple y cuándo list
+│   └── tuplas_como_claves.py
+│       // Uso en dicts y sets
+│
+├── 03_Diccionarios_Dict/
+│   ├── diccionarios_basico.py
+│   │   // CRUD, métodos, iteración
+│   ├── diccionarios_hashmap.py
+│   │   // Qué es un hash map y cómo lo implementa Python
+│   ├── diccionarios_complejidad.py
+│   │   // O(1), colisiones, resize
+│   ├── diccionarios_patrones.py
+│   │   // Contadores, lookup tables, índices
+│   └── diccionarios_errores_comunes.py
+│       // Mutabilidad, claves no válidas
+│
+├── 04_Conjuntos_Set/
+│   ├── sets_basico.py
+│   │   // Creación, operaciones, métodos
+│   ├── sets_operaciones.py
+│   │   // Unión, intersección, diferencia
+│   ├── sets_complejidad.py
+│   │   // Coste y uso eficiente
+│   └── sets_casos_uso.py
+│       // Eliminación de duplicados, membership test
+│
+├── 05_Estructuras_Logicas_Clasicas/
+│   ├── stack_pila.py
+│   │   // Implementación de pila con list
+│   ├── queue_cola.py
+│   │   // Implementación de cola (deque)
+│   ├── deque_explicacion.py
+│   │   // collections.deque y cuándo usarlo
+│   └── priority_queue.py
+│       // heapq y colas de prioridad
+│
+├── 06_Estructuras_Avanzadas_Python/
+│   ├── collections_counter.py
+│   │   // Conteo eficiente
+│   ├── collections_defaultdict.py
+│   │   // Inicialización automática
+│   ├── collections_namedtuple.py
+│   │   // Alternativa ligera a clases
+│   └── collections_chainmap.py
+│       // Composición de diccionarios
+│
+├── 07_Algoritmia_Basica/
+│   ├── complejidad_temporal.py
+│   │   // Big-O explicado sin humo
+│   ├── busqueda_lineal_binaria.py
+│   │   // Casos de uso reales
+│   ├── ordenamientos_basicos.py
+│   │   // sorted(), key, estabilidad
+│   └── errores_algoritmicos_comunes.py
+│       // Cuellos de botella típicos
+│
+├── 08_Estructuras_De_Datos_En_Backend/
+│   ├── estructuras_para_apis.py
+│   │   // Qué estructura usar en endpoints
+│   ├── estructuras_para_pipelines.py
+│   │   // Acumuladores, buffers, batches
+│   └── estructuras_para_sql.py
+│       // Cómo mapear datos SQL → Python
+│
+├── 09_Estructuras_De_Datos_Para_Data_Engineering/
+│   ├── batch_vs_stream.py
+│   │   // Procesamiento por lotes vs streaming
+│   ├── ventanas_temporales.py
+│   │   // Sliding / tumbling windows (conceptual)
+│   └── estructuras_para_features.py
+│       // Preparación de datos para ML
+│
+├── 10_Ejercicios_Practicos/
+│   ├── ejercicios_listas.py
+│   ├── ejercicios_diccionarios.py
+│   ├── ejercicios_sets.py
+│   ├── ejercicios_stack_queue.py
+│   └── ejercicios_mixtos.py
+│
+└── 11_Resumen_Y_CheatSheet/
+    ├── resumen_estructuras.py
+    │   // Todo el tema resumido para repaso rápido
+    └── cheat_sheet_estructuras.md
+        // Tabla rápida de uso, coste y cuándo usar cada una

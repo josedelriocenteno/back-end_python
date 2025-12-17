@@ -1,0 +1,116 @@
+03_Control_De_Flujo_Y_Funciones/
+│
+├── 00_Introduccion_Control_De_Flujo/
+│   ├── flujo_ejecucion_programa.py
+│   │   // Cómo se ejecuta un programa Python paso a paso
+│   ├── control_flujo_vs_datos.py
+│   │   // Diferencia entre controlar lógica y manipular datos
+│
+├── 01_Condicionales/
+│   ├── if_elif_else.py
+│   │   // Condicionales bien escritos y legibles
+│   ├── operadores_logicos.py
+│   │   // and, or, not, cortocircuito
+│   ├── patrones_condicionales.py
+│   │   // Guard clauses, early return
+│   └── errores_condicionales_comunes.py
+│       // if anidados, condiciones redundantes
+│
+├── 02_Bucles/
+│   ├── bucles_for.py
+│   │   // Iteración correcta sobre estructuras
+│   ├── bucles_while.py
+│   │   // Cuándo usar while y cuándo NO
+│   ├── break_continue_pass.py
+│   │   // Control fino del flujo
+│   ├── enumerate_zip_range.py
+│   │   // Iteración profesional
+│   └── errores_bucles_comunes.py
+│       // Bucles infinitos, mutaciones peligrosas
+│
+├── 03_Comprensiones/
+│   ├── list_comprehension.py
+│   │   // Lectura, escritura y límites de uso
+│   ├── dict_set_comprehension.py
+│   │   // Transformaciones eficientes
+│   ├── nested_comprehensions.py
+│   │   // Cuándo NO usarlas
+│   └── comprensiones_vs_bucles.py
+│       // Legibilidad vs concisión
+│
+├── 04_Funciones_Basicas/
+│   ├── definicion_funciones.py
+│   │   // def, return, side effects
+│   ├── parametros_y_argumentos.py
+│   │   // Posicionales, nombrados
+│   ├── valores_por_defecto.py
+│   │   // Buenas prácticas reales
+│   └── funciones_puras.py
+│       // Funciones deterministas (clave para test y ML)
+│
+├── 05_Funciones_Avanzadas/
+│   ├── args_kwargs.py
+│   │   // *args, **kwargs usados bien
+│   ├── keyword_only_args.py
+│   │   // Seguridad y claridad en APIs
+│   ├── type_hints_funciones.py
+│   │   // Tipado profesional
+│   └── docstrings.py
+│       // Documentar código serio
+│
+├── 06_Scope_Y_Lifetime/
+│   ├── scope_local_global.py
+│   │   // Local, global, nonlocal
+│   ├── stack_frames.py
+│   │   // Cómo Python maneja llamadas
+│   └── errores_scope_comunes.py
+│       // Bugs silenciosos muy comunes
+│
+├── 07_Closures/
+│   ├── closures_basico.py
+│   │   // Funciones que recuerdan estado
+│   ├── closures_casos_uso.py
+│   │   // Configuración, validadores, factories
+│   └── closures_vs_clases.py
+│       // Cuándo usar cada cosa
+│
+├── 08_Decorators/
+│   ├── decorators_basico.py
+│   │   // Qué son y cómo funcionan realmente
+│   ├── decorators_con_parametros.py
+│   │   // Decorators configurables
+│   ├── functools_wraps.py
+│   │   // Evitar romper metadata
+│   ├── decorators_backend.py
+│   │   // Auth, logging, caching, timing
+│   └── errores_decorators_comunes.py
+│       // Decorators mal diseñados
+│
+├── 09_Funciones_Y_Backend/
+│   ├── funciones_en_apis.py
+│   │   // Diseño de funciones para endpoints
+│   ├── funciones_idempotentes.py
+│   │   // Clave en sistemas distribuidos
+│   └── funciones_para_pipelines.py
+│       // Transformaciones limpias de datos
+│
+├── 10_Funcional_En_Python/
+│   ├── map_filter_reduce.py
+│   │   // Uso real, no académico
+│   ├── lambda_functions.py
+│   │   // Cuándo usarlas y cuándo no
+│   └── funciones_inmutables.py
+│       // Estilo funcional aplicado
+│
+├── 11_Ejercicios_Practicos/
+│   ├── ejercicios_condicionales.py
+│   ├── ejercicios_bucles.py
+│   ├── ejercicios_funciones.py
+│   ├── ejercicios_closures.py
+│   └── ejercicios_decorators.py
+│
+└── 12_Resumen_Y_Patrones/
+    ├── resumen_control_flujo.py
+    │   // Todo el tema condensado
+    └── patrones_funcionales.md
+        // Patrones reutilizables en backend y data
