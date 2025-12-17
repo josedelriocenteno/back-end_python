@@ -1,0 +1,113 @@
+12_Testing_Y_Calidad_De_Codigo/
+│
+├── 00_Introduccion_Al_Testing_Profesional/
+│   ├── por_que_testear.md
+│   │   // Por qué testear ahorra tiempo y dinero
+│   ├── tipos_de_testing.md
+│   │   // Unit, integration, e2e, smoke
+│   └── errores_comunes_juniors.md
+│       // Tests inútiles
+│
+├── 01_Pytest_Fundamentos/
+│   ├── pytest_basico.py
+│   │   // Estructura real de tests
+│   ├── assert_bien_usado.py
+│   │   // Qué y cómo comprobar
+│   ├── fixtures_basicas.py
+│   │   // Preparar entorno
+│   └── organizacion_tests.md
+│       // Carpetas y nombres
+│
+├── 02_Fixtures_Y_Datos_De_Prueba/
+│   ├── fixtures_avanzadas.py
+│   │   // Setup/teardown
+│   ├── datos_fake_factory.py
+│   │   // Datos realistas
+│   ├── parametrized_tests.py
+│   │   // Casos múltiples
+│   └── aislar_dependencias.md
+│       // Tests deterministas
+│
+├── 03_Mocking_Y_Dobles_De_Prueba/
+│   ├── mock_basico.py
+│   │   // unittest.mock
+│   ├── patch_servicios_externos.py
+│   │   // APIs, BD
+│   ├── fake_vs_stub_vs_mock.md
+│   │   // Diferencias reales
+│   └── errores_mocking.md
+│       // Anti-patrones
+│
+├── 04_Testing_De_Datos_Y_BD/
+│   ├── testing_sql.py
+│   │   // Queries correctas
+│   ├── bd_en_memoria.md
+│   │   // SQLite, testcontainers
+│   ├── migraciones_test.md
+│   │   // Esquemas
+│   └── rendimiento_consultas.md
+│       // Detectar queries lentas
+│
+├── 05_Testing_De_APIs_Backend/
+│   ├── test_fastapi.py
+│   │   // TestClient
+│   ├── auth_en_tests.py
+│   │   // Tokens y roles
+│   ├── validacion_respuestas.py
+│   │   // Status + schema
+│   └── contratos_api.md
+│       // Lo que prometes al cliente
+│
+├── 06_Testing_Asincrono/
+│   ├── pytest_asyncio.py
+│   │   // async tests
+│   ├── testing_tasks_async.md
+│   │   // Background jobs
+│   └── errores_async_tests.md
+│       // Flaky tests
+│
+├── 07_Cobertura_Y_Calidad/
+│   ├── coverage_config.md
+│   │   // coverage.py
+│   ├── metricas_calidad.md
+│   │   // Qué medir
+│   ├── calidad_vs_cantidad.md
+│   │   // 100% ≠ bien
+│   └── interpretar_reportes.md
+│       // Decisiones reales
+│
+├── 08_Linters_Y_Estatic_Analysis/
+│   ├── flake8_config.md
+│   │   // Estilo
+│   ├── pylint_uso.md
+│   │   // Análisis profundo
+│   ├── mypy_en_produccion.md
+│   │   // Tipado real
+│   └── integrar_linting.md
+│       // Pipeline local
+│
+├── 09_Testing_En_CI_CD/
+│   ├── tests_en_pipeline.md
+│   │   // Automatizar tests
+│   ├── fallos_comunes_ci.md
+│   │   // Entornos distintos
+│   ├── paralelizar_tests.md
+│   │   // Velocidad
+│   └── quality_gates.md
+│       // No pasar si falla
+│
+├── 10_Buenas_Practicas_Testing/
+│   ├── test_naming.md
+│   │   // Tests legibles
+│   ├── test_refactor.md
+│   │   // Mantener tests vivos
+│   ├── evitar_flaky_tests.md
+│   │   // Estabilidad
+│   └── cuando_no_testear.md
+│       // Saber priorizar
+│
+└── 11_Resumen_Y_Ejercicios/
+    ├── resumen_testing_backend.py
+    │   // Todo condensado
+    └── ejercicios_testing_reales.py
+        // Casos de empresa

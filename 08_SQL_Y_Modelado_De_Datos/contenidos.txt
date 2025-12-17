@@ -1,0 +1,125 @@
+08_SQL_Y_Modelado_De_Datos/
+│
+├── 00_Introduccion_A_SQL_Profesional/
+│   ├── que_es_sql.md
+│   │   // Por qué SQL sigue mandando
+│   ├── bases_datos_relacionales.md
+│   │   // Tablas, filas, columnas, relaciones
+│   └── sql_en_backend_y_data.md
+│       // APIs, ETLs, ML
+│
+├── 01_PostgreSQL_Fundamentos/
+│   ├── instalacion_postgresql.md
+│   │   // Local + Docker
+│   ├── psql_basico.sql
+│   │   // Consola profesional
+│   ├── tipos_de_datos_postgres.md
+│   │   // int, text, jsonb, uuid
+│   └── esquemas_y_roles.md
+│       // Organización y permisos
+│
+├── 02_DDL_Definicion_De_Estructuras/
+│   ├── create_table.sql
+│   │   // Tablas bien definidas
+│   ├── constraints.sql
+│   │   // PK, FK, UNIQUE, CHECK
+│   ├── alter_table.sql
+│   │   // Cambios seguros
+│   └── drop_truncate.md
+│       // Riesgos reales
+│
+├── 03_DML_Manipulacion_De_Datos/
+│   ├── insert_select.sql
+│   │   // Inserciones limpias
+│   ├── update_delete.sql
+│   │   // Modificar sin liarla
+│   ├── transacciones.sql
+│   │   // COMMIT / ROLLBACK
+│   └── concurrencia_basica.md
+│       // Locks y conflictos
+│
+├── 04_Consultas_SQL_Avanzadas/
+│   ├── joins.sql
+│   │   // INNER, LEFT, RIGHT, FULL
+│   ├── subqueries.sql
+│   │   // Subconsultas reales
+│   ├── group_by_having.sql
+│   │   // Agregaciones
+│   └── window_functions.sql
+│       // OVER, PARTITION BY
+│
+├── 05_Modelado_De_Datos/
+│   ├── normalizacion.md
+│   │   // 1NF, 2NF, 3NF
+│   ├── desnormalizacion.md
+│   │   // Rendimiento vs pureza
+│   ├── diagramas_er.md
+│   │   // Entidades y relaciones
+│   └── modelado_backend.md
+│       // Casos reales
+│
+├── 06_Indices_Y_Rendimiento/
+│   ├── indices_basico.sql
+│   │   // B-Tree, Hash
+│   ├── indices_compuestos.md
+│   │   // Cuándo usarlos
+│   ├── explain_analyze.sql
+│   │   // Leer planes de ejecución
+│   └── errores_rendimiento.md
+│       // Anti-patrones
+│
+├── 07_PostgreSQL_Avanzado/
+│   ├── jsonb.sql
+│   │   // SQL + NoSQL
+│   ├── funciones_y_triggers.sql
+│   │   // Lógica en DB
+│   ├── vistas_materializadas.md
+│   │   // Optimización
+│   └── extensiones_postgres.md
+│       // pgcrypto, uuid-ossp
+│
+├── 08_SQL_Desde_Python/
+│   ├── psycopg_basico.py
+│   │   // Conexión segura
+│   ├── consultas_parametrizadas.py
+│   │   // Evitar SQL injection
+│   ├── transacciones_python.py
+│   │   // Control total
+│   └── errores_comunes_sql_python.md
+│       // Bugs frecuentes
+│
+├── 09_Migraciones_Y_Evolucion_De_BD/
+│   ├── migraciones_concepto.md
+│   │   // Versionar la BD
+│   ├── alembic_intro.md
+│   │   // Migraciones reales
+│   ├── migraciones_seguras.md
+│   │   // Entornos productivos
+│   └── rollback_migraciones.md
+│       // Desastres evitables
+│
+├── 10_SQL_Para_Data_Engineering/
+│   ├── consultas_etl.sql
+│   │   // Transformaciones
+│   ├── cargas_incrementales.md
+│   │   // Escalabilidad
+│   ├── calidad_de_datos.md
+│   │   // Validaciones
+│   └── sql_para_ml.md
+│       // Features, datasets
+│
+├── 11_Seguridad_Y_Buenas_Practicas_SQL/
+│   ├── control_accesos.sql
+│   │   // Roles y permisos
+│   ├── inyeccion_sql.md
+│   │   // Ataques reales
+│   ├── backups_restore.md
+│   │   // Nunca sin backup
+│   └── datos_sensibles_bd.md
+│       // Cumplimiento
+│
+└── 12_Resumen_Y_Ejercicios/
+    ├── resumen_sql.py
+    │   // SQL explicado como código
+    └── ejercicios_modelado.sql
+        // Casos reales backend/data

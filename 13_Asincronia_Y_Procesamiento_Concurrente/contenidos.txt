@@ -1,0 +1,115 @@
+13_Asincronia_Y_Procesamiento_Concurrente/
+│
+├── 00_Introduccion_A_Concurrencia/
+│   ├── concurrencia_vs_paralelismo.md
+│   │   // Diferencias reales y cuándo usar cada una
+│   ├── cpu_bound_vs_io_bound.md
+│   │   // Elegir bien la herramienta
+│   └── errores_conceptuales.md
+│       // Mitos sobre rendimiento en Python
+│
+├── 01_Async_Await_Fundamentos/
+│   ├── event_loop.py
+│   │   // Qué es el event loop
+│   ├── async_await_basico.py
+│   │   // Sintaxis real
+│   ├── coroutines_vs_tasks.md
+│   │   // Cómo se ejecutan
+│   └── async_antipatrones.md
+│       // async mal usado
+│
+├── 02_Asyncio_En_Profundidad/
+│   ├── asyncio_run_create_task.py
+│   │   // Crear y gestionar tareas
+│   ├── gather_wait_shield.py
+│   │   // Coordinación
+│   ├── timeouts_cancelacion.py
+│   │   // Control de tiempo
+│   └── manejo_excepciones_async.md
+│       // Errores en async
+│
+├── 03_I_O_Asincrono/
+│   ├── aiohttp_client.py
+│   │   // Llamadas HTTP concurrentes
+│   ├── async_file_io.py
+│   │   // Lectura/escritura
+│   ├── async_db_access.md
+│   │   // BD asíncronas
+│   └── limites_concurrencia.md
+│       // Semáforos
+│
+├── 04_Integracion_Async_Con_Backend/
+│   ├── fastapi_async.py
+│   │   // Endpoints async
+│   ├── background_tasks.py
+│   │   // Tareas en segundo plano
+│   ├── async_dependencies.md
+│   │   // Inyección async
+│   └── errores_fastapi_async.md
+│       // Problemas reales
+│
+├── 05_Multiprocessing/
+│   ├── multiprocessing_basico.py
+│   │   // Procesos
+│   ├── pools_y_workers.py
+│   │   // Pool de procesos
+│   ├── intercambio_datos.py
+│   │   // Colas y pipes
+│   └── cpu_bound_python.md
+│       // Saltar el GIL
+│
+├── 06_Multithreading/
+│   ├── threading_basico.py
+│   │   // Threads
+│   ├── locks_semaphores.py
+│   │   // Exclusión mutua
+│   ├── race_conditions.md
+│   │   // Errores clásicos
+│   └── cuando_usar_threads.md
+│       // Casos reales
+│
+├── 07_Pipelines_De_Datos/
+│   ├── pipeline_async.py
+│   │   // ETL concurrente
+│   ├── backpressure.md
+│   │   // Control de flujo
+│   ├── retries_y_fallos.md
+│   │   // Robustez
+│   └── diseño_pipelines.md
+│       // Arquitectura
+│
+├── 08_Procesamiento_En_Cola/
+│   ├── queues_async.py
+│   │   // Queue async
+│   ├── productor_consumidor.md
+│   │   // Patrón clave
+│   ├── rate_limiting.md
+│   │   // Protección
+│   └── jobs_background.md
+│       // Trabajos diferidos
+│
+├── 09_Medicion_Y_Optimización/
+│   ├── profiling_async.md
+│   │   // Detectar cuellos
+│   ├── benchmarks_concurrency.py
+│   │   // Comparativas
+│   ├── tuning_concurrencia.md
+│   │   // Ajustes finos
+│   └── limites_reales_python.md
+│       // Hasta dónde llegar
+│
+├── 10_Buenas_Practicas_Concurrencia/
+│   ├── patrones_concurrencia.md
+│   │   // Patrones sanos
+│   ├── evitar_deadlocks.md
+│   │   // Bloqueos
+│   ├── testing_concurrente.md
+│   │   // Cómo testear
+│   └── errores_en_produccion.md
+│       // Lecciones reales
+│
+└── 11_Resumen_Y_Ejercicios/
+    ├── resumen_concurrencia_backend.py
+    │   // Async + multiprocessing condensado
+    └── ejercicios_pipelines_reales.py
+        // Casos de empresa

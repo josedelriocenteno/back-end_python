@@ -1,0 +1,117 @@
+11_Seguridad_Backend_Y_Datos/
+│
+├── 00_Introduccion_Seguridad_Backend/
+│   ├── por_que_es_critica.md
+│   │   // Por qué la seguridad NO es opcional
+│   ├── amenazas_backend.md
+│   │   // Qué atacan realmente
+│   └── errores_graves_juniors.md
+│       // Fallos típicos que hunden proyectos
+│
+├── 01_Conceptos_Basicos_De_Seguridad/
+│   ├── autenticacion_vs_autorizacion.md
+│   │   // Diferencia real
+│   ├── principios_seguridad.md
+│   │   // Least privilege, defense in depth
+│   └── modelos_seguridad.md
+│       // Basado en roles, claims, scopes
+│
+├── 02_Autenticacion_Backend/
+│   ├── auth_basica.md
+│   │   // Qué NO usar en producción
+│   ├── login_password_hashing.py
+│   │   // bcrypt, argon2
+│   ├── gestion_sesiones.md
+│   │   // Cookies vs tokens
+│   └── errores_auth.md
+│       // Fallos comunes
+│
+├── 03_JWT_Y_Tokens/
+│   ├── jwt_conceptos.md
+│   │   // Access vs Refresh
+│   ├── jwt_fastapi.py
+│   │   // Implementación real
+│   ├── expiracion_rotacion.md
+│   │   // Seguridad
+│   ├── revocacion_tokens.md
+│   │   // Logout real
+│   └── ataques_jwt.md
+│       // JWT mal usados
+│
+├── 04_Autorizacion_Y_Roles/
+│   ├── rbac_conceptos.md
+│   │   // Role Based Access Control
+│   ├── permisos_por_endpoint.py
+│   │   // Protección rutas
+│   ├── autorizacion_por_recurso.md
+│   │   // Seguridad fina
+│   └── errores_autorizacion.md
+│       // Accesos indebidos
+│
+├── 05_Gestion_De_Secretos/
+│   ├── secretos_en_backend.md
+│   │   // Qué es un secreto
+│   ├── variables_entorno.md
+│   │   // .env bien usado
+│   ├── secretos_en_cloud.md
+│   │   // Secret Manager
+│   └── errores_gestion_secretos.md
+│       // Nunca hardcodear
+│
+├── 06_Seguridad_Datos_Y_BD/
+│   ├── sql_injection.md
+│   │   // Ataque clásico
+│   ├── consultas_parametrizadas.py
+│   │   // Protección real
+│   ├── cifrado_datos_sensibles.md
+│   │   // En reposo
+│   ├── acceso_minimo_bd.md
+│   │   // Roles DB
+│   └── backups_seguridad.md
+│       // Protección datos
+│
+├── 07_OWASP_Backend_Basico/
+│   ├── owasp_top10_backend.md
+│   │   // Vulnerabilidades reales
+│   ├── ejemplos_vulnerabilidades.py
+│   │   // Casos reales
+│   ├── mitigaciones_practicas.md
+│   │   // Cómo evitarlas
+│   └── checklist_seguridad.md
+│       // Revisión final
+│
+├── 08_Seguridad_APIs/
+│   ├── cors_configuracion.py
+│   │   // Control de orígenes
+│   ├── rate_limiting.md
+│   │   // Protección DoS
+│   ├── headers_seguridad.md
+│   │   // HTTP headers
+│   └── versionado_y_seguridad.md
+│       // No romper clientes
+│
+├── 09_Auditoria_Y_Logging_Seguro/
+│   ├── logging_seguridad.py
+│   │   // Qué loggear y qué no
+│   ├── auditoria_accesos.md
+│   │   // Trazabilidad
+│   ├── deteccion_anomalias.md
+│   │   // Patrones raros
+│   └── cumplimiento_basico.md
+│       // GDPR-level básico
+│
+├── 10_Seguridad_En_Desarrollo/
+│   ├── dependencias_seguras.md
+│   │   // CVEs, updates
+│   ├── analisis_estatico.md
+│   │   // Linters seguridad
+│   ├── seguridad_ci_cd.md
+│   │   // Pipelines
+│   └── seguridad_desde_inicio.md
+│       // Shift-left security
+│
+└── 11_Resumen_Y_Ejercicios/
+    ├── resumen_seguridad_backend.py
+    │   // Todo condensado
+    └── ejercicios_seguridad_practicos.py
+        // Casos reales

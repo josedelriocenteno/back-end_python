@@ -1,0 +1,123 @@
+06_Manejo_De_Errores_Y_Debugging/
+│
+├── 00_Introduccion_A_Errores/
+│   ├── tipos_de_errores.py
+│   │   // SyntaxError, RuntimeError, LogicalError
+│   ├── errores_vs_excepciones.md
+│   │   // Diferencias conceptuales
+│   └── porque_importa_manejar_errores.md
+│       // Sistemas estables vs frágiles
+│
+├── 01_Excepciones_Basicas/
+│   ├── try_except_finally.py
+│   │   // Uso correcto y malas prácticas
+│   ├── capturar_excepciones.py
+│   │   // Captura específica vs genérica
+│   ├── multiple_except.py
+│   │   // Manejo por tipo
+│   └── finally_usage.py
+│       // Limpieza de recursos
+│
+├── 02_Lanzamiento_De_Excepciones/
+│   ├── raise_basico.py
+│   │   // Lanzar errores conscientemente
+│   ├── excepciones_personalizadas.py
+│   │   // Crear clases de excepción propias
+│   ├── jerarquia_excepciones.py
+│   │   // Diseño profesional
+│   └── cuando_lanzar_excepcion.md
+│       // Buen criterio
+│
+├── 03_Manejo_De_Errores_Limpio/
+│   ├── no_ocultar_errores.py
+│   │   // Anti-pattern común
+│   ├── mensajes_utiles.py
+│   │   // Errores que ayudan a debuggear
+│   ├── fail_fast.py
+│   │   // Fallar rápido y bien
+│   └── errores_vs_validaciones.py
+│       // Qué validar y qué no
+│
+├── 04_Context_Managers/
+│   ├── with_basico.py
+│   │   // Uso real
+│   ├── crear_context_manager.py
+│   │   // __enter__ y __exit__
+│   ├── contextlib_usage.py
+│   │   // contextlib.contextmanager
+│   └── casos_reales_context.md
+│       // Archivos, DB, locks
+│
+├── 05_Logging_Profesional/
+│   ├── logging_basico.py
+│   │   // logging vs print
+│   ├── niveles_logging.py
+│   │   // DEBUG, INFO, WARNING, ERROR, CRITICAL
+│   ├── logging_configuracion.py
+│   │   // Formatos, handlers
+│   ├── logging_archivos.py
+│   │   // Logs persistentes
+│   └── logging_produccion.md
+│       // Qué loguear y qué no
+│
+├── 06_Debugging_Manual/
+│   ├── print_debugging.py
+│   │   // Uso inteligente
+│   ├── assert_debugging.py
+│   │   // Verificaciones rápidas
+│   └── traceback_analisis.py
+│       // Leer errores como un pro
+│
+├── 07_Debugging_Con_Herramientas/
+│   ├── pdb_basico.py
+│   │   // Debugger nativo
+│   ├── breakpoints.py
+│   │   // breakpoints modernos
+│   ├── debugging_en_vscode.md
+│   │   // Debug visual real
+│   └── debugging_en_produccion.md
+│       // Qué hacer (y qué no)
+│
+├── 08_Errores_En_Backend/
+│   ├── errores_http.py
+│   │   // 4xx vs 5xx
+│   ├── manejo_errores_api.py
+│   │   // Respuestas limpias
+│   ├── excepciones_en_servicios.py
+│   │   // Capa service
+│   └── errores_y_reintentos.py
+│       // Retry patterns
+│
+├── 09_Errores_En_Data_Y_ML/
+│   ├── errores_datos.py
+│   │   // Datos corruptos
+│   ├── validacion_datasets.py
+│   │   // Checks reales
+│   ├── errores_modelos.py
+│   │   // Entrenamiento e inferencia
+│   └── reproducibilidad_errores.py
+│       // Debug en pipelines
+│
+├── 10_Manejo_De_Fallos_Graves/
+│   ├── graceful_shutdown.py
+│   │   // Apagados limpios
+│   ├── retry_circuit_breaker.md
+│   │   // Patrones de resiliencia
+│   └── errores_irrecuperables.md
+│       // Cuándo morir
+│
+├── 11_Errores_Comunes_De_Juniors/
+│   ├── except_general.py
+│   │   // except:
+│   ├── silencios_peligrosos.py
+│   │   // swallow exceptions
+│   ├── logging_excesivo.py
+│   │   // Ruido inútil
+│   └── debugging_sin_metodo.py
+│       // Caos
+│
+└── 12_Resumen_Y_Ejercicios/
+    ├── resumen_errores_debugging.py
+    │   // Tema completo sintetizado
+    └── ejercicios_debugging.py
+        // Bugs reales para arreglar

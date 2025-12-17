@@ -1,0 +1,181 @@
+10_Backend_Python_Y_APIs/
+│
+├── 00_Introduccion_Backend_Moderno/
+│   ├── que_es_un_backend_moderno.md
+│   │   // Qué es backend hoy (microservicios, APIs, cloud)
+│   ├── que_buscan_las_empresas.md
+│   │   // Perfil backend empleable
+│   ├── arquitectura_api_rest.md
+│   │   // Cliente → API → DB → Respuesta
+│   └── errores_comunes_backend.md
+│       // Anti-patrones reales
+│
+├── 01_Fundamentos_HTTP_Y_REST/
+│   ├── http_basico.md
+│   │   // Métodos, headers, status codes
+│   ├── rest_principios.md
+│   │   // Recursos, verbos, stateless
+│   ├── codigos_estado_http.py
+│   │   // Uso correcto en APIs
+│   ├── idempotencia.md
+│   │   // POST vs PUT
+│   └── rest_vs_rpc.md
+│       // REST vs otras arquitecturas
+│
+├── 02_FastAPI_Introduccion/
+│   ├── instalacion_fastapi.md
+│   │   // Poetry / venv
+│   ├── hello_api.py
+│   │   // Primera API
+│   ├── estructura_proyecto.md
+│   │   // Layout profesional
+│   ├── uvicorn_config.md
+│   │   // ASGI server
+│   └── config_entornos.md
+│       // dev / test / prod
+│
+├── 03_Diseno_De_Endpoints/
+│   ├── endpoints_crud.py
+│   │   // CRUD real
+│   ├── rutas_y_parametros.py
+│   │   // Path / Query / Body
+│   ├── filtros_orden_paginacion.py
+│   │   // APIs escalables
+│   ├── versionado_endpoints.md
+│   │   // /v1 /v2
+│   └── convenciones_rest.md
+│       // Naming y diseño limpio
+│
+├── 04_Validacion_Y_Serializacion/
+│   ├── pydantic_basico.py
+│   │   // Input / Output
+│   ├── pydantic_avanzado.py
+│   │   // Validators, custom types
+│   ├── esquemas_respuesta.py
+│   │   // DTOs
+│   ├── manejo_errores_validacion.py
+│   │   // Mensajes claros
+│   └── serializacion_json.md
+│       // Qué se expone y qué no
+│
+├── 05_Inyeccion_De_Dependencias/
+│   ├── dependencias_fastapi.py
+│   │   // Depends()
+│   ├── db_dependency.py
+│   │   // Sesiones DB
+│   ├── servicios_dependency.py
+│   │   // Capa negocio
+│   ├── auth_dependency.py
+│   │   // Seguridad
+│   └── ventajas_dependency.md
+│       // Testabilidad + desacoplo
+│
+├── 06_Manejo_De_Errores_Y_Logging/
+│   ├── excepciones_http.py
+│   │   // HTTPException
+│   ├── handlers_globales.py
+│   │   // Error handling centralizado
+│   ├── respuestas_custom.py
+│   │   // API consistente
+│   ├── logging_api.py
+│   │   // Logs útiles
+│   └── trazabilidad_requests.md
+│       // Debug producción
+│
+├── 07_Autenticacion_Y_Autorizacion/
+│   ├── auth_conceptos.md
+│   │   // Auth vs AuthZ
+│   ├── jwt_fastapi.py
+│   │   // Tokens
+│   ├── refresh_tokens.md
+│   │   // Seguridad real
+│   ├── roles_y_permisos.py
+│   │   // RBAC
+│   └── errores_seguridad_comunes.md
+│       // Fallos graves
+│
+├── 08_Seguridad_Backend_APIs/
+│   ├── cors_fastapi.py
+│   │   // Frontend seguro
+│   ├── rate_limiting.md
+│   │   // Protección abuso
+│   ├── headers_seguridad.md
+│   │   // HTTP headers
+│   ├── owasp_api_top10.md
+│   │   // Vulnerabilidades reales
+│   └── hardening_api.md
+│       // Producción
+│
+├── 09_Documentacion_Y_Contrato_API/
+│   ├── openapi_fastapi.md
+│   │   // Swagger / Redoc
+│   ├── ejemplos_request_response.py
+│   │   // Casos reales
+│   ├── docstrings_api.md
+│   │   // Legibilidad
+│   ├── versionado_documentacion.md
+│   │   // Mantener contrato
+│   └── errores_documentacion.md
+│       // APIs mal hechas
+│
+├── 10_Backend_Y_Base_De_Datos/
+│   ├── crud_api_postgresql.py
+│   │   // API + DB
+│   ├── repositorios_api.py
+│   │   // Repository pattern
+│   ├── transacciones_api.py
+│   │   // Consistencia
+│   ├── migraciones_api.md
+│   │   // Alembic
+│   └── rendimiento_api_db.md
+│       // Bottlenecks
+│
+├── 11_Asincronia_Y_Background_Tasks/
+│   ├── async_fastapi.py
+│   │   // async / await
+│   ├── background_tasks.py
+│   │   // Procesos largos
+│   ├── tareas_batch.py
+│   │   // Jobs
+│   └── concurrencia_vs_paralelismo.md
+│       // Conceptos clave
+│
+├── 12_Testing_De_APIs/
+│   ├── pytest_fastapi.py
+│   │   // Tests endpoints
+│   ├── test_client.py
+│   │   // Requests simuladas
+│   ├── mocks_dependencias.py
+│   │   // Tests aislados
+│   ├── test_integracion_api.py
+│   │   // API + DB
+│   └── cobertura_y_ci.md
+│       // Calidad
+│
+├── 13_Observabilidad_Y_Monitorizacion/
+│   ├── logs_metricas_trazas.md
+│   │   // Observabilidad
+│   ├── prometheus_basico.md
+│   │   // Métricas
+│   ├── healthchecks.py
+│   │   // Readiness / Liveness
+│   └── alertas_api.md
+│       // Producción
+│
+├── 14_Backend_Para_Data_Y_ML/
+│   ├── endpoints_para_modelos.py
+│   │   // Serving ML
+│   ├── batch_endpoints.py
+│   │   // ETLs
+│   ├── subida_descarga_datasets.py
+│   │   // Data
+│   ├── async_processing_ml.md
+│   │   // Inferencia
+│   └── patrones_ml_backend.md
+│       // Puente a IA
+│
+└── 15_Resumen_Y_Ejercicios/
+    ├── resumen_backend_api.py
+    │   // Todo condensado
+    └── ejercicios_backend_empresa.py
+        // Casos reales de trabajo

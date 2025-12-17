@@ -1,0 +1,125 @@
+07_Archivos_Y_Persistencia_De_Datos/
+│
+├── 00_Introduccion_A_Persistencia/
+│   ├── que_es_persistencia.md
+│   │   // Por qué los datos deben sobrevivir al programa
+│   ├── memoria_vs_disco.md
+│   │   // RAM, disco, latencia
+│   └── formatos_de_datos.md
+│       // Texto, binario, columnar
+│
+├── 01_Manejo_De_Archivos_Basico/
+│   ├── abrir_cerrar_archivos.py
+│   │   // open(), modos, encoding
+│   ├── lectura_archivos.py
+│   │   // read, readline, readlines
+│   ├── escritura_archivos.py
+│   │   // write, writelines
+│   └── with_archivos.py
+│       // Context manager aplicado
+│
+├── 02_Rutas_Y_Sistema_De_Archivos/
+│   ├── os_path.py
+│   │   // os.path.join, exists, isfile
+│   ├── pathlib_basico.py
+│   │   // Path moderno
+│   ├── crear_borrar_archivos.py
+│   │   // mkdir, unlink
+│   └── portabilidad_sistemas.md
+│       // Windows / Linux / Cloud
+│
+├── 03_Formato_JSON/
+│   ├── json_lectura.py
+│   │   // json.load / loads
+│   ├── json_escritura.py
+│   │   // json.dump / dumps
+│   ├── json_validacion.py
+│   │   // Estructuras esperadas
+│   └── json_en_backend.md
+│       // APIs, config, payloads
+│
+├── 04_Formato_CSV/
+│   ├── csv_basico.py
+│   │   // csv.reader / writer
+│   ├── csv_dictreader.py
+│   │   // CSV → dict
+│   ├── csv_grande_memoria.py
+│   │   // Streaming vs carga completa
+│   └── csv_en_data.md
+│       // Casos reales
+│
+├── 05_Serializacion_De_Objetos/
+│   ├── pickle_basico.py
+│   │   // Serializar objetos Python
+│   ├── riesgos_pickle.md
+│   │   // Seguridad y malas prácticas
+│   ├── alternativas_pickle.py
+│   │   // JSON, msgpack
+│   └── serializacion_profesional.md
+│       // Cuándo usar qué
+│
+├── 06_Formatos_Binarios_Y_Eficientes/
+│   ├── parquet_intro.md
+│   │   // Columnar storage
+│   ├── parquet_lectura.py
+│   │   // pyarrow / pandas
+│   ├── parquet_escritura.py
+│   │   // Optimización real
+│   └── comparativa_formatos.md
+│       // CSV vs JSON vs Parquet
+│
+├── 07_Persistencia_De_Configuracion/
+│   ├── archivos_env.md
+│   │   // .env
+│   ├── configparser_ini.py
+│   │   // Archivos INI
+│   ├── yaml_basico.py
+│   │   // YAML en proyectos
+│   └── gestion_configuracion.md
+│       // Buenas prácticas
+│
+├── 08_Compresion_Y_Archivos_Grandes/
+│   ├── gzip_basico.py
+│   │   // Lectura y escritura comprimida
+│   ├── zipfile_usage.py
+│   │   // ZIP programático
+│   ├── streaming_archivos.py
+│   │   // Procesar sin cargar en RAM
+│   └── big_data_archivos.md
+│       // Escalabilidad
+│
+├── 09_Persistencia_En_Backend/
+│   ├── archivos_en_api.py
+│   │   // Upload / download
+│   ├── storage_local_vs_cloud.md
+│   │   // FS vs S3 / GCS
+│   ├── versionado_archivos.md
+│   │   // Control de cambios
+│   └── errores_comunes_backend.py
+│       // Bugs frecuentes
+│
+├── 10_Persistencia_En_Data_Y_ML/
+│   ├── datasets_locales.py
+│   │   // Estructuras limpias
+│   ├── cache_datasets.py
+│   │   // Reutilización
+│   ├── modelos_serializados.py
+│   │   // Guardar modelos
+│   └── reproducibilidad_datos.md
+│       // Experimentos fiables
+│
+├── 11_Seguridad_Y_Buenas_Practicas/
+│   ├── permisos_archivos.md
+│   │   // Lectura, escritura, ejecución
+│   ├── datos_sensibles.md
+│   │   // Nunca en texto plano
+│   ├── paths_seguridad.py
+│   │   // Evitar path traversal
+│   └── limpieza_archivos_temporales.py
+│       // Hygiene
+│
+└── 12_Resumen_Y_Ejercicios/
+    ├── resumen_persistencia.py
+    │   // Tema condensado
+    └── ejercicios_archivos.py
+        // Casos reales (CSV, JSON, Parquet)

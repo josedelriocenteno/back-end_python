@@ -1,0 +1,115 @@
+05_Python_Limpio_Y_Buenas_Practicas/
+│
+├── 00_Introduccion_Clean_Code/
+│   ├── que_es_codigo_limpio.md
+│   │   // Qué es clean code y por qué importa en equipos
+│   ├── codigo_que_funciona_vs_codigo_mantenible.py
+│   │   // Diferencias reales
+│
+├── 01_Estilo_Y_Convenciones/
+│   ├── pep8_conceptos.py
+│   │   // Espacios, nombres, longitudes
+│   ├── nombres_profesionales.py
+│   │   // Variables, funciones, clases bien nombradas
+│   ├── estructura_archivos.py
+│   │   // Cómo organizar módulos y paquetes
+│   └── imports_correctos.py
+│       // Orden y buenas prácticas
+│
+├── 02_Tipado_Estatico_Type_Hints/
+│   ├── type_hints_basico.py
+│   │   // int, str, list, dict
+│   ├── typing_avanzado.py
+│   │   // Optional, Union, List, Dict, Tuple
+│   ├── typing_generics.py
+│   │   // TypeVar, Generic
+│   ├── typing_protocol.py
+│   │   // Protocols (interfaces modernas)
+│   └── errores_tipado_comunes.py
+│       // Mal uso del tipado
+│
+├── 03_Docstrings_Y_Documentacion/
+│   ├── docstrings_funciones.py
+│   │   // Estilo Google / NumPy
+│   ├── docstrings_clases.py
+│   │   // APIs internas limpias
+│   ├── documentacion_proyectos.md
+│   │   // README, comentarios útiles
+│   └── errores_documentacion.py
+│       // Comentarios inútiles
+│
+├── 04_Manejo_De_Complejidad/
+│   ├── funciones_pequenas.py
+│   │   // Una función = una cosa
+│   ├── evitar_if_anidados.py
+│   │   // Guard clauses
+│   ├── refactor_condicionales.py
+│   │   // Estrategias limpias
+│   └── separar_responsabilidades.py
+│       // SRP aplicado a funciones
+│
+├── 05_Linters_Y_Formateadores/
+│   ├── flake8.py
+│   │   // Errores de estilo y lógica
+│   ├── pylint.py
+│   │   // Análisis más estricto
+│   ├── black.py
+│   │   // Formateo automático
+│   ├── isort.py
+│   │   // Imports ordenados
+│   └── configuracion_proyecto.md
+│       // pyproject.toml
+│
+├── 06_Refactorizacion_Profesional/
+│   ├── code_smells.md
+│   │   // Malos olores de código
+│   ├── refactor_funciones.py
+│   │   // Ejemplos paso a paso
+│   ├── refactor_clases.py
+│   │   // Simplificar diseño
+│   └── refactor_sin_romper_tests.py
+│       // Seguridad al refactorizar
+│
+├── 07_Errores_Comunes_De_Juniors/
+│   ├── funciones_gigantes.py
+│   │   // Anti-patrón clásico
+│   ├── clases_dios.py
+│   │   // God objects
+│   ├── sobreingenieria.py
+│   │   // Hacerlo complicado sin motivo
+│   └── malas_abstracciones.py
+│       // Abstraer sin sentido
+│
+├── 08_Buenas_Practicas_En_Backend/
+│   ├── capas_y_responsabilidades.py
+│   │   // Separación clara
+│   ├── dependencias_explicitas.py
+│   │   // Nada de magia
+│   ├── configuracion_vs_codigo.py
+│   │   // Settings, env vars
+│   └── patrones_recurrentes_backend.py
+│       // Lo que se repite en producción
+│
+├── 09_Buenas_Practicas_En_Data_Y_ML/
+│   ├── pipelines_limpios.py
+│   │   // Código reproducible
+│   ├── evitar_side_effects.py
+│   │   // Funciones puras
+│   ├── versionado_datos_modelos.md
+│   │   // Buenas prácticas reales
+│   └── reproducibilidad.py
+│       // Clave en ML
+│
+├── 10_Checklists_Y_Estandares/
+│   ├── checklist_codigo_profesional.md
+│   │   // Antes de entregar código
+│   ├── checklist_proyecto_backend.md
+│   │   // Proyecto listo para producción
+│   └── checklist_code_review.md
+│       // Qué mirar al revisar código
+│
+└── 11_Resumen_Y_Ejercicios/
+    ├── resumen_python_limpio.py
+    │   // Todo el tema condensado
+    └── ejercicios_refactorizacion.py
+        // Código sucio → limpio

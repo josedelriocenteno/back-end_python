@@ -1,0 +1,111 @@
+09_Acceso_A_Datos_Desde_Python/
+│
+├── 00_Introduccion_Acceso_A_Datos/
+│   ├── sql_desde_python.md
+│   │   // Por qué no todo es ORM
+│   ├── arquitectura_acceso_datos.md
+│   │   // Capa de persistencia
+│   └── errores_tipicos_acceso_datos.md
+│       // Anti-patrones
+│
+├── 01_Psycopg_Con_SQL_Puro/
+│   ├── conexion_basica.py
+│   │   // Conexión segura
+│   ├── cursores_y_fetch.py
+│   │   // fetchone, fetchall
+│   ├── consultas_parametrizadas.py
+│   │   // Seguridad real
+│   ├── transacciones.py
+│   │   // Commit / rollback
+│   └── manejo_errores_db.py
+│       // Excepciones de BD
+│
+├── 02_SQLAlchemy_Core/
+│   ├── engine_y_conexion.py
+│   │   // Motor de conexión
+│   ├── metadata_y_tablas.py
+│   │   // Definición de esquema
+│   ├── consultas_core.py
+│   │   // SQL expresivo
+│   ├── joins_y_filtros.py
+│   │   // Queries complejas
+│   └── transacciones_core.py
+│       // Control total
+│
+├── 03_SQLAlchemy_ORM/
+│   ├── modelos_orm.py
+│   │   // Clases ↔ tablas
+│   ├── sesiones.py
+│   │   // Unit of Work
+│   ├── relaciones_orm.py
+│   │   // OneToMany, ManyToMany
+│   ├── lazy_vs_eager_loading.md
+│   │   // Rendimiento
+│   └── errores_comunes_orm.py
+│       // Bugs típicos
+│
+├── 04_ORM_Vs_SQL_Puro/
+│   ├── comparativa.md
+│   │   // Cuándo usar cada uno
+│   ├── casos_uso_backend.py
+│   │   // APIs
+│   ├── casos_uso_data.py
+│   │   // ETLs
+│   └── decisiones_arquitectura.md
+│       // Trade-offs reales
+│
+├── 05_Rendimiento_Y_Escalabilidad/
+│   ├── n_plus_one_problem.md
+│   │   // Problema clásico
+│   ├── batching_y_bulk.py
+│   │   // Inserciones masivas
+│   ├── pools_conexion.py
+│   │   // Escalar conexiones
+│   └── profiling_queries.md
+│       // Medir antes de optimizar
+│
+├── 06_Repositorios_Y_Patrones/
+│   ├── patron_repository.py
+│   │   // Abstracción limpia
+│   ├── patron_unit_of_work.md
+│   │   // Consistencia
+│   ├── servicios_vs_repositorios.md
+│   │   // Separación correcta
+│   └── arquitectura_hexagonal.md
+│       // Backend serio
+│
+├── 07_Migraciones_Y_Versionado/
+│   ├── alembic_setup.md
+│   │   // Setup real
+│   ├── migraciones_orm.py
+│   │   // Versionar modelos
+│   ├── migraciones_produccion.md
+│   │   // Sin romper datos
+│   └── rollback_errores.md
+│       // Recuperación
+│
+├── 08_Testing_De_Acceso_A_Datos/
+│   ├── testing_repositorios.py
+│   │   // Tests unitarios
+│   ├── bd_en_memoria.md
+│   │   // SQLite para tests
+│   ├── fixtures_bd.py
+│   │   // Pytest fixtures
+│   └── errores_tests_db.md
+│       // Falsos positivos
+│
+├── 09_Acceso_A_Datos_Para_Data_Engineering/
+│   ├── lectura_masiva.py
+│   │   // Grandes volúmenes
+│   ├── escritura_incremental.py
+│   │   // ETLs
+│   ├── integracion_pandas.py
+│   │   // SQL + DataFrames
+│   └── patrones_pipelines.md
+│       // Data workflows
+│
+└── 10_Resumen_Y_Ejercicios/
+    ├── resumen_acceso_datos.py
+    │   // Todo condensado
+    └── ejercicios_backend_data.py
+        // Casos reales
