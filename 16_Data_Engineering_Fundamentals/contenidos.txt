@@ -1,0 +1,179 @@
+16_Data_Engineering_Fundamentals/
+│
+├── 00_Introduccion_Data_Engineering/
+│   ├── que_es_data_engineering.md
+│   │   // Qué hace realmente un Data Engineer
+│   ├── data_engineer_vs_backend.md
+│   │   // Diferencias y solapamientos
+│   ├── data_engineer_vs_data_scientist.md
+│   │   // Roles bien definidos
+│   └── stack_moderno_data.md
+│       // Python, SQL, cloud, pipelines
+│
+├── 01_Tipos_De_Datos_Y_Formatos/
+│   ├── datos_estructurados.md
+│   │   // Tablas, SQL
+│   ├── datos_semi_estructurados.md
+│   │   // JSON, Avro
+│   ├── datos_no_estructurados.md
+│   │   // Logs, texto
+│   ├── formatos_archivo.md
+│   │   // CSV, JSON, Parquet, ORC
+│   └── compresion_y_serializacion.md
+│       // Rendimiento real
+│
+├── 02_ETL_Y_ELT/
+│   ├── etl_vs_elt.md
+│   │   // Cuándo usar cada uno
+│   ├── fases_etl.md
+│   │   // Extract, Transform, Load
+│   ├── pipelines_reales.md
+│   │   // Ejemplos reales
+│   └── errores_comunes_etl.md
+│       // Fallos típicos
+│
+├── 03_Pipelines_De_Datos/
+│   ├── que_es_pipeline.md
+│   │   // Concepto clave
+│   ├── pipelines_batch.md
+│   │   // Procesamiento por lotes
+│   ├── pipelines_streaming.md
+│   │   // Tiempo real
+│   ├── idempotencia.md
+│   │   // Re-ejecución segura
+│   └── orquestacion.md
+│       // Dependencias
+│
+├── 04_Batch_Vs_Streaming/
+│   ├── batch_processing.md
+│   │   // Cuándo usar batch
+│   ├── streaming_processing.md
+│   │   // Casos reales
+│   ├── latencia_vs_coste.md
+│   │   // Trade-offs
+│   └── arquitecturas_hibridas.md
+│       // Lambda / Kappa
+│
+├── 05_Calidad_De_Datos/
+│   ├── que_es_calidad_datos.md
+│   │   // Por qué es crítica
+│   ├── reglas_validacion.md
+│   │   // Nulls, rangos, tipos
+│   ├── datos_corruptos.md
+│   │   // Detección
+│   ├── deduplicacion.md
+│   │   // Clave en pipelines
+│   └── data_contracts.md
+│       // Acuerdos entre sistemas
+│
+├── 06_Ingesta_De_Datos/
+│   ├── fuentes_datos.md
+│   │   // APIs, BBDD, archivos
+│   ├── ingesta_por_archivos.md
+│   │   // CSV, JSON
+│   ├── ingesta_por_api.md
+│   │   // REST, paginación
+│   ├── ingesta_eventos.md
+│   │   // Logs, colas
+│   └── ingestion_patterns.md
+│       // Push vs pull
+│
+├── 07_Transformaciones_De_Datos/
+│   ├── limpieza_datos.md
+│   │   // Normalización
+│   ├── enrichment.md
+│   │   // Añadir valor
+│   ├── agregaciones.md
+│   │   // Sumas, medias
+│   ├── ventanas_tiempo.md
+│   │   // Time-series
+│   └── transformaciones_incrementales.md
+│       // Escalabilidad
+│
+├── 08_Almacenamiento_De_Datos/
+│   ├── data_lake.md
+│   │   // Lago de datos
+│   ├── data_warehouse.md
+│   │   // Analítica
+│   ├── lakehouse.md
+│   │   // Modelo moderno
+│   ├── almacenamiento_oltp_vs_olap.md
+│   │   // Tipos de BBDD
+│   └── particionado_y_indices.md
+│       // Rendimiento
+│
+├── 09_Modelado_De_Datos_Analitico/
+│   ├── modelado_dimensional.md
+│   │   // Hechos y dimensiones
+│   ├── esquema_estrella.md
+│   │   // Star schema
+│   ├── esquema_copo_nieve.md
+│   │   // Snowflake
+│   ├── slowly_changing_dimensions.md
+│   │   // SCD
+│   └── buenas_practicas_modelado.md
+│       // Escalabilidad
+│
+├── 10_Control_Y_Monitoreo/
+│   ├── logs_en_pipelines.md
+│   │   // Logging estructurado
+│   ├── metricas.md
+│   │   // Volumen, latencia
+│   ├── alertas.md
+│   │   // Fallos
+│   ├── retries.md
+│   │   // Reintentos
+│   └── manejo_fallos.md
+│       // Resiliencia
+│
+├── 11_Seguridad_Y_Gobernanza/
+│   ├── control_accesos_datos.md
+│   │   // Roles
+│   ├── cifrado.md
+│   │   // En reposo y tránsito
+│   ├── datos_sensibles.md
+│   │   // PII
+│   ├── auditoria.md
+│   │   // Trazabilidad
+│   └── cumplimiento.md
+│       // GDPR, etc.
+│
+├── 12_Data_Engineering_Con_Python/
+│   ├── pandas_profesional.md
+│   │   // Uso eficiente
+│   ├── pyarrow.md
+│   │   // Columnar
+│   ├── chunking.md
+│   │   // Memoria
+│   ├── paralelizacion.md
+│   │   // Rendimiento
+│   └── buenas_practicas_python_data.md
+│
+├── 13_Herramientas_Comunes_Data/
+│   ├── airflow_intro.md
+│   │   // Orquestación
+│   ├── dbt_intro.md
+│   │   // Transformaciones SQL
+│   ├── spark_intro.md
+│   │   // Big data
+│   └── kafka_intro.md
+│       // Streaming
+│
+├── 14_Data_Engineering_Para_ML/
+│   ├── feature_engineering.md
+│   │   // Features limpias
+│   ├── feature_stores.md
+│   │   // Reutilización
+│   ├── datasets_entrenamiento.md
+│   │   // ML ready
+│   ├── data_leakage.md
+│   │   // Error crítico
+│   └── pipelines_para_ml.md
+│
+└── 15_Resumen_Y_Ejercicios/
+    ├── resumen_data_engineering.md
+    │   // TODO el tema condensado
+    └── ejercicios_reales/
+        ├── pipeline_batch/
+        ├── pipeline_streaming/
+        └── calidad_datos/

@@ -1,0 +1,117 @@
+20_Puente_Hacia_Machine_Learning/
+│
+├── 00_Mentalidad_ML_Engineer/
+│   ├── ml_vs_data_science.md
+│   │   // Ciencia vs ingeniería
+│   ├── ml_en_produccion.md
+│   │   // El 80% del trabajo real
+│   ├── ciclo_vida_modelo.md
+│   │   // Datos → modelo → serving → monitor
+│   └── errores_comunes.md
+│       // Por qué fracasan los proyectos ML
+│
+├── 01_Datasets_Y_Preparacion_De_Datos/
+│   ├── tipos_datasets.md
+│   │   // Tabulares, texto, time-series
+│   ├── data_cleaning.md
+│   │   // Missing values, outliers
+│   ├── data_validation.md
+│   │   // Calidad antes de entrenar
+│   ├── split_datasets.md
+│   │   // Train / validation / test
+│   └── versionado_datos.md
+│       // Datasets reproducibles
+│
+├── 02_Feature_Engineering/
+│   ├── que_son_features.md
+│   │   // La clave del ML
+│   ├── feature_extraction.md
+│   │   // Numéricas, categóricas
+│   ├── feature_scaling.md
+│   │   // Normalización / estandarización
+│   ├── feature_selection.md
+│   │   // Reducir ruido
+│   └── feature_pipelines.md
+│       // Automatización
+│
+├── 03_Training_Pipelines/
+│   ├── pipeline_entrenamiento.md
+│   │   // Flujo completo
+│   ├── sklearn_pipelines.md
+│   │   // Pipelines reales
+│   ├── reproducibilidad.md
+│   │   // Seeds, configs
+│   ├── gestion_experimentos.md
+│   │   // Comparar modelos
+│   └── errores_training.md
+│
+├── 04_Modelos_Y_Evaluacion/
+│   ├── tipos_modelos.md
+│   │   // Regresión, clasificación
+│   ├── metricas.md
+│   │   // Accuracy, precision, recall
+│   ├── overfitting_underfitting.md
+│   │   // Diagnóstico
+│   ├── cross_validation.md
+│   │   // Evaluación robusta
+│   └── interpretabilidad.md
+│       // Explicar modelos
+│
+├── 05_Model_Serving_Basico/
+│   ├── que_es_model_serving.md
+│   │   // Inferencia en producción
+│   ├── api_inferencia_fastapi.py
+│   │   // Exponer modelo como API
+│   ├── batch_inference.md
+│   │   // Procesamiento masivo
+│   ├── latency_vs_throughput.md
+│   │   // Trade-offs reales
+│   └── errores_serving.md
+│
+├── 06_ML_Y_Backend_Integrados/
+│   ├── backend_ml_flow.md
+│   │   // Backend + modelo
+│   ├── validacion_inputs.md
+│   │   // Datos de entrada seguros
+│   ├── versionado_modelos.md
+│   │   // Model registry (conceptos)
+│   ├── despliegue_modelos.md
+│   │   // Deploy básico
+│   └── rollback_modelos.md
+│
+├── 07_ML_En_Data_Pipelines/
+│   ├── feature_pipelines.md
+│   │   // Features como datos
+│   ├── entrenamiento_automatico.md
+│   │   // Jobs programados
+│   ├── retraining.md
+│   │   // Cuándo y por qué
+│   ├── deteccion_drift.md
+│   │   // Cambio en datos
+│   └── pipelines_ml.md
+│
+├── 08_MLOps_Fundamentos/
+│   ├── que_es_mlops.md
+│   │   // DevOps aplicado a ML
+│   ├── diferencias_devops_mlops.md
+│   ├── versionado_codigo_datos_modelos.md
+│   ├── testing_modelos.md
+│   │   // Tests para ML
+│   └── observabilidad_ml.md
+│
+├── 09_Casos_Reales_Y_Arquitecturas/
+│   ├── arquitectura_ml_basica.md
+│   │   // End-to-end
+│   ├── ejemplos_empresas.md
+│   │   // Qué hacen de verdad
+│   ├── errores_arquitectura.md
+│   │   // Anti-patrones
+│   └── decisiones_tecnicas.md
+│
+└── 10_Resumen_Y_Preparacion_Siguiente_Nivel/
+    ├── resumen_puente_ml.md
+    │   // Todo el puente condensado
+    ├── checklist_ml_engineer.md
+    │   // Qué ya dominas
+    └── siguientes_pasos.md
+        // ML Engineer / MLOps

@@ -1,0 +1,138 @@
+14_Docker_Y_Entornos_Reproducibles/
+│
+├── 00_Introduccion_A_Contenedores/
+│   ├── contenedores_vs_vms.md
+│   │   // Qué problema resuelve Docker
+│   ├── docker_en_backend_y_data.md
+│   │   // Casos reales de uso
+│   └── arquitectura_docker.md
+│       // Engine, daemon, cliente
+│
+├── 01_Docker_Basico/
+│   ├── docker_install.md
+│   │   // Instalación según SO
+│   ├── comandos_basicos.sh
+│   │   // pull, run, ps, stop, rm
+│   ├── imagen_vs_contenedor.md
+│   │   // Diferencia conceptual
+│   └── lifecycle_contenedor.md
+│       // Ciclo de vida
+│
+├── 02_Dockerfile_Profesional/
+│   ├── Dockerfile_basico
+│   │   // Imagen mínima Python
+│   ├── Dockerfile_multistage
+│   │   // Optimización real
+│   ├── buenas_practicas_dockerfile.md
+│   │   // Imágenes pequeñas
+│   └── errores_comunes.md
+│       // Fallos típicos
+│
+├── 03_Gestion_De_Dependencias/
+│   ├── poetry_en_docker.md
+│   │   // Poetry + Docker
+│   ├── requirements_vs_poetry.md
+│   │   // Comparativa
+│   ├── caching_dependencias.md
+│   │   // Acelerar builds
+│   └── reproducibilidad.md
+│       // Versionado exacto
+│
+├── 04_Volumenes_Y_Persistencia/
+│   ├── volumenes_basicos.md
+│   │   // Bind mounts vs volumes
+│   ├── persistencia_datos.py
+│   │   // DBs y archivos
+│   ├── backup_volumenes.md
+│   │   // Copias de seguridad
+│   └── errores_persistencia.md
+│       // Problemas comunes
+│
+├── 05_Redes_En_Docker/
+│   ├── docker_networks.md
+│   │   // bridge, host, none
+│   ├── comunicacion_contenedores.md
+│   │   // Backend + DB
+│   ├── puertos_y_exposicion.md
+│   │   // Seguridad
+│   └── errores_red.md
+│       // Debug networking
+│
+├── 06_Docker_Compose/
+│   ├── docker_compose_basico.yml
+│   │   // Backend + PostgreSQL
+│   ├── docker_compose_avanzado.yml
+│   │   // Múltiples servicios
+│   ├── variables_entorno.md
+│   │   // .env
+│   └── perfiles_entornos.md
+│       // dev / test / prod
+│
+├── 07_Integracion_Backend_Python/
+│   ├── fastapi_dockerizado/
+│   │   ├── Dockerfile
+│   │   ├── main.py
+│   │   └── config.py
+│   │       // API real
+│   ├── hot_reload.md
+│   │   // Desarrollo cómodo
+│   └── gunicorn_uvicorn.md
+│       // Producción
+│
+├── 08_Integracion_Base_De_Datos/
+│   ├── postgres_docker.md
+│   │   // PostgreSQL real
+│   ├── inicializacion_sql/
+│   │   └── init.sql
+│   │       // Esquemas
+│   ├── migraciones.md
+│   │   // Alembic
+│   └── backups_restore.md
+│       // Gestión DB
+│
+├── 09_Seguridad_En_Docker/
+│   ├── secretos_y_envs.md
+│   │   // Nunca hardcodear
+│   ├── usuarios_no_root.md
+│   │   // Seguridad básica
+│   ├── escaneo_imagenes.md
+│   │   // Vulnerabilidades
+│   └── hardening_basico.md
+│       // Buenas prácticas
+│
+├── 10_Debug_Y_Monitorizacion/
+│   ├── docker_logs.md
+│   │   // Logs reales
+│   ├── exec_y_inspeccion.md
+│   │   // Debug live
+│   ├── healthchecks.md
+│   │   // Estado del servicio
+│   └── problemas_comunes.md
+│       // Producción
+│
+├── 11_Docker_En_Pipelines_De_Datos/
+│   ├── etl_dockerizado.md
+│   │   // Data pipelines
+│   ├── jobs_programados.md
+│   │   // Cron
+│   ├── workers_contenedor.md
+│   │   // Procesos paralelos
+│   └── data_reproducible.md
+│       // Ciencia reproducible
+│
+├── 12_Preparacion_Para_Cloud/
+│   ├── docker_local_vs_cloud.md
+│   │   // Diferencias reales
+│   ├── imagenes_para_cloud.md
+│   │   // Buenas prácticas
+│   ├── registry_docker.md
+│   │   // Docker Hub / Artifact Registry
+│   └── bases_kubernetes.md
+│       // Introducción (sin entrar aún)
+│
+└── 13_Resumen_Y_Ejercicios/
+    ├── resumen_docker_backend.py
+    │   // Docker explicado con código
+    └── ejercicios_docker_reales/
+        ├── backend_postgres/
+        └── pipeline_datos/

@@ -1,0 +1,141 @@
+17_Cloud_Fundamentals_Para_Data_Engineers/
+│
+├── 00_Introduccion_Al_Cloud_Para_Datos/
+│   ├── que_es_cloud_para_data.md
+│   │   // Por qué cloud es clave en Data/ML
+│   ├── cloud_vs_on_premise.md
+│   │   // Coste, escalabilidad, mantenimiento
+│   ├── modelos_cloud.md
+│   │   // IaaS, PaaS, SaaS enfocado a datos
+│   └── arquitectura_cloud_modena.md
+│       // Servicios desacoplados
+│
+├── 01_GCP_Core_Conceptos/
+│   ├── regiones_y_zonas.md
+│   │   // Alta disponibilidad
+│   ├── proyectos_y_facturacion.md
+│   │   // Organización real
+│   ├── recursos_y_servicios.md
+│   │   // Qué es un recurso en GCP
+│   └── buenas_practicas_cloud.md
+│
+├── 02_IAM_Y_Seguridad_Basica/
+│   ├── que_es_iam.md
+│   │   // Control de accesos
+│   ├── roles_predefinidos.md
+│   │   // Viewer, Editor, Owner
+│   ├── roles_personalizados.md
+│   │   // Principio de mínimo privilegio
+│   ├── service_accounts.md
+│   │   // Identidades para servicios
+│   └── seguridad_en_data.md
+│       // Acceso a datos sensibles
+│
+├── 03_Almacenamiento_En_GCP/
+│   ├── cloud_storage.md
+│   │   // Buckets, objetos
+│   ├── tipos_almacenamiento.md
+│   │   // Standard, Nearline, Coldline
+│   ├── organizacion_datalake.md
+│   │   // Estructura de carpetas
+│   ├── versionado_y_lifecycle.md
+│   │   // Coste y control
+│   └── seguridad_storage.md
+│       // Permisos y cifrado
+│
+├── 04_Computo_Para_Data/
+│   ├── compute_engine.md
+│   │   // Máquinas virtuales
+│   ├── cloud_run.md
+│   │   // Contenedores serverless
+│   ├── cloud_functions.md
+│   │   // Funciones event-driven
+│   ├── cuando_usar_cada_uno.md
+│   │   // Decisiones reales
+│   └── costes_y_escalado.md
+│
+├── 05_Redes_Basicas_En_Cloud/
+│   ├── vpc_basico.md
+│   │   // Redes virtuales
+│   ├── subredes.md
+│   │   // Segmentación
+│   ├── firewalls.md
+│   │   // Reglas de acceso
+│   ├── ip_publica_vs_privada.md
+│   │   // Seguridad
+│   └── conectividad_servicios.md
+│
+├── 06_BigQuery_Fundamentos/
+│   ├── que_es_bigquery.md
+│   │   // Data warehouse serverless
+│   ├── datasets_y_tablas.md
+│   │   // Organización
+│   ├── sql_en_bigquery.md
+│   │   // SQL analítico
+│   ├── particionado_y_clustering.md
+│   │   // Rendimiento y coste
+│   └── costes_bigquery.md
+│
+├── 07_Ingesta_De_Datos_En_GCP/
+│   ├── ingesta_desde_storage.md
+│   │   // Cargar archivos
+│   ├── ingesta_desde_api.md
+│   │   // Datos externos
+│   ├── streaming_bigquery.md
+│   │   // Inserts en tiempo real
+│   ├── transfer_service.md
+│   │   // Importaciones automáticas
+│   └── patrones_ingesta.md
+│
+├── 08_Pipelines_En_Cloud/
+│   ├── dataflow_intro.md
+│   │   // Apache Beam
+│   ├── cloud_composer_intro.md
+│   │   // Airflow gestionado
+│   ├── batch_vs_streaming_gcp.md
+│   │   // Casos reales
+│   ├── arquitectura_pipeline_gcp.md
+│   │   // Diseño completo
+│   └── errores_comunes.md
+│
+├── 09_Monitorizacion_Y_Costes/
+│   ├── cloud_logging.md
+│   │   // Logs centralizados
+│   ├── cloud_monitoring.md
+│   │   // Métricas
+│   ├── alertas.md
+│   │   // Fallos
+│   ├── control_costes.md
+│   │   // Presupuestos
+│   └── optimizacion_costes.md
+│
+├── 10_Integracion_Python_Con_GCP/
+│   ├── sdk_gcp_python.md
+│   │   // Librerías oficiales
+│   ├── auth_desde_python.md
+│   │   // Service accounts
+│   ├── acceso_bigquery_python.md
+│   │   // Consultas desde código
+│   ├── acceso_storage_python.md
+│   │   // Lectura/escritura
+│   └── buenas_practicas_codigo_cloud.md
+│
+├── 11_GCP_Para_Data_Engineer_Junior/
+│   ├── arquitectura_tipica_data.md
+│   │   // Caso real empresa
+│   ├── pipeline_end_to_end.md
+│   │   // De ingestión a analytics
+│   ├── errores_frecuentes_junior.md
+│   │   // Qué NO hacer
+│   ├── preguntas_de_entrevista.md
+│   │   // GCP + Data
+│   └── preparacion_certificacion.md
+│       // Base Google Data / ACE
+│
+└── 12_Resumen_Y_Ejercicios/
+    ├── resumen_cloud_data.md
+    │   // TODO el tema resumido
+    └── ejercicios_practicos/
+        ├── data_lake_gcp/
+        ├── pipeline_bigquery/
+        └── api_python_cloud/

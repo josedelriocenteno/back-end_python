@@ -1,0 +1,120 @@
+19_Performance_Y_Escalabilidad_De_Datos/
+│
+├── 00_Fundamentos_De_Performance/
+│   ├── que_es_performance.md
+│   │   // Tiempo, memoria, I/O, coste
+│   ├── escalabilidad_vs_performance.md
+│   │   // No son lo mismo
+│   ├── tipos_de_carga.md
+│   │   // CPU-bound vs I/O-bound
+│   └── mentalidad_ingeniero.md
+│       // Pensar en impacto real
+│
+├── 01_Optimizacion_SQL_Avanzada/
+│   ├── execution_plans.md
+│   │   // EXPLAIN / EXPLAIN ANALYZE
+│   ├── indices_avanzados.md
+│   │   // B-Tree, Hash, GIN, GiST
+│   ├── joins_costosos.md
+│   │   // Cómo evitarlos o reducirlos
+│   ├── subqueries_vs_cte.md
+│   │   // Cuándo usar cada uno
+│   └── queries_malas.md
+│       // Anti-patrones reales
+│
+├── 02_Modelado_De_Datos_Para_Escala/
+│   ├── normalizacion_vs_desnormalizacion.md
+│   │   // Trade-offs reales
+│   ├── modelos_oltp_vs_olap.md
+│   │   // Apps vs analytics
+│   ├── esquemas_estrella_y_copo.md
+│   │   // Data Warehousing
+│   ├── claves_y_relaciones.md
+│   │   // Impacto en rendimiento
+│   └── ejemplos_reales.md
+│
+├── 03_Particionado_Y_Shared_Nothing/
+│   ├── que_es_particionado.md
+│   │   // Horizontal vs vertical
+│   ├── particiones_en_postgres.md
+│   │   // Range, List, Hash
+│   ├── estrategias_particionado.md
+│   │   // Tiempo, cliente, región
+│   ├── pruning.md
+│   │   // Cómo se acelera la query
+│   └── errores_comunes.md
+│
+├── 04_Paralelismo_Y_Procesamiento_Masivo/
+│   ├── paralelismo_sql.md
+│   │   // Queries paralelas
+│   ├── paralelismo_python.md
+│   │   // multiprocessing / async
+│   ├── batch_vs_stream.md
+│   │   // Trade-offs
+│   ├── ventanas_temporales.md
+│   │   // Procesamiento por chunks
+│   └── cuellos_de_botella.md
+│
+├── 05_Caching_Y_Optimización_De_Latencia/
+│   ├── que_es_cache.md
+│   │   // Por qué acelera todo
+│   ├── niveles_de_cache.md
+│   │   // App, DB, CDN
+│   ├── cache_en_backend.md
+│   │   // Redis (conceptos)
+│   ├── invalidacion_cache.md
+│   │   // El problema real
+│   └── ejemplos_practicos.md
+│
+├── 06_Escalabilidad_De_Backend_Y_APIs/
+│   ├── escalado_horizontal.md
+│   │   // Más instancias
+│   ├── escalado_vertical.md
+│   │   // Más recursos
+│   ├── balanceo_carga.md
+│   │   // Load balancers
+│   ├── stateless_vs_stateful.md
+│   │   // Diseño correcto
+│   └── limites_backend.md
+│
+├── 07_Gestion_De_Costes_Y_Eficiencia/
+│   ├── coste_compute.md
+│   │   // CPU, memoria
+│   ├── coste_storage.md
+│   │   // Tablas, particiones
+│   ├── coste_queries.md
+│   │   // BigQuery / SQL
+│   ├── optimizacion_costes.md
+│   │   // Menos € mismo resultado
+│   └── decisiones_tecnicas.md
+│
+├── 08_Performance_En_Data_Pipelines/
+│   ├── throughput_vs_latency.md
+│   │   // Qué importa en cada caso
+│   ├── tuning_etl.md
+│   │   // Batch size, paralelismo
+│   ├── formatos_optimos.md
+│   │   // Parquet, Avro
+│   ├── compresion.md
+│   │   // CPU vs storage
+│   └── pipelines_escalables.md
+│
+├── 09_Performance_Para_ML_Y_IA/
+│   ├── datos_para_entrenamiento.md
+│   │   // Lectura eficiente
+│   ├── feature_stores.md
+│   │   // Reutilización
+│   ├── inferencia_rapida.md
+│   │   // Latencia baja
+│   ├── batch_inference.md
+│   │   // Escala real
+│   └── impacto_en_coste.md
+│
+└── 10_Resumen_Y_Ejercicios/
+    ├── resumen_performance.md
+    │   // Todo el tema condensado
+    └── ejercicios_practicos/
+        ├── optimizar_sql/
+        ├── particionado_tablas/
+        ├── paralelismo_python/
+        └── analisis_costes/

@@ -1,0 +1,108 @@
+18_Observabilidad_Y_Monitorizacion/
+│
+├── 00_Conceptos_Fundamentales/
+│   ├── que_es_observabilidad.md
+│   │   // Logs vs métricas vs trazas
+│   ├── por_que_importa.md
+│   │   // Fallos silenciosos matan proyectos
+│   ├── observabilidad_vs_monitorizacion.md
+│   │   // No son lo mismo
+│   └── mentalidad_produccion.md
+│       // Pensar como ingeniero real
+│
+├── 01_Logging_Profesional_En_Python/
+│   ├── logging_basico.py
+│   │   // logging estándar (levels)
+│   ├── logging_configurado.py
+│   │   // handlers, formatters
+│   ├── logging_por_entornos.md
+│   │   // dev / staging / prod
+│   ├── logs_estructurados.md
+│   │   // JSON logs
+│   └── errores_comunes_logging.md
+│
+├── 02_Metricas_Y_Monitorizacion/
+│   ├── que_son_metricas.md
+│   │   // CPU, memoria, latencia
+│   ├── metricas_backend.md
+│   │   // Requests, errores, tiempos
+│   ├── metricas_data_pipeline.md
+│   │   // Volumen, retrasos, fallos
+│   ├── prometheus_intro.md
+│   │   // Estándar de métricas
+│   └── dashboards_basicos.md
+│
+├── 03_Alertas_Y_Gestion_De_Incidentes/
+│   ├── que_es_una_alerta.md
+│   │   // Cuándo alertar
+│   ├── alertas_malas_vs_buenas.md
+│   │   // Evitar ruido
+│   ├── umbrales_y_slas.md
+│   │   // Latencia, disponibilidad
+│   ├── playbooks_incidentes.md
+│   │   // Qué hacer cuando falla
+│   └── postmortem.md
+│
+├── 04_Trazabilidad_Y_Debugging_Distribuido/
+│   ├── que_son_trazas.md
+│   │   // Flujo completo request → datos
+│   ├── tracing_en_apis.md
+│   │   // FastAPI + tracing
+│   ├── trazas_en_pipelines.md
+│   │   // ETL paso a paso
+│   ├── correlation_ids.md
+│   │   // Relacionar logs
+│   └── errores_dificiles.md
+│
+├── 05_Validacion_Y_Calidad_De_Datos/
+│   ├── por_que_validar_datos.md
+│   │   // Garbage in → garbage out
+│   ├── validaciones_basicas.md
+│   │   // Tipos, rangos, nulls
+│   ├── validacion_con_python.py
+│   │   // Validaciones custom
+│   ├── great_expectations_intro.md
+│   │   // Framework estándar
+│   └── data_quality_checks.md
+│
+├── 06_Monitorizacion_De_Pipelines/
+│   ├── observabilidad_etl.md
+│   │   // Ingesta, transformación, carga
+│   ├── tiempos_y_cuellos_botella.md
+│   │   // Performance
+│   ├── deteccion_fallos_silenciosos.md
+│   │   // El peor enemigo
+│   ├── reintentos_y_recovery.md
+│   │   // Diseño resiliente
+│   └── idempotencia.md
+│
+├── 07_Observabilidad_En_Cloud/
+│   ├── cloud_logging.md
+│   │   // Logs centralizados
+│   ├── cloud_monitoring.md
+│   │   // Métricas gestionadas
+│   ├── alertas_en_cloud.md
+│   │   // Integración real
+│   ├── costes_monitorizacion.md
+│   │   // No romper presupuesto
+│   └── buenas_practicas_cloud.md
+│
+├── 08_Observabilidad_Para_ML_Y_IA/
+│   ├── monitorizar_modelos.md
+│   │   // Drift, latencia
+│   ├── calidad_predicciones.md
+│   │   // Métricas ML
+│   ├── logs_de_inferencia.md
+│   │   // Producción ML
+│   ├── errores_ml_comunes.md
+│   │   // Modelos que se degradan
+│   └── puente_a_mlops.md
+│
+└── 09_Resumen_Y_Ejercicios/
+    ├── resumen_observabilidad.md
+    │   // Todo el tema condensado
+    └── ejercicios_practicos/
+        ├── logging_backend/
+        ├── metricas_api/
+        ├── validacion_datos/
+        └── alertas_pipeline/

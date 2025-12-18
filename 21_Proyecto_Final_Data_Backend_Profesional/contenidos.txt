@@ -1,0 +1,142 @@
+21_Proyecto_Final_Data_Backend_Profesional/
+│
+├── 00_Descripcion_General/
+│   ├── vision_proyecto.md
+│   │   // Qué problema resuelve y por qué existe
+│   ├── objetivos_tecnicos.md
+│   │   // Qué demuestras a nivel técnico
+│   ├── alcance_y_limitaciones.md
+│   │   // Qué incluye y qué no
+│   └── roadmap_ejecucion.md
+│       // Fases del proyecto
+│
+├── 01_Contexto_Y_Problema_Real/
+│   ├── problema_datos.md
+│   │   // Caso real (logs, ventas, eventos, sensores, etc.)
+│   ├── requisitos_funcionales.md
+│   │   // Qué debe hacer el sistema
+│   ├── requisitos_no_funcionales.md
+│   │   // Performance, seguridad, escalabilidad
+│   └── criterios_exito.md
+│       // Cómo se mide que funciona
+│
+├── 02_Arquitectura_Del_Sistema/
+│   ├── arquitectura_general.md
+│   │   // Visión end-to-end
+│   ├── diagrama_componentes.png
+│   ├── flujo_datos.md
+│   │   // Desde ingesta hasta consumo
+│   ├── decisiones_tecnicas.md
+│   │   // Por qué cada tecnología
+│   └── alternativas_descartadas.md
+│
+├── 03_Ingestion_De_Datos/
+│   ├── fuentes_datos.md
+│   │   // APIs, CSV, logs, eventos
+│   ├── ingesta_batch.py
+│   │   // Ingesta programada
+│   ├── validacion_ingesta.py
+│   │   // Datos correctos o fuera
+│   ├── control_errores_ingesta.py
+│   └── logging_ingesta.py
+│
+├── 04_Modelado_Y_Almacenamiento/
+│   ├── modelo_datos.sql
+│   │   // Diseño lógico
+│   ├── normalizacion.md
+│   ├── indices_y_particiones.md
+│   ├── scripts_creacion_db.sql
+│   └── ejemplos_queries.sql
+│
+├── 05_Procesamiento_Y_Pipelines/
+│   ├── pipeline_etl.py
+│   │   // ETL completo
+│   ├── transformaciones.py
+│   │   // Limpieza y enriquecimiento
+│   ├── control_calidad.py
+│   │   // Reglas de calidad
+│   ├── versionado_datos.md
+│   └── automatizacion_jobs.md
+│
+├── 06_Backend_Python_De_Exposicion/
+│   ├── api/
+│   │   ├── main.py
+│   │   ├── routers/
+│   │   ├── schemas/
+│   │   └── services/
+│   ├── endpoints_disponibles.md
+│   ├── validacion_inputs.py
+│   ├── auth_basica.py
+│   └── rate_limiting.md
+│
+├── 07_Seguridad_Y_Control_De_Acceso/
+│   ├── auth_jwt.py
+│   ├── roles_y_permisos.md
+│   ├── gestion_secretos.md
+│   ├── proteccion_datos.md
+│   └── riesgos_y_mitigaciones.md
+│
+├── 08_Performance_Y_Escalabilidad/
+│   ├── optimizacion_sql.sql
+│   ├── caching_backend.py
+│   ├── paralelismo_pipelines.py
+│   ├── pruebas_carga.md
+│   └── resultados_performance.md
+│
+├── 09_Testing_Y_Calidad/
+│   ├── tests_unitarios/
+│   ├── tests_integracion/
+│   ├── tests_datos.py
+│   ├── coverage.md
+│   └── estrategias_testing.md
+│
+├── 10_Observabilidad_Y_Monitorizacion/
+│   ├── logging_centralizado.md
+│   ├── metricas_backend.md
+│   ├── alertas.md
+│   ├── validacion_datos_runtime.md
+│   └── gestion_incidentes.md
+│
+├── 11_Docker_Y_Entorno_Reproducible/
+│   ├── Dockerfile
+│   ├── docker-compose.yml
+│   ├── variables_entorno.md
+│   ├── setup_local.md
+│   └── troubleshooting.md
+│
+├── 12_Despliegue_Cloud/
+│   ├── arquitectura_cloud.md
+│   │   // GCP/AWS
+│   ├── servicios_usados.md
+│   ├── costes_estimados.md
+│   ├── despliegue.md
+│   └── seguridad_cloud.md
+│
+├── 13_Puente_A_Machine_Learning/
+│   ├── datasets_para_ml.md
+│   ├── features_generadas.md
+│   ├── pipeline_entrenamiento.py
+│   ├── serving_basico.py
+│   └── roadmap_ml_futuro.md
+│
+├── 14_Documentacion_Y_Portfolio/
+│   ├── README.md
+│   │   // Profesional, claro, visual
+│   ├── guia_uso.md
+│   ├── decisiones_tecnicas_resumen.md
+│   ├── capturas_y_demos.md
+│   └── storytelling_cv.md
+│
+├── 15_Memoria_TFG/
+│   ├── introduccion.md
+│   ├── marco_teorico.md
+│   ├── desarrollo.md
+│   ├── resultados.md
+│   ├── conclusiones.md
+│   └── trabajo_futuro.md
+│
+└── 16_Resumen_Final_Y_Lecciones_Aprendidas/
+    ├── resumen_tecnico.md
+    ├── impacto_profesional.md
+    ├── que_te_diferencia.md
+    └── siguientes_pasos.md

@@ -1,0 +1,129 @@
+15_Git_Y_Flujo_Profesional/
+│
+├── 00_Fundamentos_De_Git/
+│   ├── que_es_git.md
+│   │   // Qué es Git y por qué existe
+│   ├── git_vs_github.md
+│   │   // Git (local) vs GitHub (remoto)
+│   ├── repositorio_local.md
+│   │   // .git, HEAD, staging area
+│   └── flujo_basico_git.md
+│       // add → commit → push
+│
+├── 01_Git_CLI_Profesional/
+│   ├── configuracion_git.md
+│   │   // user.name, email, aliases
+│   ├── comandos_esenciales.sh
+│   │   // status, log, diff, show
+│   ├── historial_y_commits.md
+│   │   // Cómo leer la historia
+│   └── buenas_practicas_commits.md
+│       // Mensajes profesionales
+│
+├── 02_Branching_Y_Workflows/
+│   ├── ramas_en_git.md
+│   │   // Qué es una branch realmente
+│   ├── feature_branches.md
+│   │   // Desarrollo aislado
+│   ├── gitflow_vs_trunk.md
+│   │   // Modelos reales
+│   └── estrategias_branching.md
+│       // Cuál usar y cuándo
+│
+├── 03_Merge_Rebase_Y_Conflictos/
+│   ├── merge_vs_rebase.md
+│   │   // Diferencias reales
+│   ├── resolver_conflictos.md
+│   │   // Conflictos paso a paso
+│   ├── rebase_interactivo.md
+│   │   // Limpieza de historia
+│   └── errores_comunes.md
+│       // Cómo NO romper el repo
+│
+├── 04_GitHub_Profesional/
+│   ├── repositorios_remotos.md
+│   │   // origin, upstream
+│   ├── forks_y_colaboracion.md
+│   │   // Trabajo en equipo
+│   ├── issues_y_projects.md
+│   │   // Gestión profesional
+│   └── github_pages.md
+│       // Documentación pública
+│
+├── 05_Pull_Requests_Y_Code_Review/
+│   ├── pull_requests.md
+│   │   // PR paso a paso
+│   ├── code_review_profesional.md
+│   │   // Qué mirar y cómo comentar
+│   ├── aprobar_y_rechazar.md
+│   │   // Decisiones técnicas
+│   └── checklists_review.md
+│       // Calidad de código
+│
+├── 06_Git_En_Proyectos_Reales/
+│   ├── git_en_backend.md
+│   │   // APIs reales
+│   ├── git_en_data_engineering.md
+│   │   // Pipelines
+│   ├── git_en_ml.md
+│   │   // Modelos y experimentos
+│   └── estructura_repo_profesional.md
+│       // Monorepo vs multirepo
+│
+├── 07_Recuperacion_Y_Debug_De_Git/
+│   ├── git_reflog.md
+│   │   // Recuperar commits perdidos
+│   ├── reset_checkout_revert.md
+│   │   // Diferencias críticas
+│   ├── stash_profesional.md
+│   │   // Guardar trabajo temporal
+│   └── rescate_proyecto.md
+│       // Cuando todo va mal
+│
+├── 08_Seguridad_Y_Buenas_Practicas/
+│   ├── secretos_en_git.md
+│   │   // Nunca subir claves
+│   ├── gitignore_profesional.md
+│   │   // Qué ignorar y por qué
+│   ├── firmas_commits.md
+│   │   // Confianza y autenticidad
+│   └── control_accesos.md
+│       // Roles en repos
+│
+├── 09_Automatizacion_Con_Git/
+│   ├── git_hooks.md
+│   │   // Pre-commit hooks
+│   ├── linters_y_tests.md
+│   │   // Calidad automática
+│   ├── versionado_semantico.md
+│   │   // Releases
+│   └── changelog.md
+│       // Historial profesional
+│
+├── 10_GitHub_Actions_CI_CD/
+│   ├── introduccion_ci_cd.md
+│   │   // Qué es CI/CD
+│   ├── pipelines_basicos.yml
+│   │   // Build + test
+│   ├── docker_en_ci.md
+│   │   // Build de imágenes
+│   └── despliegue_basico.md
+│       // Preview / producción
+│
+├── 11_Flujo_De_Trabajo_Personal/
+│   ├── workflow_estudiante_profesional.md
+│   │   // Cómo trabajar solo como equipo
+│   ├── gestion_tiempo_git.md
+│   │   // Commits útiles
+│   ├── portfolio_con_github.md
+│   │   // Cómo vender tu trabajo
+│   └── errores_de_juniors.md
+│       // Qué evitar
+│
+└── 12_Resumen_Y_Ejercicios/
+    ├── resumen_git_profesional.md
+    │   // TODO el flujo resumido
+    └── ejercicios_git_reales/
+        ├── conflictos/
+        ├── pr_review/
+        └── recuperacion/
