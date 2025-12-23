@@ -22,11 +22,11 @@ Entender esta diferencia te permite organizar proyectos correctamente y **evitar
 
 ```bash
 python script.py
+```
 Puede incluir funciones y clases, pero el foco es la ejecución inmediata.
 
 2.2 Ejemplo de Script
-python
-Copiar código
+```python
 # script_backup.py
 import os
 from datetime import datetime
@@ -38,6 +38,7 @@ def crear_backup():
 if __name__ == "__main__":
     crear_backup()
     print("Backup completado.")
+```
 La condición if __name__ == "__main__": asegura que el código solo se ejecute cuando se ejecuta directamente, no al importar.
 
 3. Qué es un Módulo
@@ -53,8 +54,7 @@ Permite modularidad y reutilización.
 Facilita pruebas unitarias y mantenimiento profesional.
 
 3.2 Ejemplo de Módulo
-python
-Copiar código
+```python
 # modulo_utilidades.py
 def sumar(a: int, b: int) -> int:
     """Suma dos números enteros."""
@@ -63,6 +63,7 @@ def sumar(a: int, b: int) -> int:
 def restar(a: int, b: int) -> int:
     """Resta dos números enteros."""
     return a - b
+```
 3.3 Uso del módulo en un script
 python
 Copiar código
