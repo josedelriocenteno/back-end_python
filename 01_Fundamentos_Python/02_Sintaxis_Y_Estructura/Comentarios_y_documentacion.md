@@ -58,8 +58,7 @@ Triple comillas """ al inicio de la función, clase o módulo.
 
 Estructura recomendada (PEP257):
 
-python
-Copiar código
+```python
 def funcion_ejemplo(param1: int, param2: str) -> bool:
     """
     Breve descripción de la función.
@@ -77,6 +76,7 @@ def funcion_ejemplo(param1: int, param2: str) -> bool:
     if param1 < 0:
         raise ValueError("param1 no puede ser negativo")
     return True
+```
 3.3 Buenas prácticas
 Describir qué hace la función, qué recibe y qué retorna.
 
