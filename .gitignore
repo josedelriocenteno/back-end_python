@@ -1,21 +1,12 @@
-# Python
-__pycache__/
-*.py[cod]
-
-# Entornos virtuales
+# Entorno virtual
 .venv/
-venv/
-env/
+
+# Cachés Python
+__pycache__/
+*.pyc
 
 # VS Code
 .vscode/
-!.vscode/extensions.json
 
-# Logs y outputs
-logs/
-*.log
-outputs/
-
-# OS
+# Sistema
 .DS_Store
-Thumbs.db
