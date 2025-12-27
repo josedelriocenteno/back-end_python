@@ -1,0 +1,10 @@
+lista = list(range(1,11))
+a = lista
+print(f'Lista antes del cambio: {a}')
+lista.append(101)
+print(f'Lista despues del cambio: {a}')
+print('-----------------------')
+b = lista.copy()
+print(f'Lista antes del cambio: {b}')
+lista.append(102)
+print(f'Lista despues del cambio: {b}')
