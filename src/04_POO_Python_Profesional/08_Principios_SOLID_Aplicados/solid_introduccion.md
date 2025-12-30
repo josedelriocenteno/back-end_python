@@ -28,14 +28,15 @@ class EmailService:
 
 class UsuarioRepository:
     def guardar(self, usuario): ...
-O → Open/Closed Principle (OCP)
+```
+---
+### O → Open/Closed Principle (OCP)
 Principio de Abierto/Cerrado:
 Las clases deben estar abiertas para extensión pero cerradas para modificación.
 Por qué importa: Permite añadir funcionalidades sin tocar código existente, evitando bugs.
 Ejemplo:
 
-python
-Copiar código
+```python
 # Base cerrada a cambios, abierta a extensiones
 class Descuento:
     def calcular(self, total: float) -> float:
@@ -44,14 +45,15 @@ class Descuento:
 class DescuentoVIP(Descuento):
     def calcular(self, total: float) -> float:
         return total * 0.8
-L → Liskov Substitution Principle (LSP)
+```
+---
+### L → Liskov Substitution Principle (LSP)
 Principio de Sustitución de Liskov:
 Los objetos de una subclase deben poder reemplazar a los de la superclase sin romper la lógica del programa.
 Por qué importa: Garantiza coherencia y seguridad al usar herencia.
 Ejemplo:
 
-python
-Copiar código
+```python
 class Forma:
     def area(self) -> float:
         pass
@@ -64,14 +66,15 @@ class Cuadrado(Rectangulo):
     def area(self) -> float:
         # ⚠️ Evitar romper comportamiento esperado de Rectangulo
         return self.lado * self.lado
-I → Interface Segregation Principle (ISP)
+```
+---
+### I → Interface Segregation Principle (ISP)
 Principio de Segregación de Interfaces:
 Es mejor tener varias interfaces pequeñas y específicas que una grande y genérica.
 Por qué importa: Las clases implementan solo lo que necesitan, evitando métodos vacíos o irrelevantes.
 Ejemplo:
 
-python
-Copiar código
+```python
 class IEmailSender(ABC):
     @abstractmethod
     def enviar_email(self, mensaje): ...
@@ -79,14 +82,15 @@ class IEmailSender(ABC):
 class ISMSender(ABC):
     @abstractmethod
     def enviar_sms(self, mensaje): ...
-D → Dependency Inversion Principle (DIP)
+```
+---
+### D → Dependency Inversion Principle (DIP)
 Principio de Inversión de Dependencias:
 Las dependencias deben apuntar a abstracciones, no a implementaciones concretas.
 Por qué importa: Facilita testing, mantenimiento y desacoplamiento.
 Ejemplo (backend):
 
-python
-Copiar código
+```python
 class RepositorioUsuarios(ABC):
     @abstractmethod
     def guardar(self, usuario): ...
@@ -97,7 +101,9 @@ class UsuarioService:
 
     def crear_usuario(self, usuario):
         self.repo.guardar(usuario)
-Conclusión
+```
+---
+### Conclusión
 Aplicar SOLID te ayuda a crear código:
 
 Más legible y mantenible.
@@ -106,4 +112,4 @@ Fácil de probar y extender.
 
 Robusto frente a cambios futuros.
 
-En tu camino hacia backend profesional y data, dominar estos principios desde ya te evitará que tus proyectos se conviertan en un "código spaghetti" inmantenible.
+>En tu camino hacia backend profesional y data, dominar estos principios desde ya te evitará que tus proyectos se conviertan en un "código spaghetti" inmantenible.
