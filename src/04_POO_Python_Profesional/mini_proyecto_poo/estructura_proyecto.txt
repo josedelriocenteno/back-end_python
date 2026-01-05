@@ -1,0 +1,38 @@
+tienda_online/                    # 📁 Proyecto raíz
+├── src/                          # 💻 Código fuente
+│   ├── domain/                   # 🟢 NÚCLEO (negocio puro)
+│   │   ├── entities/             # 🏢 Clases dominio
+│   │   │   ├── usuario.py        # Usuario(id, nombre, email)
+│   │   │   ├── producto.py       # Producto(id, nombre, precio) frozen=True
+│   │   │   └── pedido.py         # Pedido(id, usuario, productos)
+│   │   ├── value_objects/        # 💎 Valores inmutables
+│   │   │   ├── id_value.py       # IDValue[Producto], IDValue[Usuario]
+│   │   │   └── precio_value.py   # PrecioValue(Decimal)
+│   │   └── strategies/           # ⚙️ Strategy Pattern
+│   │       └── descuento_strategy.py  # Normal/Promo/Premium
+│   │
+│   ├── application/              # 🟡 Orquesta flujos
+│   │   ├── services/             # 🎯 Casos de uso
+│   │   │   └── pedido_service.py # crear_pedido(), calcular_total()
+│   │   └── ports/                # 🔌 Interfaces (Repository Pattern)
+│   │       ├── usuario_repository.py
+│   │       └── producto_repository.py
+│   │
+│   └── infrastructure/           # 🔴 Implementaciones técnicas
+│       ├── repositories/         # 💾 Concretas (DB)
+│       │   ├── usuario_repository_sqlite.py
+│       │   └── producto_repository_sqlite.py
+│       ├── database/             # 🗄️ Config DB
+│       │   └── sqlite_db.py
+│       └── main.py               # 🚀 Entry point
+│
+├── tests/                        # 🧪 100% testable
+│   ├── unit/                     # 🔬 Domain puro
+│   │   ├── test_usuario.py
+│   │   ├── test_producto.py
+│   │   └── test_pedido.py
+│   └── integration/              # 🔗 Services + mocks
+│       └── test_pedido_service.py
+│
+├── requirements.txt
+└── README.md
