@@ -1,0 +1,151 @@
+📘 ¿QUÉ ES CÓDIGO LIMPIO (CLEAN CODE) Y POR QUÉ IMPORTA?
+Idea clave desde el principio
+Código limpio no es código bonito.
+Código limpio es código que otras personas pueden entender, modificar y extender sin romperlo.
+Y aquí va la primera verdad incómoda:
+👉 El 80–90% del tiempo profesional no se pasa escribiendo código nuevo, sino leyendo y modificando código existente.
+Si no entiendes esto, Clean Code parece postureo.
+Cuando lo entiendes, se vuelve supervivencia profesional.
+
+1️⃣ Empezamos desde cero: ¿qué es “código”?
+Código es:
+    • una forma de expresar lógica
+    • para que una máquina la ejecute
+    • y humanos la entiendan
+⚠️ Importante:
+La máquina no necesita código limpio.
+El humano sí.
+
+2️⃣ Entonces… ¿qué es CÓDIGO LIMPIO?
+Definición operativa (no filosófica):
+Código limpio es aquel que expresa su intención con claridad, tiene pocas sorpresas y permite cambios seguros.
+Vamos a descomponer esto palabra por palabra.
+
+🔹 “Expresa su intención”
+Ejemplo malo:
+def f(x):
+    return x * 1.21
+Funciona.
+Pero… ¿qué hace?
+Ejemplo limpio:
+def calcular_precio_con_iva(precio_base):
+    return precio_base * 1.21
+💡 La diferencia no es técnica, es cognitiva.
+Cuando lees el segundo:
+    • no necesitas contexto
+    • no necesitas comentarios
+    • no necesitas abrir otros archivos
+👉 El código se explica solo.
+
+🔹 “Pocas sorpresas”
+Código con sorpresas:
+def obtener_usuario(id):
+    if id == 0:
+        borrar_base_de_datos()
+    return db.get(id)
+Funciona… hasta que arruina tu carrera.
+Código limpio:
+    • no hace cosas ocultas
+    • no tiene efectos secundarios inesperados
+    • hace una cosa y solo una
+
+🔹 “Permite cambios seguros”
+Esto es CLAVE para tu camino hacia IA/Data.
+Pregunta real de empresa:
+“¿Qué pasa si mañana cambiamos la fuente de datos, el modelo o la lógica?”
+Código limpio:
+    • puedes cambiar una parte
+    • sin romper las demás
+Código sucio:
+    • tocas una línea
+    • rompes cinco cosas
+    • nadie sabe por qué
+
+3️⃣ Código que FUNCIONA vs código MANTENIBLE
+Esta diferencia es crítica.
+Código que funciona
+    • pasa el test de hoy
+    • cumple el requisito actual
+    • suele ser rápido de escribir
+Código mantenible
+    • funciona hoy
+    • funcionará mañana
+    • puede entenderlo otra persona
+    • puede escalar
+    • puede refactorizarse sin miedo
+👉 En proyectos reales se paga por lo segundo, no por lo primero.
+
+4️⃣ ¿Por qué importa en EQUIPOS?
+Aquí viene el punto que muchos juniors no ven.
+En un equipo:
+    • no eres dueño del código
+    • el código vive años
+    • tú puedes irte
+    • otros seguirán tocándolo
+Código sucio =
+🔻 más bugs
+🔻 más tiempo
+🔻 más estrés
+🔻 más reuniones inútiles
+Código limpio =
+✅ onboarding rápido
+✅ cambios seguros
+✅ menos bugs
+✅ confianza técnica
+
+5️⃣ Relación directa con BACKEND
+En backend:
+    • hay capas
+    • hay dependencias
+    • hay estados
+    • hay datos críticos
+Código limpio:
+    • separa responsabilidades
+    • evita lógica duplicada
+    • hace explícitas las dependencias
+Ejemplo mental:
+“¿Dónde se valida esto?”
+“¿Quién es responsable de este cálculo?”
+Si no sabes responder mirando el código → no es limpio.
+
+6️⃣ Relación directa con DATA / IA
+Esto es MUY importante para ti.
+En Data / ML:
+    • los experimentos cambian
+    • los datos cambian
+    • los modelos cambian
+Código sucio:
+    • resultados no reproducibles
+    • nadie sabe qué se entrenó
+    • pipelines frágiles
+Código limpio:
+    • funciones puras
+    • pipelines claros
+    • experimentos repetibles
+    • confianza en resultados
+👉 La reproducibilidad empieza por clean code, no por modelos fancy.
+
+7️⃣ Clean Code NO es…
+Vamos a quitar mitos ya.
+❌ No es:
+    • usar patrones por postureo
+    • hacer abstracciones locas
+    • escribir menos líneas
+    • usar nombres ultra sofisticados
+Clean Code no es complicar, es simplificar.
+
+8️⃣ Regla de oro (apréndetela ya)
+Si necesitas explicar tu código con palabras, el código no es lo suficientemente claro.
+Los comentarios:
+    • explican el por qué
+    • NO el qué
+Si explican el qué → el código falla.
+
+9️⃣ Conclusión brutalmente honesta
+Clean Code:
+    • no es opcional
+    • no es “para más adelante”
+    • no es solo para seniors
+👉 Se aprende desde el primer día o se arrastran malos hábitos años.
+Tú estás haciendo esto en el momento correcto.
+
