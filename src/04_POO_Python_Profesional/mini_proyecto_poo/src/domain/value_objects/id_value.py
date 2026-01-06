@@ -2,26 +2,26 @@ from dataclasses import dataclass
 from typing import Generic, TypeVar
 from uuid import uuid4, UUID
 
-# Genérico para tipado: IDValue['Producto'], IDValue['Usuario'], etc.
+# Genérico para tipado fuerte
 T = TypeVar('T')
 
-@dataclass(frozen=True)  # ← INMUTABLE!
+@dataclass(frozen=True)  # ← Inmutable!
 class IDValue(Generic[T]):
     value: UUID
     
     @classmethod
     def generar(cls) -> 'IDValue[T]':
-        """Genera nuevo UUID único"""
+        """Genera UUID único"""
         return cls(uuid4())
     
     @classmethod
     def desde_string(cls, id_str: str) -> 'IDValue[T]':
-        """Crea desde string (JSON/DB)"""
+        """Desde JSON/DB"""
         return cls(UUID(id_str))
     
     @classmethod
     def desde_uuid(cls, uuid_obj: UUID) -> 'IDValue[T]':
-        """Crea desde UUID directo"""
+        """Desde UUID directo"""
         return cls(uuid_obj)
     
     def __str__(self) -> str:
@@ -29,19 +29,24 @@ class IDValue(Generic[T]):
         return str(self.value)
     
     def __repr__(self) -> str:
-        return f"IDValue[{self.value}]"
+        return f"{self.__class__.__name__}[{self.value}]"
     
     def __eq__(self, other: object) -> bool:
-        """Compara IDs"""
+        """Compara valores"""
         if not isinstance(other, IDValue):
-            return False
+            return NotImplemented
         return self.value == other.value
     
     def __hash__(self) -> int:
-        """Para sets/dicts"""
+        """Para dict/set"""
         return hash(self.value)
     
     @property
     def uuid(self) -> UUID:
         """Acceso directo"""
         return self.value
+    
+    @property
+    def string(self) -> str:
+        """Para DB/JSON"""
+        return str(self.value)
