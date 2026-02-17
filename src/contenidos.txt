@@ -63,5 +63,8 @@ back-end_python/
 ├── 20_Puente_Hacia_Machine_Learning/
 │   // datasets, features, training pipelines, serving básico
 │
-└── 21_Proyecto_Final_Data_Backend_Profesional/
+├── 21_IA_Generativa_Y_LLMs/
+│   // Prompt engineering, RAG, vector databases, agentes
+│
+└── 22_Proyecto_Final_Data_Backend_Profesional/
     // Proyecto real tipo Data Engineer (portfolio + TFG)
