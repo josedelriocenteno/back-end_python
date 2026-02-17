@@ -1,0 +1,47 @@
+# DOCKER COMPOSE: CONFIGURACIÓN BÁSICA (API + DB)
+# -----------------------------------------------------------------------------
+# Versión recomendada de la especificación
+version: "3.8"
+
+services:
+  # SERVICIO 1: NUESTRO BACKEND
+  web:
+    # Construye la imagen usando el Dockerfile de la carpeta actual
+    build: .
+    ports:
+      - "8000:8000"
+    # El backend depende de que la DB esté lista
+    depends_on:
+      - db
+    # Variables de entorno para conectar
+    environment:
+      - DATABASE_URL=postgresql://user:pass@db:5432/mi_db
+    # Red común para que se vean entre ellos
+    networks:
+      - mi_red
+
+  # SERVICIO 2: LA BASE DE DATOS
+  db:
+    image: postgres:15-alpine
+    environment:
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=pass
+      - POSTGRES_DB=mi_db
+    # Guardamos los datos en un volumen para no perderlos
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - mi_red
+
+# DEFINICIÓN DE RECURSOS GLOBALES
+networks:
+  mi_red:
+    driver: bridge
+
+volumes:
+  postgres_data:
+
+# COMANDOS BÁSICOS:
+# docker compose up -d (Levanta todo en segundo plano)
+# docker compose stop  (Detiene todo)
+# docker compose down  (Borra contenedores y redes, pero NO volúmenes)

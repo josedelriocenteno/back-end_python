@@ -1,0 +1,57 @@
+# DOCKER COMPOSE: CONFIGURACIÓN AVANZADA (STACK COMPLETO)
+# -----------------------------------------------------------------------------
+version: "3.8"
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.prod
+      args:
+        - BUILD_ENV=production
+    container_name: fast-api-prod
+    restart: always # Se reinicia si el servidor explota
+    ports:
+      - "80:8000"
+    depends_on:
+      db:
+        condition: service_healthy # Espera hasta que la DB pase el Healthcheck
+    environment:
+      - REDIS_HOST=cache
+    networks:
+      - backend_net
+      - frontend_net
+
+  db:
+    image: postgres:15-alpine
+    volumes:
+      - ./init-scripts:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U user -d mi_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - backend_net
+
+  cache:
+    image: redis:7-alpine
+    networks:
+      - backend_net
+
+  # HERRAMIENTA DE MONITORIZACIÓN
+  pgadmin:
+    image: dpage/pgadmin4
+    ports:
+      - "5050:80"
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@admin.com
+      - PGADMIN_DEFAULT_PASSWORD=admin
+    depends_on:
+      - db
+    networks:
+      - frontend_net
+
+networks:
+  backend_net: # Red cerrada para API <-> DB <-> Redis
+  frontend_net: # Red para API <-> PgAdmin (Expuesta al exterior)

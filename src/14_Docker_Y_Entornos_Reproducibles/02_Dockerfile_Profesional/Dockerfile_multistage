@@ -1,0 +1,52 @@
+# MULTI-STAGE BUILD: EL ESTÁNDAR PARA PRODUCCIÓN
+# -----------------------------------------------------------------------------
+
+# --- ETAPA 1: BUILDER (Construcción) ---
+# Aquí instalamos compiladores y herramientas pesadas que NO queremos en producción.
+FROM python:3.11-slim as builder
+
+WORKDIR /app
+
+# Instalamos dependencias para compilar librerías de C (como drivers de DB)
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    libpq-dev \
+    gcc
+
+# Creamos un entorno virtual (VENV) y descargamos las librerías allí.
+RUN python -m venv /opt/venv
+ENV PATH="/opt/venv/bin:$PATH"
+
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+
+# --- ETAPA 2: RUNNER (Ejecución) ---
+# Esta imagen será la que se despliegue. Limpia y pequeña.
+FROM python:3.11-slim as runner
+
+WORKDIR /app
+
+# Copiamos SOLO las librerías ya instaladas desde la etapa 'builder'
+# Esto hace que la imagen final no contenga el compilador GCC ni basura temporal.
+COPY --from=builder /opt/venv /opt/venv
+
+# Aseguramos que Python use el VENV copiado
+ENV PATH="/opt/venv/bin:$PATH"
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
+# Instalamos solo la librería compartida de la DB (necesaria para correr, no para compilar)
+RUN apt-get update && apt-get install -y libpq5 && rm -rf /var/lib/apt/lists/*
+
+# Copiamos la App
+COPY . .
+
+# Seguridad: No corremos como ROOT (Opcional pero recomendado)
+# RUN useradd -m myuser
+# USER myuser
+
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+
+# RESULTADO: 
+# Una imagen que pesa la mitad y es mucho más segura.

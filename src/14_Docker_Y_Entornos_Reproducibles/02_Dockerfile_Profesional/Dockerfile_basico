@@ -1,0 +1,35 @@
+# 1. IMAGEN BASE
+# Usamos 'slim' para reducir el tamaño de la imagen final (de ~900MB a ~120MB).
+FROM python:3.11-slim
+
+# 2. DIRECTORIO DE TRABAJO
+# Crea y se mueve a la carpeta dentro del contenedor.
+WORKDIR /app
+
+# 3. VARIABLES DE ENTORNO
+# Evita que Python genere archivos .pyc y fuerza el volcado de logs instantáneo.
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
+# 4. INSTALACIÓN DE DEPENDENCIAS DEL SISTEMA
+# Solo instalamos lo estrictamente necesario para que las librerías de Python compilen.
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    libpq-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+# 5. INSTALACIÓN DE LIBRERÍAS PYTHON
+# Copiamos solo el requirements primero para aprovechar la caché de capas de Docker.
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# 6. COPIA DEL CÓDIGO FUENTE
+# Copiamos el resto de la aplicación.
+COPY . .
+
+# 7. METADATOS Y PUERTOS
+EXPOSE 8000
+
+# 8. COMANDO DE ARRANQUE
+# Usamos formato JSON (exec style) para que las señales del SO (SIGTERM) lleguen bien.
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
