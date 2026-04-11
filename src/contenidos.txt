@@ -1,70 +1,119 @@
-back-end_python/
+python-ia-engineer/
 │
-├── 00_Entorno_Y_Herramientas/
-│   // Sistema, terminal, Python, venv, Poetry, VS Code, debugging, hábitos profesionales
+├── FASE 1: PYTHON — DOMINIO PROFUNDO (6 módulos)
+│   ├── 01_Fundamentos_Y_Tipos/
+│   │   // Qué es Python, modelo de objetos, memoria, tipos, strings, booleanos
+│   │   // Todo desde cero absoluto con profundidad extrema
+│   ├── 02_Estructuras_Datos_Nativas/
+│   │   // Listas exclusivas, Diccionarios exclusivos, Tuplas/NamedTuples
+│   │   // Sets y teoría NLP, Módulo Collections estricto
+│   ├── 03_Algoritmia_Y_Complejidad/
+│   │   // Big-O Notación en Hardware, Búsquedas Binarias (bisect)
+│   │   // Timsort bajo el capó, Heaps (heapq) para Top-K Tokens
+│   │   // Programación Dinámica pura y lru_cache
+│   ├── 04_Funciones_Flujo_Y_Funcional/
+│   │   // Control de flujo, LEGB, closures, decoradores pesados, scope
+│   │   // Generadores, itertools, yield from
+│   ├── 05_POO_Y_Diseño_Profesional/
+│   │   // Clases, herencia, composición, SOLID, patrones de diseño
+│   │   // ABC, protocols, dataclasses, type hints avanzado
+│   └── 06_Errores_Testing_Y_Robustez/
+│       // Excepciones, logging, context managers, debugging
+│       // Intro a pytest, código defensivo, linters
 │
-├── 01_Fundamentos_Python/
-│   // Sintaxis sólida, tipos, memoria, mutabilidad, modelo de objetos
+├── FASE 2: MATEMÁTICAS Y DATOS (6 módulos)
+│   ├── 07_Algebra_Lineal_Con_Python/
+│   │   // Vectores, matrices, transformaciones, eigenvalues, SVD
+│   │   // Todo implementado con NumPy
+│   ├── 08_Calculo_Y_Optimizacion/
+│   │   // Derivadas, gradientes, descenso de gradiente, optimizadores
+│   │   // La base de backpropagation
+│   ├── 09_Probabilidad_Y_Estadistica/
+│   │   // Distribuciones, Bayes, métricas, sampling
+│   ├── 10_NumPy_Profundo/
+│   │   // Internals, broadcasting, advanced indexing, performance
+│   │   // Visualización básica con matplotlib/seaborn integrada
+│   ├── 11_Pandas_Ingenieria/
+│   │   // DataFrames profundo, limpieza, optimización, datos reales
+│   │   // Polars como alternativa moderna
+│   └── 12_SQL_Y_Visualizacion/
+│       // SQL esencial, joins, índices, desde Python
+│       // matplotlib/seaborn para exploración de datos
 │
-├── 02_Estructuras_De_Datos_Y_Algoritmia/
-│   // list, dict, set, tuple como estructuras reales (hash maps, stacks, queues)
+├── FASE 3: MACHINE LEARNING CLÁSICO (4 módulos)
+│   ├── 13_ML_Fundamentos/
+│   │   // Qué es ML, tipos, ciclo de vida, bias-variance
+│   ├── 14_Scikit_Learn_Profundo/
+│   │   // Pipelines, modelos, grid search, todo con código real
+│   ├── 15_Feature_Engineering/
+│   │   // Creación, selección, transformación de features
+│   └── 16_Evaluacion_Y_Validacion/
+│       // Métricas, cross-validation, overfitting, curvas
 │
-├── 03_Control_De_Flujo_Y_Funciones/
-│   // funciones limpias, scope, closures, decorators (uso real)
+├── FASE 4: DEEP LEARNING (4 módulos)
+│   ├── 17_PyTorch_Fundamentos/
+│   │   // Tensores, autograd, nn.Module, training loops, datasets
+│   ├── 18_De_CNN_RNN_A_Transformers/
+│   │   // Contexto histórico: por qué CNN/RNN perdieron
+│   │   // Conceptos clave que heredó el Transformer
+│   │   // Módulo ligero de contexto, no implementación profunda
+│   ├── 19_Transformer_Desde_Cero/
+│   │   // Self-attention, multi-head, positional encoding
+│   │   // Implementación COMPLETA en PyTorch
+│   └── 20_Transfer_Learning/
+│       // Pretrained models, fine-tuning, feature extraction
 │
-├── 04_POO_Python_Profesional/
-│   // diseño de clases, composición vs herencia, principios SOLID aplicados
+│   ★ PROYECTO A: Entrena, evalúa y compara 3 modelos sobre un dataset real
+│     // Sin despliegue (aún no tienes FastAPI/Docker). Cierre honesto de Fase 3+4
 │
-├── 05_Python_Limpio_Y_Buenas_Practicas/
-│   // clean code, tipado, linters, convenciones, refactorización
+├── FASE 5: NLP Y LLMs (8 módulos)
+│   ├── 21_NLP_Fundamentos/
+│   │   // Tokenización, embeddings, preprocessing de texto
+│   ├── 22_HuggingFace_Y_Transformers/
+│   │   // HuggingFace pipeline, tokenizers, modelos
+│   ├── 23_LLMs_Ingenieria/
+│   │   // APIs (OpenAI, Anthropic, Gemini), prompt engineering
+│   │   // Structured output, function calling, token management
+│   ├── 24_Evaluacion_De_LLMs/
+│   │   // LLM-as-judge, benchmarks, promptfoo, inspect-ai
+│   │   // Métricas de generación, evaluación humana vs automática
+│   ├── 25_Bases_Vectoriales_Y_Embeddings/
+│   │   // Embeddings profundo, Chroma, pgvector, Pinecone
+│   │   // HNSW, similarity search, indexing
+│   ├── 26_RAG_Implementacion/
+│   │   // Chunking, retrieval, hybrid search, reranking
+│   │   // Pipeline completo funcional, evaluación con RAGAS
+│   ├── 27_Agentes_IA/
+│   │   // Function calling, ReAct, multi-agent, memoria
+│   │   // LangGraph, CrewAI, AutoGen: frameworks industriales reales
+│   │   // Proyecto pequeño con LangGraph para CV reconocible
+│   ├── 28_Fine_Tuning_LLMs/
+│   │   // LoRA, QLoRA, dataset preparation (conceptual/práctico ligero)
+│   │   // En la industria consumes modelos fine-tuneados, rara vez los entrenas
+│   └── 29_Guardrails_Y_Seguridad_LLMs/
+│       // Guardrails, prompt injection, output validation
+│       // Seguridad de LLMs en producción, jailbreak defense
+│       // Peso fuerte aquí: es lo más aplicable en el día a día
 │
-├── 06_Manejo_De_Errores_Y_Debugging/
-│   // excepciones, logging profesional, debugging real
+│   ★ PROYECTO B: RAG + Agente funcional (cierre de Fase 5)
 │
-├── 07_Archivos_Y_Persistencia_De_Datos/
-│   // CSV, JSON, Parquet, serialización, lectura/escritura eficiente
+├── FASE 6: INGENIERÍA DE PRODUCCIÓN (6 módulos)
+│   ├── 30_FastAPI_Para_ML/
+│   │   // APIs para servir modelos, validación, endpoints ML
+│   ├── 31_Async_Y_Streaming_Inferencia/
+│   │   // async/await, streaming token a token, batching
+│   ├── 32_MLOps_Y_Deployment/
+│   │   // MLflow, model registry, DVC, CI/CD para ML
+│   │   // Git para ML, versionado de datos y modelos
+│   ├── 33_Docker_Y_Despliegue/
+│   │   // Docker esencial, docker-compose, Kubernetes básico
+│   ├── 34_Observabilidad_Y_Costes/
+│   │   // Logging de LLMs, LangSmith, trazas, Arize
+│   │   // Semantic caching, optimización de costes API
+│   │   // Rate limiting, monitorización en producción
+│   └── 35_Testing_ML_Completo/
+│       // Tests de modelos, datos, pipelines, reproducibilidad
 │
-├── 08_SQL_Y_Modelado_De_Datos/
-│   // SQL fuerte, joins, índices, normalización, PostgreSQL
+│   ★ PROYECTO C: Deploy + monitorización del Proyecto B (cierre de Fase 6)
 │
-├── 09_Acceso_A_Datos_Desde_Python/
-│   // psycopg2, SQLAlchemy, ORM vs SQL puro, rendimiento
-│
-├── 10_Backend_Python_Y_APIs/
-│   // FastAPI, REST, diseño de endpoints, validación, versionado
-│
-├── 11_Seguridad_Backend_Y_Datos/
-│   // auth, JWT, roles, secretos, OWASP básico
-│
-├── 12_Testing_Y_Calidad_De_Codigo/
-│   // pytest, tests de datos, tests de APIs, coverage
-│
-├── 13_Asincronia_Y_Procesamiento_Concurrente/
-│   // async/await, multiprocessing, I/O intensivo (pipelines)
-│
-├── 14_Docker_Y_Entornos_Reproducibles/
-│   // Docker real: imágenes, volúmenes, redes, docker-compose
-│
-├── 15_Git_Y_Flujo_Profesional/
-│   // Git CLI, branching, PRs, code review, GitHub profesional
-│
-├── 16_Data_Engineering_Fundamentals/
-│   // ETL, ELT, pipelines, batch vs streaming, calidad de datos
-│
-├── 17_Cloud_Fundamentals_Para_Data_Engineers/
-│   // GCP core: storage, compute, IAM, BigQuery (base cert)
-│
-├── 18_Observabilidad_Y_Monitorizacion/
-│   // logs, métricas, alertas, data validation
-│
-├── 19_Performance_Y_Escalabilidad_De_Datos/
-│   // optimización SQL, particiones, paralelismo, costes
-│
-├── 20_Puente_Hacia_Machine_Learning/
-│   // datasets, features, training pipelines, serving básico
-│
-├── 21_IA_Generativa_Y_LLMs/
-│   // Prompt engineering, RAG, vector databases, agentes
-│
-└── 22_Proyecto_Final_Data_Backend_Profesional/
-    // Proyecto real tipo Data Engineer (portfolio + TFG)
+└── Total: 35 módulos + 3 proyectos progresivos
