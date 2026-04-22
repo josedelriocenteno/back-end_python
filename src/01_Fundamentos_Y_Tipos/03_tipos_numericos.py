@@ -796,7 +796,128 @@ EN IA:
 
 
 # ===========================================================================
-# CAPÍTULO 10: RESUMEN Y MAPA DEL MÓDULO
+# CAPÍTULO 10: FUNCIONES NUMÉRICAS BUILT-IN
+# ===========================================================================
+
+"""
+Python tiene funciones numéricas built-in que DEBES dominar.
+No necesitas importar nada — están siempre disponibles.
+"""
+
+print("\n=== FUNCIONES NUMÉRICAS BUILT-IN ===")
+
+# abs() — valor absoluto
+print(f"abs(-42) = {abs(-42)}")
+print(f"abs(3.14) = {abs(3.14)}")
+print(f"abs(-3+4j) = {abs(-3+4j)}")  # módulo del complejo: √(9+16) = 5.0
+
+# divmod() — cociente Y resto en una operación
+cociente, resto = divmod(17, 5)
+print(f"\ndivmod(17, 5) = ({cociente}, {resto})")  # (3, 2)
+# Equivale a: (17 // 5, 17 % 5)
+
+# pow() con tres argumentos — exponenciación modular
+print(f"pow(2, 10) = {pow(2, 10)}")         # 1024
+print(f"pow(2, 10, 100) = {pow(2, 10, 100)}")  # 24 = 2^10 % 100
+# pow(base, exp, mod) es más eficiente que (base ** exp) % mod
+# Se usa en criptografía
+
+# min() / max() — extremos
+datos = [3.2, 1.5, 4.7, 2.1, 3.8]
+print(f"\nmin({datos}) = {min(datos)}")
+print(f"max({datos}) = {max(datos)}")
+
+# Con key function
+modelos = [("bert", 0.92), ("gpt", 0.95), ("llama", 0.89)]
+mejor = max(modelos, key=lambda m: m[1])
+print(f"Mejor modelo: {mejor}")
+
+# sum() — suma
+print(f"\nsum(range(101)) = {sum(range(101))}")  # 5050 (Gauss)
+print(f"sum([0.1]*10) = {sum([0.1]*10)}")  # ≈ 1.0 (imprecisión!)
+
+# math.fsum() para sumas precisas
+import math
+print(f"math.fsum([0.1]*10) = {math.fsum([0.1]*10)}")  # 1.0 exacto
+
+"""
+math.fsum() usa el algoritmo de Shewchuk para sumar floats
+sin acumular errores de redondeo. Usar cuando la precisión importa:
+  - Calcular medias de datasets grandes
+  - Acumular loss durante entrenamiento
+  - Normalizar probabilidades
+"""
+
+# round() con decimales
+print(f"\nround(3.14159, 2) = {round(3.14159, 2)}")   # 3.14
+print(f"round(3.14159, 4) = {round(3.14159, 4)}")   # 3.1416
+print(f"round(1234, -2) = {round(1234, -2)}")       # 1200 (!)
+
+
+# ===========================================================================
+# CAPÍTULO 11: BUENAS PRÁCTICAS NUMÉRICAS PARA IA
+# ===========================================================================
+
+print("\n=== BUENAS PRÁCTICAS NUMÉRICAS ===")
+
+"""
+1. NUNCA compares floats con ==. Usa math.isclose() o tolerancias.
+
+2. Prefiere math.log(x) sobre math.log(x, base) para log natural.
+   En IA casi siempre usas ln (log natural), no log10.
+
+3. Usa underscores para números grandes: 1_000_000 es más legible.
+
+4. Conoce los límites:
+"""
+
+# Límites de float
+print(f"  Float max: {sys.float_info.max:.2e}")
+print(f"  Float min (positivo): {sys.float_info.min:.2e}")
+print(f"  Float epsilon: {sys.float_info.epsilon:.2e}")
+print(f"  Float dig (dígitos de precisión): {sys.float_info.dig}")
+
+"""
+sys.float_info.epsilon: la diferencia más pequeña entre 1.0 y
+el siguiente float representable. Aprox 2.2e-16.
+
+SI tu valor es menor que epsilon * magnitud, se pierde en el ruido.
+Esto es CRÍTICO para:
+  - Learning rates muy pequeños (1e-8 puede perder precisión)
+  - Gradientes muy pequeños (vanishing gradients)
+  - Normalización de probabilidades cercanas a 0
+"""
+
+# Estabilidad numérica — ejemplo: log-sum-exp
+print("\n--- Estabilidad numérica ---")
+
+valores = [1000.0, 1001.0, 1002.0]
+
+# ❌ INESTABLE: exp(1000) = infinito!
+try:
+    resultado_inestable = math.log(sum(math.exp(v) for v in valores))
+    print(f"  Inestable: {resultado_inestable}")
+except OverflowError:
+    print("  Inestable: OverflowError (exp(1000) = inf)")
+
+# ✅ ESTABLE: restar el máximo primero
+max_val = max(valores)
+resultado_estable = max_val + math.log(sum(math.exp(v - max_val) for v in valores))
+print(f"  Estable (log-sum-exp): {resultado_estable:.4f}")
+
+"""
+Este truco (log-sum-exp) se usa en:
+  - Softmax: log Σ exp(x_i) = max(x) + log Σ exp(x_i - max(x))
+  - Cross-entropy loss
+  - Attention scores
+  - Cualquier lugar donde sumes exponenciales grandes
+
+PyTorch implementa esto como torch.logsumexp()
+"""
+
+
+# ===========================================================================
+# CAPÍTULO 12: RESUMEN Y MAPA DEL MÓDULO
 # ===========================================================================
 
 """
@@ -833,8 +954,10 @@ LO QUE HAS APRENDIDO EN ESTE ARCHIVO:
    - sqrt, pow: operaciones básicas
 
 8. TRUTHINESS: Todo valor puede ser True/False
-   - Falsy: 0, None, vacío
-   - Truthy: todo lo demás
+
+9. BUILT-INS: abs, divmod, pow, min, max, sum, round
+
+10. ESTABILIDAD NUMÉRICA: log-sum-exp, math.fsum
 
 ARCHIVO SIGUIENTE: 04_strings_completo.py
 → Strings como objetos inmutables
@@ -844,3 +967,4 @@ ARCHIVO SIGUIENTE: 04_strings_completo.py
 → Expresiones regulares (preview)
 → Strings en procesamiento de texto para NLP
 """
+

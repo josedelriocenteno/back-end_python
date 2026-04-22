@@ -785,42 +785,135 @@ Pero para ML clásico (bag of words, TF-IDF) SÍ necesitas limpiar.
 
 
 # ===========================================================================
-# CAPÍTULO 11: EXPRESIONES REGULARES — PREVIEW
+# CAPÍTULO 11: STRING FORMAT MINI-LANGUAGE — REFERENCIA RÁPIDA
 # ===========================================================================
 
 """
-Las expresiones regulares (regex) son un lenguaje para buscar PATRONES
-en texto. Son extremadamente potentes pero pueden ser complicadas.
+Los especificadores de formato siguen esta sintaxis:
+  {valor:[[fill]align][sign][#][0][width][grouping][.precision][type]}
 
-Aquí solo un preview. Las veremos en profundidad cuando las necesitemos.
+TYPES MÁS USADOS:
+  d  → entero decimal
+  f  → float con punto decimal
+  e  → notación científica
+  %  → porcentaje
+  b  → binario
+  x  → hexadecimal
+  s  → string (default)
 """
 
-import re
+print("\n=== FORMAT MINI-LANGUAGE ===")
 
-print("\n=== REGEX — PREVIEW ===")
+# Tabla de referencia con ejemplos
+valor_int = 42
+valor_float = 3.14159
+valor_pct = 0.8567
 
-texto = "Mi email es jose@ejemplo.com y tengo 28 años. Contacto: info@test.org"
-
-# Encontrar todos los emails
-emails = re.findall(r'[\w.]+@[\w.]+\.\w+', texto)
-print(f"Emails encontrados: {emails}")
-
-# Encontrar todos los números
-numeros = re.findall(r'\d+', texto)
-print(f"Números encontrados: {numeros}")
-
-# Reemplazar con patron
-censurado = re.sub(r'[\w.]+@[\w.]+\.\w+', '[EMAIL]', texto)
-print(f"Censurado: {censurado}")
+print(f"  {'Formato':<20} {'Resultado':<20} {'Descripción'}")
+print(f"  {'-'*20} {'-'*20} {'-'*30}")
+print(f"  {{:d}}                {valor_int:d:<20} Entero")
+print(f"  {{:05d}}              {valor_int:05d:<20} Con ceros")
+print(f"  {{:+d}}               {valor_int:+d:<20} Con signo")
+print(f"  {{:.2f}}              {valor_float:.2f:<20} 2 decimales")
+print(f"  {{:.6f}}              {valor_float:.6f:<20} 6 decimales")
+print(f"  {{:10.2f}}            {valor_float:10.2f:<20} Ancho 10")
+print(f"  {{:.2e}}              {valor_float:.2e:<20} Científica")
+print(f"  {{:.2%}}              {valor_pct:.2%:<20} Porcentaje")
+print(f"  {{:,}}                {1234567:,:<20} Separador miles")
+print(f"  {{:_}}                {1234567:_:<20} Separador _")
+print(f"  {{:b}}                {valor_int:b:<20} Binario")
+print(f"  {{:x}}                {valor_int:x:<20} Hexadecimal")
+print(f"  {{:#x}}               {valor_int:#x:<20} Hex con 0x")
 
 """
-REGEX EN IA/NLP:
-  - Limpiar HTML/XML de textos scrapeados
-  - Extraer entidades (emails, URLs, teléfonos)
-  - Normalizar formatos de fecha
-  - Validar inputs en APIs
-  - Post-procesamiento de output de LLMs
+PATRÓN MUY ÚTIL EN IA — logging de entrenamiento:
+
+  for epoch in range(100):
+      loss = train_epoch()
+      acc = evaluate()
+      print(f"Epoch {epoch:3d}/{100} | "
+            f"Loss: {loss:.4f} | "
+            f"Acc: {acc:.2%} | "
+            f"LR: {lr:.2e}")
+
+  # Output:
+  # Epoch   1/100 | Loss: 2.3026 | Acc: 10.42% | LR: 1.00e-03
+  # Epoch  50/100 | Loss: 0.1234 | Acc: 95.23% | LR: 5.00e-04
 """
+
+
+# ===========================================================================
+# CAPÍTULO 12: string.Template Y PLANTILLAS
+# ===========================================================================
+
+from string import Template
+
+print("\n=== string.Template ===")
+
+# Template usa $variable en vez de {variable}
+tmpl = Template("Modelo: $modelo, Accuracy: $acc%")
+resultado = tmpl.substitute(modelo="BERT", acc=95.3)
+print(f"  {resultado}")
+
+# safe_substitute no da error si falta una variable
+resultado_safe = tmpl.safe_substitute(modelo="GPT")
+print(f"  safe_substitute: {resultado_safe}")
+
+"""
+¿Cuándo usar Template en vez de f-strings?
+
+  f-strings:  para formateo en código que TÚ controlas
+  Template:   para plantillas que vienen de FUERA (usuario, config, BD)
+
+Template es más SEGURO porque no ejecuta código arbitrario:
+  f"{__import__('os').system('rm -rf /')}"   ← ¡PELIGROSO!
+  Template("$comando").substitute(comando=...)  ← seguro
+
+En IA:
+  - Plantillas de prompts para LLMs
+  - Formateo de respuestas de APIs
+  - Configuración de logging
+"""
+
+
+# ===========================================================================
+# CAPÍTULO 13: PATRONES DE STRINGS EN PRODUCCIÓN
+# ===========================================================================
+
+print("\n=== PATRONES DE PRODUCCIÓN ===")
+
+# ─── Multiline strings limpias ───
+# Cuando necesitas strings largos sin indentación extra
+from textwrap import dedent
+
+prompt = dedent("""\
+    Eres un asistente de IA especializado en Python.
+    Tu objetivo es ayudar al usuario con:
+    - Debugging de código
+    - Optimización de rendimiento
+    - Mejores prácticas
+    Responde siempre en español.""")
+
+print(f"  Prompt (sin indentación):\n{prompt}")
+
+# ─── Construcción eficiente de strings ───
+# Cuando necesitas construir strings grandes en bucles
+
+# Método 1: lista + join (RECOMENDADO)
+partes = []
+for i in range(5):
+    partes.append(f"Epoch {i}: loss={0.5/(i+1):.4f}")
+log = "\n".join(partes)
+print(f"\n  Log:\n{log}")
+
+# Método 2: io.StringIO para strings muy grandes
+import io
+buffer = io.StringIO()
+for i in range(5):
+    buffer.write(f"Batch {i}: ")
+    buffer.write(f"procesado\n")
+resultado = buffer.getvalue()
+print(f"\n  Buffer:\n{resultado.strip()}")
 
 
 # ===========================================================================
@@ -841,6 +934,9 @@ LO QUE HAS APRENDIDO:
 9. str vs bytes: texto vs binario, nunca mezclar
 10. Preprocesamiento de texto: strip → casefold → split → filter
 11. Regex para patrones complejos
+12. Format mini-language para control preciso de formato
+13. string.Template para plantillas seguras
+14. textwrap.dedent para strings multilínea limpias
 
 CONEXIÓN CON IA:
 - Tokenización (cómo los LLMs dividen texto) depende de Unicode
@@ -848,6 +944,7 @@ CONEXIÓN CON IA:
 - F-strings para logging durante entrenamiento
 - bytes para archivos binarios (modelos, imágenes)
 - Encoding importa para modelos multilingües
+- Template para prompts de LLMs en producción
 
 ARCHIVO SIGUIENTE: 05_booleanos_logica_y_control.py
 → Booleanos en profundidad
@@ -857,3 +954,4 @@ ARCHIVO SIGUIENTE: 05_booleanos_logica_y_control.py
 → Operador ternario
 → Truthiness aplicada a flujo de control
 """
+

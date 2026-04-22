@@ -792,9 +792,189 @@ def exterior():
 
 exterior()
 
+# ─── global y nonlocal ───
+print("\n--- global y nonlocal ---")
+
+contador_global = 0
+
+def incrementar():
+    global contador_global  # Sin esto, crearía una variable LOCAL
+    contador_global += 1
+
+incrementar()
+incrementar()
+print(f"  contador_global después de 2 llamadas: {contador_global}")
+
+def funcion_exterior():
+    valor = 10
+
+    def funcion_interior():
+        nonlocal valor  # Modifica la variable del scope ENCLOSING
+        valor += 5
+
+    funcion_interior()
+    return valor
+
+print(f"  nonlocal: {funcion_exterior()}")  # 15
+
+"""
+REGLAS:
+  - global: permite modificar una variable del scope GLOBAL
+  - nonlocal: permite modificar una variable del scope ENCLOSING
+
+  ❌ EVITA usar global en código profesional. Causa bugs difíciles.
+  ⚠️ nonlocal es aceptable en closures, pero usa con moderación.
+  ✅ Preferible: pasar valores como argumentos y retornar resultados.
+"""
+
 
 # ===========================================================================
-# CAPÍTULO 10: RESUMEN Y CONEXIÓN CON IA
+# CAPÍTULO 10: __slots__ — OPTIMIZACIÓN DE MEMORIA
+# ===========================================================================
+
+"""
+Por defecto, cada instancia de una clase Python tiene un __dict__
+que almacena todos sus atributos. Esto consume MUCHA memoria.
+
+Con __slots__, le dices a Python exactamente qué atributos tendrá
+la instancia. Python usa un array fijo en vez de un dict.
+
+RESULTADO: ~40% menos memoria por instancia.
+"""
+
+print("\n=== __slots__ ===")
+
+class PuntoNormal:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+class PuntoSlots:
+    __slots__ = ('x', 'y')
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+p_normal = PuntoNormal(1.0, 2.0)
+p_slots = PuntoSlots(1.0, 2.0)
+
+print(f"  PuntoNormal tiene __dict__: {hasattr(p_normal, '__dict__')}")
+print(f"  PuntoSlots tiene __dict__:  {hasattr(p_slots, '__dict__')}")
+print(f"  PuntoNormal.__dict__: {p_normal.__dict__}")
+
+# Diferencia de memoria
+print(f"  sys.getsizeof(p_normal): {sys.getsizeof(p_normal)} bytes")
+print(f"  sys.getsizeof(p_slots):  {sys.getsizeof(p_slots)} bytes")
+
+# Con __slots__ NO puedes añadir atributos dinámicamente:
+try:
+    p_slots.z = 3.0
+except AttributeError as e:
+    print(f"  Error al añadir atributo: {e}")
+
+"""
+CUÁNDO USAR __slots__:
+  ✅ Cuando vas a crear MILES/MILLONES de instancias (ej: tokens, datos)
+  ✅ En clases simples tipo dataclass/namedtuple
+  ❌ Cuando necesitas flexibilidad (atributos dinámicos)
+  ❌ En clases con herencia compleja
+
+EN IA: los DataLoaders de PyTorch crean millones de objetos temporales.
+Usar __slots__ en clases de datos puede reducir significativamente
+el consumo de memoria.
+"""
+
+
+# ===========================================================================
+# CAPÍTULO 11: sys.getsizeof — INSPECCIÓN DE MEMORIA
+# ===========================================================================
+
+print("\n=== INSPECCIÓN DE MEMORIA ===")
+
+"""
+sys.getsizeof(obj) devuelve el tamaño en bytes del objeto.
+PERO: solo mide el objeto DIRECTO, no los objetos referenciados.
+
+Para una lista de 1000 ints:
+  sys.getsizeof(lista) → tamaño del contenedor (array de punteros)
+  NO incluye el tamaño de los 1000 ints individuales.
+"""
+
+objetos = {
+    'None': None,
+    'True': True,
+    '42': 42,
+    '3.14': 3.14,
+    '""': '',
+    '"hola"': 'hola',
+    '[]': [],
+    '[1,2,3]': [1, 2, 3],
+    '{}': {},
+    'set()': set(),
+    '()': (),
+}
+
+print("  Tamaños de objetos Python:")
+for nombre, obj in objetos.items():
+    print(f"    {nombre:>10}: {sys.getsizeof(obj):>4} bytes")
+
+# Crecimiento de listas
+print("\n  Crecimiento de listas:")
+for n in [0, 1, 10, 100, 1000]:
+    lista = list(range(n))
+    print(f"    list(range({n:>4})): {sys.getsizeof(lista):>6} bytes "
+          f"(~{sys.getsizeof(lista) / max(n, 1):.0f} bytes/elem)")
+
+
+# ===========================================================================
+# CAPÍTULO 12: del Y GESTIÓN EXPLÍCITA DE REFERENCIAS
+# ===========================================================================
+
+"""
+La instrucción del ELIMINA UNA REFERENCIA (no el objeto directamente).
+Si era la última referencia, el objeto se destruye.
+"""
+
+print("\n=== del — ELIMINAR REFERENCIAS ===")
+
+# del elimina el nombre, no el objeto
+x = [1, 2, 3]
+y = x  # y apunta al mismo objeto
+del x  # elimina el nombre 'x', pero el objeto sigue vivo (y lo referencia)
+print(f"  Después de del x, y = {y}")  # [1, 2, 3]
+
+# del en diccionarios
+d = {"a": 1, "b": 2, "c": 3}
+del d["b"]  # elimina la clave "b"
+print(f"  Después de del d['b']: {d}")
+
+# del en listas
+lista = [10, 20, 30, 40, 50]
+del lista[2]  # elimina el elemento en índice 2
+print(f"  Después de del lista[2]: {lista}")
+
+# del con slicing
+del lista[1:3]
+print(f"  Después de del lista[1:3]: {lista}")
+
+"""
+EN IA:
+  del se usa para LIBERAR MEMORIA explícitamente:
+
+  # Después de preprocesar un dataset grande:
+  datos_crudos = cargar_datos_grandes()  # 10GB
+  datos_procesados = preprocesar(datos_crudos)
+  del datos_crudos  # Liberar 10GB
+  gc.collect()      # Forzar recolección
+  
+  # En GPU:
+  del tensor_temporal
+  torch.cuda.empty_cache()  # Liberar VRAM
+"""
+
+
+# ===========================================================================
+# CAPÍTULO 13: RESUMEN Y CONEXIÓN CON IA
 # ===========================================================================
 
 """
@@ -811,6 +991,10 @@ RESUMEN DE LO APRENDIDO EN ESTE ARCHIVO:
 9. Shallow copy copia el contenedor, deep copy copia todo
 10. Las funciones reciben referencias, no copias
 11. Los nombres viven en namespaces, y se buscan con la regla LEGB
+12. global/nonlocal modifican variables de scopes superiores
+13. __slots__ optimiza memoria para clases con atributos fijos
+14. sys.getsizeof() inspecciona el consumo de memoria
+15. del elimina referencias, no objetos directamente
 
 CONEXIÓN DIRECTA CON IA:
 
@@ -830,6 +1014,12 @@ CONEXIÓN DIRECTA CON IA:
 5. BATCH PROCESSING: Cuando procesas datos en batches, entender
    copias vs referencias determina si puedes paralelizar o no.
 
+6. __slots__: reducir memoria en clases de datos que se instancian
+   millones de veces durante data loading.
+
+7. del + gc.collect(): liberar memoria explícitamente entre epochs
+   o después de preprocesamiento de datos grandes.
+
 ARCHIVO SIGUIENTE: 03_tipos_numericos.py
 → int, float, complex en profundidad
 → Precisión de punto flotante (IEEE 754)
@@ -837,3 +1027,5 @@ ARCHIVO SIGUIENTE: 03_tipos_numericos.py
 → Operadores aritméticos completo
 → Conexión con tensores y cálculo numérico
 """
+
+

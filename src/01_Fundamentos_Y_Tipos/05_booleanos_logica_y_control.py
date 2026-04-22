@@ -729,7 +729,340 @@ any() y all() SON ESENCIALES EN IA:
 
 
 # ===========================================================================
-# CAPÍTULO 10: RESUMEN Y SIGUIENTE ARCHIVO
+# CAPÍTULO 10: TRUTHINESS Y FALSINESS — DEEP DIVE
+# ===========================================================================
+
+"""
+Esto es TAN fundamental que merece su propia sección detallada.
+
+En Python, CUALQUIER objeto puede evaluarse como booleano.
+No solo True/False, sino CUALQUIER valor.
+
+VALORES FALSY (se evalúan como False):
+  - None
+  - False
+  - 0, 0.0, 0j (cero numérico)
+  - '' (string vacío)
+  - [] (lista vacía)
+  - () (tupla vacía)
+  - {} (dict vacío)
+  - set() (set vacío)
+  - range(0) (range vacío)
+  - Objetos cuyo __bool__() o __len__() devuelven False/0
+
+TODO LO DEMÁS ES TRUTHY.
+"""
+
+print("\n=== TRUTHINESS / FALSINESS ===")
+
+print("--- Valores falsy ---")
+falsys = [None, False, 0, 0.0, 0j, '', [], (), {}, set(), range(0)]
+for val in falsys:
+    print(f"  bool({str(val):>10}) = {bool(val)}  (tipo: {type(val).__name__})")
+
+print("\n--- Valores truthy ---")
+truthys = [True, 1, -1, 0.001, 'x', [0], (0,), {0: 0}, {0}, ' ']
+for val in truthys:
+    print(f"  bool({str(val):>10}) = {bool(val)}  (tipo: {type(val).__name__})")
+
+"""
+TRAMPA COMÚN: [0] es TRUTHY (lista con un elemento, aunque sea 0).
+  bool([])  → False (lista vacía)
+  bool([0]) → True  (lista con UN elemento)
+
+Otro error común:
+  if x == True:    # ❌ MAL — compara valor
+  if x is True:    # ⚠️ Demasiado estricto
+  if x:            # ✅ CORRECTO — pythónico
+
+Python SIEMPRE usa truthiness en condicionales:
+  if lista:        # ← equivale a: if len(lista) > 0
+  if nombre:       # ← equivale a: if nombre != ''
+  if resultado:    # ← equivale a: if resultado is not None and resultado != 0
+"""
+
+# ─── Definir truthiness personalizada ───
+print("\n--- __bool__ y __len__ personalizados ---")
+
+class Dataset:
+    """Ejemplo: un dataset que es truthy si tiene datos."""
+    def __init__(self, datos):
+        self.datos = datos
+
+    def __len__(self):
+        return len(self.datos)
+
+    def __bool__(self):
+        return len(self.datos) > 0
+
+    def __repr__(self):
+        return f"Dataset({len(self.datos)} items)"
+
+ds_lleno = Dataset([1, 2, 3])
+ds_vacio = Dataset([])
+
+print(f"  {ds_lleno}: bool = {bool(ds_lleno)}")
+print(f"  {ds_vacio}: bool = {bool(ds_vacio)}")
+
+# Uso natural en condicionales:
+if ds_lleno:
+    print(f"  Dataset listo para entrenar ({len(ds_lleno)} items)")
+if not ds_vacio:
+    print(f"  Dataset vacío, necesita datos")
+
+
+# ===========================================================================
+# CAPÍTULO 11: is vs == — IDENTIDAD vs IGUALDAD
+# ===========================================================================
+
+"""
+Esta distinción es CRÍTICA y fuente de bugs sutiles.
+
+  ==  : compara VALORES (¿contienen lo mismo?)
+  is  : compara IDENTIDAD (¿son el MISMO objeto en memoria?)
+
+REGLA: usa == para comparar valores, usa 'is' SOLO para None.
+"""
+
+print("\n=== is vs == ===")
+
+# Con enteros pequeños: Python los cachea (-5 a 256)
+a = 256
+b = 256
+print(f"  a=256, b=256: a == b → {a == b}, a is b → {a is b}")
+
+# Con enteros grandes: son objetos diferentes
+a = 1000
+b = 1000
+print(f"  a=1000, b=1000: a == b → {a == b}, a is b → {a is b}")
+
+"""
+Python hace "integer interning" de -5 a 256.
+  Esos enteros son singletons: siempre el MISMO objeto.
+  Fuera de ese rango, cada asignación crea un objeto nuevo.
+
+NUNCA uses 'is' para comparar números o strings.
+El resultado depende de optimizaciones internas de CPython
+que pueden cambiar entre versiones.
+"""
+
+# Caso correcto: comparar con None
+x = None
+print(f"\n  x is None: {x is None}")       # ✅ CORRECTO
+print(f"  x == None: {x == None}")          # ⚠️ funciona pero no pythónico
+
+# Caso correcto: comparar con True/False (raro pero válido)
+val = True
+print(f"  val is True: {val is True}")      # ✅ pero mejor usar: if val:
+
+"""
+REGLA DE ORO:
+  if x is None:        # ✅ comparar con None
+  if x is not None:    # ✅ negar None
+  if x == 42:          # ✅ comparar valores
+  if x is 42:          # ❌ NUNCA — puede fallar
+  if x:                # ✅ verificar truthiness
+"""
+
+# Listas y mutabilidad
+lista1 = [1, 2, 3]
+lista2 = [1, 2, 3]
+lista3 = lista1
+
+print(f"\n  lista1 == lista2: {lista1 == lista2}")  # True (mismo contenido)
+print(f"  lista1 is lista2: {lista1 is lista2}")    # False (objetos diferentes)
+print(f"  lista1 is lista3: {lista1 is lista3}")    # True (misma referencia)
+
+# Modificar lista3 MODIFICA lista1 (son el mismo objeto):
+lista3.append(4)
+print(f"  Tras lista3.append(4): lista1 = {lista1}")  # [1, 2, 3, 4] !!
+
+
+# ===========================================================================
+# CAPÍTULO 12: pass, Ellipsis, y PLACEHOLDERS
+# ===========================================================================
+
+"""
+pass y Ellipsis (...) son herramientas para código incompleto.
+"""
+
+print("\n=== pass y Ellipsis ===")
+
+# ─── pass: no hacer nada ───
+# Necesario porque Python no permite bloques vacíos
+
+# Clase vacía (placeholder):
+class FuturoModelo:
+    pass
+
+# Función vacía (TODO):
+def entrenar():
+    pass  # TODO: implementar
+
+# Condicional vacío:
+x = 5
+if x > 0:
+    pass  # De momento no hacemos nada con positivos
+else:
+    print("Negativo")
+
+# ─── Ellipsis (...): placeholder moderno ───
+# Es un valor real de Python: type(Ellipsis) → <class 'ellipsis'>
+
+def cargar_datos():
+    ...  # Más moderno que pass para indicar "por implementar"
+
+# En type hints (visto en módulos posteriores):
+# def procesar(datos: list[...]) → ...:  # placeholder
+
+print(f"  type(Ellipsis): {type(Ellipsis)}")
+print(f"  ... is Ellipsis: {... is Ellipsis}")
+
+
+# ===========================================================================
+# CAPÍTULO 13: PATRONES AVANZADOS DE CONTROL DE FLUJO
+# ===========================================================================
+
+print("\n=== PATRONES AVANZADOS ===")
+
+# ─── Diccionario como switch ───
+"""
+Antes de match/case (Python < 3.10), se usaba dict como switch.
+Aún es útil cuando las acciones son funciones.
+"""
+
+print("--- Dict dispatch ---")
+
+def relu(x):
+    return max(0, x)
+
+def sigmoid(x):
+    return 1 / (1 + math.exp(-x))
+
+def tanh(x):
+    return math.tanh(x)
+
+activaciones = {
+    "relu": relu,
+    "sigmoid": sigmoid,
+    "tanh": tanh,
+}
+
+for nombre, fn in activaciones.items():
+    resultado = fn(0.5)
+    print(f"  {nombre}(0.5) = {resultado:.4f}")
+
+# ─── Guard clauses (early return) ───
+print("\n--- Guard clauses ---")
+
+def procesar_batch(batch):
+    """Procesa un batch de datos con early returns."""
+    # Guards: verificar condiciones de fallo PRIMERO
+    if batch is None:
+        return "Error: batch es None"
+
+    if len(batch) == 0:
+        return "Error: batch vacío"
+
+    if any(x < 0 for x in batch):
+        return "Error: valores negativos"
+
+    # Solo llegamos aquí si todo está bien
+    return f"Batch procesado: {len(batch)} items, media={sum(batch)/len(batch):.2f}"
+
+# Tests
+print(f"  {procesar_batch(None)}")
+print(f"  {procesar_batch([])}")
+print(f"  {procesar_batch([1, -2, 3])}")
+print(f"  {procesar_batch([1, 2, 3, 4, 5])}")
+
+"""
+GUARD CLAUSES es un patrón FUNDAMENTAL en código profesional.
+En vez de anidar if dentro de if dentro de if:
+
+  ❌ MAL:
+  def procesar(x):
+      if x is not None:
+          if len(x) > 0:
+              if all(v >= 0 for v in x):
+                  # ... código real ...
+                  
+  ✅ BIEN (guards):
+  def procesar(x):
+      if x is None: return error
+      if len(x) == 0: return error
+      if any(v < 0 for v in x): return error
+      # ... código real (sin anidación) ...
+"""
+
+# ─── for/else para búsqueda con fallback ───
+print("\n--- for/else patrón de búsqueda ---")
+
+checkpoints = ["model_v3.pt", "model_v2.pt", "model_v1.pt"]
+existentes = {"model_v2.pt"}  # simular archivos que existen
+
+for cp in checkpoints:
+    if cp in existentes:
+        print(f"  Cargando checkpoint: {cp}")
+        break
+else:
+    print("  No se encontró checkpoint, entrenando desde cero")
+
+
+# ===========================================================================
+# CAPÍTULO 14: ITERACIÓN FUNCIONAL — map, filter, reduce
+# ===========================================================================
+
+print("\n=== map, filter, reduce ===")
+
+"""
+Estos son los pilares de la programación funcional.
+Los vemos aquí porque se usan en combinación con bucles y comprehensions.
+"""
+
+# ─── map: aplicar función a cada elemento ───
+print("--- map ---")
+numeros = [1, 4, 9, 16, 25]
+raices = list(map(math.sqrt, numeros))
+print(f"  map(sqrt, {numeros}) = {raices}")
+
+# Equivalente con comprehension:
+raices_comp = [math.sqrt(n) for n in numeros]
+print(f"  Comprehension: {raices_comp}")
+
+# ─── filter: filtrar elementos ───
+print("\n--- filter ---")
+numeros = list(range(-5, 6))
+positivos = list(filter(lambda x: x > 0, numeros))
+print(f"  filter(>0, {numeros})")
+print(f"  = {positivos}")
+
+# ─── reduce: acumular valor ───
+print("\n--- reduce ---")
+from functools import reduce
+
+numeros = [1, 2, 3, 4, 5]
+producto = reduce(lambda a, b: a * b, numeros)
+print(f"  reduce(*, {numeros}) = {producto}")  # 1*2*3*4*5 = 120
+
+# Equivalente imperativo:
+producto_loop = 1
+for n in numeros:
+    producto_loop *= n
+print(f"  Loop equivalente: {producto_loop}")
+
+"""
+RECOMENDACIÓN:
+  - map/filter → usa comprehensions (más legible en Python)
+  - reduce → usa funciones built-in (sum, max, min, math.prod)
+  - Solo usa map/filter cuando ya tienes una función nombrada:
+    list(map(str.upper, palabras))  # ← esto es legible
+    [p.upper() for p in palabras]   # ← esto también
+"""
+
+
+# ===========================================================================
+# CAPÍTULO 15: RESUMEN Y SIGUIENTE ARCHIVO
 # ===========================================================================
 
 """
@@ -739,11 +1072,13 @@ LO QUE HAS APRENDIDO:
    - bool hereda de int (True=1, False=0)
    - sum() de booleanos para contar True
    - Truthiness: falsy (0, None, vacío) vs truthy (todo lo demás)
+   - __bool__ y __len__ para definir truthiness personalizada
 
 2. COMPARACIONES:
    - ==, !=, <, >, <=, >=
    - Encadenamiento: 0 <= x <= 1
    - is vs == (identidad vs valor)
+   - Integer interning: Python cachea -5 a 256
 
 3. OPERADORES LÓGICOS:
    - and devuelve el primer falsy o el último valor
@@ -755,6 +1090,7 @@ LO QUE HAS APRENDIDO:
    - if / elif / else
    - Operador ternario: a if cond else b
    - match/case: pattern matching potente (Python 3.10+)
+   - Guard clauses: early return para evitar anidación
 
 5. BUCLES:
    - for sobre iterables (listas, range, dicts, strings)
@@ -770,9 +1106,11 @@ LO QUE HAS APRENDIDO:
 
 7. WALRUS: (n := expr) para asignar y usar en una expresión
 
-8. any() / all() para evaluación lógica de secuencias
+8. FUNCIONAL: map, filter, reduce (prefer comprehensions)
 
-SIGUIENTE ARCHIVO: 06_listas_profundo.py
+9. UTILIDADES: any(), all(), pass, Ellipsis, dict dispatch
+
+SIGUIENTE ARCHIVO: Módulo 02 → Estructuras de Datos
 → Listas como la estructura de datos fundamental
 → Todos los métodos
 → Slicing avanzado
@@ -780,3 +1118,4 @@ SIGUIENTE ARCHIVO: 06_listas_profundo.py
 → Complejidad de operaciones (Big O)
 → Listas en el contexto de datasets y batches de IA
 """
+

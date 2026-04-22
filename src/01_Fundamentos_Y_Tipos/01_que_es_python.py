@@ -925,6 +925,93 @@ entre identidad e igualdad.
 
 
 # ===========================================================================
+# CAPÍTULO 13: PIP — EL GESTOR DE PAQUETES
+# ===========================================================================
+
+"""
+pip es el gestor de paquetes estándar de Python.
+Permite instalar librerías de terceros desde PyPI (Python Package Index).
+
+COMANDOS ESENCIALES:
+"""
+
+# (Estos comandos se ejecutan en terminal, no en el script)
+
+# pip install nombre_paquete          → instalar
+# pip install nombre==1.2.3           → instalar versión específica
+# pip install nombre>=1.2             → instalar versión mínima
+# pip install -r requirements.txt     → instalar desde archivo
+# pip install --upgrade nombre        → actualizar
+# pip uninstall nombre                → desinstalar
+# pip list                            → ver paquetes instalados
+# pip freeze                          → formato para requirements.txt
+# pip show nombre                     → info de un paquete
+# pip install -e .                    → instalar en modo editable (desarrollo)
+
+"""
+BUENAS PRÁCTICAS CON PIP:
+  1. SIEMPRE instala dentro de un entorno virtual (.venv)
+  2. NUNCA uses sudo pip install — contamina el Python del sistema
+  3. Fija versiones en requirements.txt: numpy==2.0.1, NO numpy
+  4. Usa pip freeze > requirements.txt para generar el archivo
+  5. Separa dependencias de prod y dev:
+     - requirements.txt → lo que tu app NECESITA
+     - requirements-dev.txt → testing, linting, etc.
+
+PARA IA, estas son las librerías que instalarás más:
+  pip install numpy pandas matplotlib scikit-learn
+  pip install torch torchvision torchaudio
+  pip install transformers datasets tokenizers
+  pip install fastapi uvicorn
+"""
+
+
+# ===========================================================================
+# CAPÍTULO 14: EL IDIOM __name__ == '__main__'
+# ===========================================================================
+
+"""
+Este patrón es FUNDAMENTAL y lo verás en TODO proyecto Python.
+"""
+
+def main():
+    print("  Este es el punto de entrada principal")
+    print("  Solo se ejecuta si corres este archivo directamente")
+
+if __name__ == '__main__':
+    main()
+
+"""
+¿QUÉ SIGNIFICA?
+  Cuando Python ejecuta un archivo, le asigna un nombre especial:
+  
+  - Si lo ejecutas DIRECTAMENTE: __name__ = '__main__'
+      python 01_que_es_python.py
+      → __name__ es '__main__'
+  
+  - Si lo IMPORTAS desde otro archivo: __name__ = 'nombre_del_modulo'
+      import src.01_que_es_python
+      → __name__ es 'src.01_que_es_python'
+  
+  El bloque if __name__ == '__main__': solo se ejecuta si corres
+  el archivo directamente. Si lo importas, NO se ejecuta.
+
+¿POR QUÉ IMPORTA?
+  1. Permite que un archivo sea TANTO un script ejecutable como
+     un módulo importable.
+  
+  2. Evita que el código de ejemplo se ejecute al importar.
+  
+  3. Es la convención profesional en Python.
+
+  4. En IA, tus scripts de entrenamiento SIEMPRE deberían tener:
+     
+     if __name__ == '__main__':
+         train()
+"""
+
+
+# ===========================================================================
 # RESUMEN DE ESTE ARCHIVO
 # ===========================================================================
 
@@ -939,6 +1026,8 @@ LO QUE HAS APRENDIDO:
 6. Siempre crear entornos virtuales (.venv)
 7. Siempre tener estructura profesional de proyecto
 8. El Zen de Python: legibilidad, simplicidad, explicitud
+9. pip para instalar paquetes (SIEMPRE en .venv)
+10. if __name__ == '__main__': para código ejecutable
 
 ARCHIVO SIGUIENTE: 02_modelo_de_objetos.py
 → Cómo Python gestiona la memoria
@@ -947,3 +1036,4 @@ ARCHIVO SIGUIENTE: 02_modelo_de_objetos.py
 → Mutabilidad vs inmutabilidad
 → El corazón de cómo funciona Python
 """
+
