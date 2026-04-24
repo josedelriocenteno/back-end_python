@@ -871,6 +871,8 @@ print("\n=== BUENAS PRÁCTICAS NUMÉRICAS ===")
 4. Conoce los límites:
 """
 
+import sys;
+
 # Límites de float
 print(f"  Float max: {sys.float_info.max:.2e}")
 print(f"  Float min (positivo): {sys.float_info.min:.2e}")
