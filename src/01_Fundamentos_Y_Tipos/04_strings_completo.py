@@ -35,13 +35,13 @@ Un carácter es simplemente un string de longitud 1.
 print("=== CREACIÓN DE STRINGS ===")
 
 # Comillas simples y dobles son EQUIVALENTES
-s1 = 'hola'
+s1 = "hola"
 s2 = "hola"
 print(f"'hola' == \"hola\": {s1 == s2}")  # True
 
 # ¿Cuándo usar simples vs dobles?
 # → Usa la que te evite escapar comillas internas:
-dialogo = "Él dijo: 'esto funciona'"         # comillas dobles fuera
+dialogo = "Él dijo: 'esto funciona'"  # comillas dobles fuera
 html = '<div class="container">texto</div>'  # comillas simples fuera
 print(dialogo)
 print(html)
@@ -52,13 +52,15 @@ que ocupa varias líneas.
 Cada salto de línea se preserva."""
 print(f"\nString multilínea:\n{poema}")
 
+
 # También sirven para docstrings (documentación de funciones/clases)
 def mi_funcion():
     """Esta es la documentación de la función.
-    
+
     Puede ser multilínea y usa triple comillas.
     """
     pass
+
 
 print(f"\nDocstring de mi_funcion: {mi_funcion.__doc__}")
 
@@ -132,16 +134,16 @@ print(f"'🔥' ocupa {len(emoji.encode('utf-8'))} bytes en UTF-8")
 
 # ord() → carácter a code point
 # chr() → code point a carácter
-print(f"\nord('A') = {ord('A')}")          # 65
-print(f"ord('ñ') = {ord('ñ')}")          # 241
-print(f"ord('🔥') = {ord('🔥')}")        # 128293
-print(f"chr(65) = '{chr(65)}'")           # 'A'
-print(f"chr(241) = '{chr(241)}'")         # 'ñ'
-print(f"chr(128293) = '{chr(128293)}'")   # '🔥'
+print(f"\nord('A') = {ord('A')}")  # 65
+print(f"ord('ñ') = {ord('ñ')}")  # 241
+print(f"ord('🔥') = {ord('🔥')}")  # 128293
+print(f"chr(65) = '{chr(65)}'")  # 'A'
+print(f"chr(241) = '{chr(241)}'")  # 'ñ'
+print(f"chr(128293) = '{chr(128293)}'")  # '🔥'
 
 # Encoding y decoding
 texto = "Hola, 世界! 🌍"
-bytes_utf8 = texto.encode('utf-8')    # str → bytes
+bytes_utf8 = texto.encode("utf-8")  # str → bytes
 print(f"\nOriginal: '{texto}'")
 print(f"Encoded (UTF-8): {bytes_utf8}")
 print(f"Tipo: {type(bytes_utf8)}")
@@ -176,17 +178,17 @@ print("\n=== SECUENCIAS DE ESCAPE ===")
 
 # Las secuencias de escape comienzan con \
 print("Salto de línea: línea1\\nlínea2")
-print("Línea 1\nLínea 2")          # \n = nueva línea
-print("Tabulación:\taquí")          # \t = tabulación
-print("Barra invertida: \\")       # \\ = \
-print("Comilla simple: \'")        # \' = '
-print("Comilla doble: \"")         # \" = "
+print("Línea 1\nLínea 2")  # \n = nueva línea
+print("Tabulación:\taquí")  # \t = tabulación
+print("Barra invertida: \\")  # \\ = \
+print("Comilla simple: '")  # \' = '
+print('Comilla doble: "')  # \" = "
 print("Retorno carro: hola\rmundo")  # \r = retorno de carro
 
 # Caracteres Unicode por code point
-print(f"\\u00f1 = '\u00f1'")       # ñ (4 dígitos hex)
-print(f"\\U0001F525 = '\U0001F525'") # 🔥 (8 dígitos hex)
-print(f"\\N{{FIRE}} = '\N{FIRE}'")    # 🔥 (por nombre Unicode)
+print(f"\\u00f1 = '\u00f1'")  # ñ (4 dígitos hex)
+print(f"\\U0001F525 = '\U0001f525'")  # 🔥 (8 dígitos hex)
+print(f"\\N{{FIRE}} = '\N{FIRE}'")  # 🔥 (por nombre Unicode)
 
 # RAW STRINGS: ignoran secuencias de escape
 raw = r"C:\Users\nombre\archivo.txt"
@@ -228,10 +230,10 @@ print("\n=== INDEXACIÓN ===")
 
 s = "python"
 print(f"s = '{s}'")
-print(f"s[0]  = '{s[0]}'")    # 'p' — primer carácter
-print(f"s[1]  = '{s[1]}'")    # 'y'
-print(f"s[-1] = '{s[-1]}'")   # 'n' — último carácter
-print(f"s[-2] = '{s[-2]}'")   # 'o'
+print(f"s[0]  = '{s[0]}'")  # 'p' — primer carácter
+print(f"s[1]  = '{s[1]}'")  # 'y'
+print(f"s[-1] = '{s[-1]}'")  # 'n' — último carácter
+print(f"s[-2] = '{s[-2]}'")  # 'o'
 
 # Error si el índice NO existe:
 try:
@@ -253,16 +255,16 @@ print("\n=== SLICING ===")
 
 s = "inteligencia artificial"
 print(f"s = '{s}'")
-print(f"s[0:12]   = '{s[0:12]}'")     # 'inteligencia'
-print(f"s[13:]    = '{s[13:]}'")       # 'artificial'
-print(f"s[:12]    = '{s[:12]}'")       # 'inteligencia' (desde inicio)
-print(f"s[-10:]   = '{s[-10:]}'")      # 'artificial' (últimos 10)
-print(f"s[::2]    = '{s[::2]}'")       # 'itlgni riicl' (cada 2)
-print(f"s[::-1]   = '{s[::-1]}'")      # string invertido
+print(f"s[0:12]   = '{s[0:12]}'")  # 'inteligencia'
+print(f"s[13:]    = '{s[13:]}'")  # 'artificial'
+print(f"s[:12]    = '{s[:12]}'")  # 'inteligencia' (desde inicio)
+print(f"s[-10:]   = '{s[-10:]}'")  # 'artificial' (últimos 10)
+print(f"s[::2]    = '{s[::2]}'")  # 'itlgni riicl' (cada 2)
+print(f"s[::-1]   = '{s[::-1]}'")  # string invertido
 
 # Slicing NUNCA da error por índices fuera de rango:
-print(f"s[0:1000] = '{s[0:1000]}'")    # devuelve todo, sin error
-print(f"s[100:200]= '{s[100:200]}'")   # string vacío, sin error
+print(f"s[0:1000] = '{s[0:1000]}'")  # devuelve todo, sin error
+print(f"s[100:200]= '{s[100:200]}'")  # string vacío, sin error
 
 """
 SLICING EN IA:
@@ -339,7 +341,7 @@ tiempo_join = time.perf_counter() - start
 
 print(f"\nConcatenación: {tiempo_concat:.4f}s")
 print(f"join():        {tiempo_join:.6f}s")
-print(f"join() es ~{tiempo_concat/tiempo_join:.0f}x más rápido")
+print(f"join() es ~{tiempo_concat / tiempo_join:.0f}x más rápido")
 
 
 # ===========================================================================
@@ -400,12 +402,12 @@ print("\n--- Transformación de caso ---")
 
 s = "hOlA MuNdO de LA ia"
 
-print(f"upper():    '{s.upper()}'")       # 'HOLA MUNDO DE LA IA'
-print(f"lower():    '{s.lower()}'")       # 'hola mundo de la ia'
-print(f"title():    '{s.title()}'")       # 'Hola Mundo De La Ia'
-print(f"capitalize(): '{s.capitalize()}'")# 'Hola mundo de la ia'
-print(f"swapcase(): '{s.swapcase()}'")    # 'HoLa mUnDo DE la IA'
-print(f"casefold(): '{s.casefold()}'")    # como lower() pero más agresivo (Unicode)
+print(f"upper():    '{s.upper()}'")  # 'HOLA MUNDO DE LA IA'
+print(f"lower():    '{s.lower()}'")  # 'hola mundo de la ia'
+print(f"title():    '{s.title()}'")  # 'Hola Mundo De La Ia'
+print(f"capitalize(): '{s.capitalize()}'")  # 'Hola mundo de la ia'
+print(f"swapcase(): '{s.swapcase()}'")  # 'HoLa mUnDo DE la IA'
+print(f"casefold(): '{s.casefold()}'")  # como lower() pero más agresivo (Unicode)
 
 """
 casefold() vs lower():
@@ -421,13 +423,13 @@ texto multilingüe. Es más robusto para normalización.
 print("\n--- Limpieza y espacios ---")
 
 sucio = "  \t  Machine Learning  \n  "
-print(f"strip():  '{sucio.strip()}'")      # quita espacios/tabulaciones/newlines
-print(f"lstrip(): '{sucio.lstrip()}'")     # solo izquierda
-print(f"rstrip(): '{sucio.rstrip()}'")     # solo derecha
+print(f"strip():  '{sucio.strip()}'")  # quita espacios/tabulaciones/newlines
+print(f"lstrip(): '{sucio.lstrip()}'")  # solo izquierda
+print(f"rstrip(): '{sucio.rstrip()}'")  # solo derecha
 
 # strip con caracteres específicos:
 url = "///path/to/file///"
-print(f"strip('/'): '{url.strip('/')}'")   # 'path/to/file'
+print(f"strip('/'): '{url.strip('/')}'")  # 'path/to/file'
 
 # Reemplazo
 texto = "Python es lento, Python es fácil"
@@ -492,13 +494,13 @@ split() + join() es el DÚO MÁS USADO en procesamiento de texto:
 # ─── VALIDACIÓN DE CONTENIDO ───
 print("\n--- Validación de contenido ---")
 
-print(f"'42'.isdigit():    {'42'.isdigit()}")        # True
-print(f"'3.14'.isdigit():  {'3.14'.isdigit()}")      # False (tiene .)
-print(f"'abc'.isalpha():   {'abc'.isalpha()}")        # True
-print(f"'abc123'.isalnum():{'abc123'.isalnum()}")     # True (alfanumérico)
-print(f"'  '.isspace():    {'  '.isspace()}")         # True
-print(f"'ABC'.isupper():   {'ABC'.isupper()}")        # True
-print(f"'abc'.islower():   {'abc'.islower()}")        # True
+print(f"'42'.isdigit():    {'42'.isdigit()}")  # True
+print(f"'3.14'.isdigit():  {'3.14'.isdigit()}")  # False (tiene .)
+print(f"'abc'.isalpha():   {'abc'.isalpha()}")  # True
+print(f"'abc123'.isalnum():{'abc123'.isalnum()}")  # True (alfanumérico)
+print(f"'  '.isspace():    {'  '.isspace()}")  # True
+print(f"'ABC'.isupper():   {'ABC'.isupper()}")  # True
+print(f"'abc'.islower():   {'abc'.islower()}")  # True
 print(f"'Hello'.istitle():  {'Hello World'.istitle()}")  # True
 print(f"'var_name'.isidentifier(): {'var_name'.isidentifier()}")  # True
 print(f"'42var'.isidentifier(): {'42var'.isidentifier()}")  # False
@@ -510,7 +512,7 @@ titulo = "IA"
 print(f"center(20, '-'): '{titulo.center(20, '-')}'")
 print(f"ljust(20, '.'):  '{titulo.ljust(20, '.')}'")
 print(f"rjust(20, '.'):  '{titulo.rjust(20, '.')}'")
-print(f"zfill(5):        '{'42'.zfill(5)}'")   # '00042'
+print(f"zfill(5):        '{'42'.zfill(5)}'")  # '00042'
 
 
 # ===========================================================================
@@ -544,10 +546,10 @@ print(f"Es adulto: {edad >= 18}")
 print("\n--- Especificadores de formato ---")
 
 # Ancho y alineación
-print(f"{'Izquierda':<20}|")     # alinear izquierda
-print(f"{'Derecha':>20}|")       # alinear derecha
-print(f"{'Centrado':^20}|")      # centrar
-print(f"{'Relleno':*^20}|")      # centrar con relleno
+print(f"{'Izquierda':<20}|")  # alinear izquierda
+print(f"{'Derecha':>20}|")  # alinear derecha
+print(f"{'Centrado':^20}|")  # centrar
+print(f"{'Relleno':*^20}|")  # centrar con relleno
 
 # Números
 pi = 3.14159265358979
@@ -570,10 +572,10 @@ print(f"{num} con relleno: {num:08d}")  # 00000042
 print("\n--- Debug con f-strings (= syntax) ---")
 x = 42
 lista = [1, 2, 3]
-print(f"{x = }")              # x = 42
-print(f"{lista = }")          # lista = [1, 2, 3]
-print(f"{len(lista) = }")     # len(lista) = 3
-print(f"{x * 2 = }")         # x * 2 = 84
+print(f"{x = }")  # x = 42
+print(f"{lista = }")  # lista = [1, 2, 3]
+print(f"{len(lista) = }")  # len(lista) = 3
+print(f"{x * 2 = }")  # x * 2 = 84
 
 """
 El operador = en f-strings es ORO PURO para debugging:
@@ -640,20 +642,20 @@ NO son intercambiables. NO puedes mezclarlos sin convertir.
 
 print("\n=== STRINGS vs BYTES ===")
 
-texto = "Hola, 世界"           # str
-binario = b"Hello, World"       # bytes (solo ASCII)
+texto = "Hola, 世界"  # str
+binario = b"Hello, World"  # bytes (solo ASCII)
 
-print(f"type(texto):   {type(texto)}")     # <class 'str'>
-print(f"type(binario): {type(binario)}")   # <class 'bytes'>
+print(f"type(texto):   {type(texto)}")  # <class 'str'>
+print(f"type(binario): {type(binario)}")  # <class 'bytes'>
 
 # str → bytes: .encode()
-encoded = texto.encode('utf-8')
+encoded = texto.encode("utf-8")
 print(f"\n'{texto}' → {encoded}")
 print(f"Longitud str:   {len(texto)} caracteres")
 print(f"Longitud bytes: {len(encoded)} bytes")
 
 # bytes → str: .decode()
-decoded = encoded.decode('utf-8')
+decoded = encoded.decode("utf-8")
 print(f"\n{encoded} → '{decoded}'")
 
 # Error al mezclar:
@@ -698,6 +700,7 @@ print(f"'python'[::-1]: {'python'[::-1]}")
 
 # Contar caracteres
 from collections import Counter
+
 texto = "abracadabra"
 conteo = Counter(texto)
 print(f"\nConteo de '{texto}': {dict(conteo)}")
@@ -747,6 +750,7 @@ print(f"3. Normalizar espacios:\n   '{limpio[:60]}...'")
 
 # 4. Eliminar puntuación
 import string
+
 tabla_traduccion = str.maketrans("", "", string.punctuation + "¡¿")
 sin_puntuacion = limpio.translate(tabla_traduccion)
 print(f"4. Sin puntuación:\n   '{sin_puntuacion[:60]}...'")
@@ -757,11 +761,43 @@ print(f"5. Tokens: {tokens[:8]}...")
 print(f"   Total tokens: {len(tokens)}")
 
 # 6. Eliminar stopwords (palabras muy comunes sin significado)
-stopwords_es = {"de", "un", "es", "y", "el", "la", "en", "que", "los",
-                "del", "las", "se", "con", "no", "una", "su", "para",
-                "por", "al", "este", "como", "más", "pero", "sus",
-                "le", "ya", "o", "fue", "este", "ha", "sí", "tiene",
-                "aquí", "esto", "a"}
+stopwords_es = {
+    "de",
+    "un",
+    "es",
+    "y",
+    "el",
+    "la",
+    "en",
+    "que",
+    "los",
+    "del",
+    "las",
+    "se",
+    "con",
+    "no",
+    "una",
+    "su",
+    "para",
+    "por",
+    "al",
+    "este",
+    "como",
+    "más",
+    "pero",
+    "sus",
+    "le",
+    "ya",
+    "o",
+    "fue",
+    "este",
+    "ha",
+    "sí",
+    "tiene",
+    "aquí",
+    "esto",
+    "a",
+}
 
 tokens_filtrados = [t for t in tokens if t not in stopwords_es]
 print(f"6. Sin stopwords: {tokens_filtrados[:8]}...")
@@ -810,20 +846,20 @@ valor_float = 3.14159
 valor_pct = 0.8567
 
 print(f"  {'Formato':<20} {'Resultado':<20} {'Descripción'}")
-print(f"  {'-'*20} {'-'*20} {'-'*30}")
-print(f"  {{:d}}                {valor_int:d:<20} Entero")
-print(f"  {{:05d}}              {valor_int:05d:<20} Con ceros")
-print(f"  {{:+d}}               {valor_int:+d:<20} Con signo")
-print(f"  {{:.2f}}              {valor_float:.2f:<20} 2 decimales")
-print(f"  {{:.6f}}              {valor_float:.6f:<20} 6 decimales")
-print(f"  {{:10.2f}}            {valor_float:10.2f:<20} Ancho 10")
-print(f"  {{:.2e}}              {valor_float:.2e:<20} Científica")
-print(f"  {{:.2%}}              {valor_pct:.2%:<20} Porcentaje")
-print(f"  {{:,}}                {1234567:,:<20} Separador miles")
-print(f"  {{:_}}                {1234567:_:<20} Separador _")
-print(f"  {{:b}}                {valor_int:b:<20} Binario")
-print(f"  {{:x}}                {valor_int:x:<20} Hexadecimal")
-print(f"  {{:#x}}               {valor_int:#x:<20} Hex con 0x")
+print(f"  {'-' * 20} {'-' * 20} {'-' * 30}")
+print(f"  {{:d}}                {valor_int:<20d} Entero")
+print(f"  {{:05d}}              {valor_int:05d} Con ceros")
+print(f"  {{:+d}}               {valor_int:+<20d} Con signo")
+print(f"  {{:.2f}}              {valor_float:<20.2f} 2 decimales")
+print(f"  {{:.6f}}              {valor_float:<20.6f} 6 decimales")
+print(f"  {{:10.2f}}            {valor_float:<10.2f} Ancho 10")
+print(f"  {{:.2e}}              {valor_float:<20.2e} Científica")
+print(f"  {{:.2%}}              {valor_pct:<20.2%} Porcentaje")
+print(f"  {{:,}}                {1234567:<20,} Separador miles")
+print(f"  {{:_}}                {1234567:<20_} Separador _")
+print(f"  {{:b}}                {valor_int:<20b} Binario")
+print(f"  {{:x}}                {valor_int:<20x} Hexadecimal")
+print(f"  {{:#x}}               {valor_int:#<20x} Hex con 0x")
 
 """
 PATRÓN MUY ÚTIL EN IA — logging de entrenamiento:
@@ -902,12 +938,13 @@ print(f"  Prompt (sin indentación):\n{prompt}")
 # Método 1: lista + join (RECOMENDADO)
 partes = []
 for i in range(5):
-    partes.append(f"Epoch {i}: loss={0.5/(i+1):.4f}")
+    partes.append(f"Epoch {i}: loss={0.5 / (i + 1):.4f}")
 log = "\n".join(partes)
 print(f"\n  Log:\n{log}")
 
 # Método 2: io.StringIO para strings muy grandes
 import io
+
 buffer = io.StringIO()
 for i in range(5):
     buffer.write(f"Batch {i}: ")
@@ -954,4 +991,3 @@ ARCHIVO SIGUIENTE: 05_booleanos_logica_y_control.py
 → Operador ternario
 → Truthiness aplicada a flujo de control
 """
-
