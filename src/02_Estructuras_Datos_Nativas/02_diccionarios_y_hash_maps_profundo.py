@@ -6,7 +6,7 @@
 # ===========================================================================
 #
 # OBJETIVO ESTRUCTURAL Y PROFUNDIDAD DEFINITIVA (MIL LÍNEAS+):
-# Este documento aborda la estructura de datos madre absoluta de toda la 
+# Este documento aborda la estructura de datos madre absoluta de toda la
 # programación y de todo el estado de Machine Learning moderno: El Diccionario.
 # PyTorch State_Dicts, Archivos JSON, Configuración YAML, Pesos de Layers,
 # Vocabularios de NLP. Todo en la IA recae en los HashMap O(1) de Python.
@@ -37,6 +37,7 @@ import pickle
 import hashlib
 from typing import Dict, Any, Hashable, Union
 
+
 # Un perfilador para evidenciar los saltos matemáticos de RAM O(1).
 def perfilador_ram(func):
     def wrapper(*args, **kwargs):
@@ -46,8 +47,11 @@ def perfilador_ram(func):
         fin = time.perf_counter()
         current, peak = tracemalloc.get_traced_memory()
         tracemalloc.stop()
-        print(f"[RAM Profile] {func.__name__} | Tim: {(fin-start)*1000:.4f}ms | Variación RAM: {current / 1024:.2f} KB | Pico Expansión: {peak / 1024:.2f} KB")
+        print(
+            f"[RAM Profile] {func.__name__} | Tim: {(fin - start) * 1000:.4f}ms | Variación RAM: {current / 1024:.2f} KB | Pico Expansión: {peak / 1024:.2f} KB"
+        )
         return resultado
+
     return wrapper
 
 
@@ -88,12 +92,16 @@ print("\n--- Demostrando la Complejidad Estructural Base ---")
 diccionario_vacio = {}
 tamanio_base_dict = sys.getsizeof(diccionario_vacio)
 
-print(f"Diccionario Vacío de '{}' inicializa pre-reservando memoria: {tamanio_base_dict} Bytes")
-# Aproximadamente ~64 Bytes en Linux x86_64. 
+print(
+    f"Diccionario Vacío de '{{}}' inicializa pre-reservando memoria: {tamanio_base_dict} Bytes"
+)
+# Aproximadamente ~64 Bytes en Linux x86_64.
 # Esto incluye el header de CPython, refcounts, el array de índices base(8) pre-alocado.
 
 diccionario_elemental = {"LR": 0.001, "Epochs": 50, "Batch": 32}
-print(f"Diccionario con 3 campos Hiperparámetros pesa: {sys.getsizeof(diccionario_elemental)} Bytes")
+print(
+    f"Diccionario con 3 campos Hiperparámetros pesa: {sys.getsizeof(diccionario_elemental)} Bytes"
+)
 
 """
 PRECAUCIÓN DE RENDIMIENTO Y REDIMENSIONAMIENTO (DICT RESIZE CACHES):
@@ -117,16 +125,22 @@ colisiones_de_malloc = 0
 for i in range(100_000):
     mi_dicc_dinamico[f"Clave_Dinamica_{i}"] = i
     peso_actual = sys.getsizeof(mi_dicc_dinamico)
-    
+
     if peso_actual > peso_historico:
         # Imprimimos de las primeras 5 mudanzas para no polular logs.
         if colisiones_de_malloc < 5:
-            print(f"  [CPython Resize!] en Turno {i}. RAM saltó de {peso_historico/1024:.2f}KB -> {peso_actual/1024:.2f}KB.")
-        colisiones_de_malloc +=1
+            print(
+                f"  [CPython Resize!] en Turno {i}. RAM saltó de {peso_historico / 1024:.2f}KB -> {peso_actual / 1024:.2f}KB."
+            )
+        colisiones_de_malloc += 1
         peso_historico = peso_actual
-        
-print(f"  ... (Log Cortado) ... \n  Total de Recalculados y Resizes de Memoria: {colisiones_de_malloc} veces.")
-print("  Moraleja MLOps: Construye Diccionarios por Comprensión Glogal si puedes en vez de Inyectar Punteros Unitarios en bucles Millonarios.")
+
+print(
+    f"  ... (Log Cortado) ... \n  Total de Recalculados y Resizes de Memoria: {colisiones_de_malloc} veces."
+)
+print(
+    "  Moraleja MLOps: Construye Diccionarios por Comprensión Glogal si puedes en vez de Inyectar Punteros Unitarios en bucles Millonarios."
+)
 
 
 print("\n" + "=" * 80)
@@ -149,25 +163,33 @@ Python NO USA "LINEAR PROBING".
 # j = (5*j) + 1 + perturb;
 # perturb >>= 5;
 
+
 def simulacion_pseudo_aleatoria_reparto_cpython(hash_colision_obj, tam_tabla=8):
     """
-    Función educacional para denotar cómo Python aleja la basura de colisiones 
+    Función educacional para denotar cómo Python aleja la basura de colisiones
     espaciando cuadráticamente para evitar clusters trampa continuos (El fallo del Linear Probing).
     """
-    j = hash_colision_obj % tam_tabla 
+    j = hash_colision_obj % tam_tabla
     perturb = hash_colision_obj
-    print(f"  [Simulacro Probe] -> Slot Incial Buscado HASH-CLASH: {j} (Asumiremos que está LLENO)")
-    
-    for iterador_resolutivo in range(1, 6): # Probe Depth Search Fallback
+    print(
+        f"  [Simulacro Probe] -> Slot Incial Buscado HASH-CLASH: {j} (Asumiremos que está LLENO)"
+    )
+
+    for iterador_resolutivo in range(1, 6):  # Probe Depth Search Fallback
         # Formula Mágica de CPython perturb shift
-        j = ((5 * j) + 1 + perturb) 
-        perturb >>= 5 # Bitwise Shift R. (División logica // 32 de C).
+        j = (5 * j) + 1 + perturb
+        perturb >>= 5  # Bitwise Shift R. (División logica // 32 de C).
         j_modulo = j % tam_tabla
-        print(f"   |-- Rebote Colisión {iterador_resolutivo}: Python Intenta escribir/encontrar en Slot [{j_modulo}]")
+        print(
+            f"   |-- Rebote Colisión {iterador_resolutivo}: Python Intenta escribir/encontrar en Slot [{j_modulo}]"
+        )
+
 
 simulacion_pseudo_aleatoria_reparto_cpython(hash("NLP_Colision_Token"), 32)
 
-print("\n(Este motor garantiza estadísticamente que nunca el Dictionary degradará tu Big-O a O(N) catastrófico).")
+print(
+    "\n(Este motor garantiza estadísticamente que nunca el Dictionary degradará tu Big-O a O(N) catastrófico)."
+)
 
 
 print("\n" + "=" * 80)
@@ -188,18 +210,14 @@ hemos roto la Integridad Hash de C. Cpython prohibe mutables.
 print("\n--- Fallo Catastrófico de Diseño Tensor Array como Keys ---")
 # En Deep Learning, podrías intentar asociar una matriz 1D a un estado de Score...
 try:
-    arr_mutante_tensor = [0, 0, 0, 1] 
-    dict_falla = {
-        arr_mutante_tensor: "Score_Perfecto"
-    }
+    arr_mutante_tensor = [0, 0, 0, 1]
+    dict_falla = {arr_mutante_tensor: "Score_Perfecto"}
 except TypeError as error_grave:
-    print(error_grave) # "unhashable type: 'list'"
+    print(error_grave)  # "unhashable type: 'list'"
 
 # LA SOLUCIÓN EXPERTA IA (Tuplas de Cast Limpio):
 arr_mutante_tensor_tuplificado = tuple([0, 0, 0, 1])
-dict_funciona_excelente = {
-    arr_mutante_tensor_tuplificado: "Score Perfecto! [0,0,0,1]"
-}
+dict_funciona_excelente = {arr_mutante_tensor_tuplificado: "Score Perfecto! [0,0,0,1]"}
 print(f"\nConversión a Inmutable Hashable Correcta: {dict_funciona_excelente}")
 
 
@@ -215,21 +233,28 @@ y mandará 1 Millón de punteros diminutos.
 
 # Vamos a generar dinámicamente dos cadenas que son matemáticamente iguales.
 a_key_str = "generative_ai"
-b_key_str = "".join(['g','e','n','e','r','a','t','i','v','e','_','a','i'])
+b_key_str = "".join(["g", "e", "n", "e", "r", "a", "t", "i", "v", "e", "_", "a", "i"])
 
-print(f"Los dos objetos strings son iguales en Contenedor (a == b) ?: {a_key_str == b_key_str}")
+print(
+    f"Los dos objetos strings son iguales en Contenedor (a == b) ?: {a_key_str == b_key_str}"
+)
 
-# Usamos sys.intern() para forzarlo manualmente si fuera muy complejo, pero 
+# Usamos sys.intern() para forzarlo manualmente si fuera muy complejo, pero
 # para chars ascii directos ocurren maravillas, pero al ser Creados via Join Dinámico,
 # B_key_str ES UN OBJETO C DISTINTO RAM (A is B -> False).
-print(f"Los dos objetos son misma memoria RAM por defecto de unión dinámica? : {a_key_str is b_key_str}")
+print(
+    f"Los dos objetos son misma memoria RAM por defecto de unión dinámica? : {a_key_str is b_key_str}"
+)
 
 import sys
+
 b_key_str_internado_via_sys = sys.intern(b_key_str)
 a_key_str_internado_via_sys = sys.intern(a_key_str)
-print(f"Interned Malloc A equals Inerned Malloc B (Unificación Hash Absoluta)? : {a_key_str_internado_via_sys is b_key_str_internado_via_sys}")
+print(
+    f"Interned Malloc A equals Inerned Malloc B (Unificación Hash Absoluta)? : {a_key_str_internado_via_sys is b_key_str_internado_via_sys}"
+)
 
-# ESTO HACE QUE UN DICCIONARIO BUSQUE EN NS UN STRING. PORQUE NUNCA LEE CARACTER POR CARACTER, COMPARA 
+# ESTO HACE QUE UN DICCIONARIO BUSQUE EN NS UN STRING. PORQUE NUNCA LEE CARACTER POR CARACTER, COMPARA
 # LA ID RAM EXCLUSIVA HASH INTERNED (Pointer O(1) Eq).
 
 
@@ -242,7 +267,12 @@ Hay 5 (CINCO!) maneras de Instanciar un Diccionario de Memoria C en Python.
 Las diseccionaremos para ver su consumo de Tiempo y por qué la gente abusa de KWARGS.
 """
 
-lista_tup_dataset = [("batch_size", 32), ("epochs", 100), ("optimizer", "adam"), ("lr", 0.001)]
+lista_tup_dataset = [
+    ("batch_size", 32),
+    ("epochs", 100),
+    ("optimizer", "adam"),
+    ("lr", 0.001),
+]
 
 print("\n--- Las 5 Facciones CPythoniales ---")
 
@@ -261,9 +291,13 @@ list_values = [32, 100, "adam", 0.001]
 metodo_4_zippeado = dict(zip(list_claves, list_values))
 
 # 5. Dict Comprehension (Filtros C-level Aplicables Inline, Super Herramienta IA).
-metodo_5_comprehensado = { clave: valor for clave, valor in zip(list_claves, list_values) if clave != "lr" }
+metodo_5_comprehensado = {
+    clave: valor for clave, valor in zip(list_claves, list_values) if clave != "lr"
+}
 
-print(f"Métrico Dict Comprehension (Expulsó LR condicionalmente): {metodo_5_comprehensado}")
+print(
+    f"Métrico Dict Comprehension (Expulsó LR condicionalmente): {metodo_5_comprehensado}"
+)
 
 # Mención Honorable 1: Múltiples Inicios .fromkeys(). Rápido llenado None O(N) Array.
 claves_necesarias_api = ["api_key", "secret_hash", "token_lifespan_ms", "user_access"]
@@ -289,8 +323,10 @@ config_aws_s3_download = {"bucket": "ia-dataset-3", "key": "train.csv", "timeout
 
 # MÉTODO GET. (Clave, Valor_Por_Defecto_De_Fallback).
 # ValorFallback = None si no lo especificas. Si no encuentra la key, no revienta, devuelve el backup Fallback.
-intentos_redireccion = config_aws_s3_download.get("max_retries", 3)  
-print(f"Get Extracción Bypass Return-Safe: Intentos definidos por Paracaidas Local: {intentos_redireccion}")
+intentos_redireccion = config_aws_s3_download.get("max_retries", 3)
+print(
+    f"Get Extracción Bypass Return-Safe: Intentos definidos por Paracaidas Local: {intentos_redireccion}"
+)
 
 print("\n--- Patrón SetDefault (La inyección y Extracción Simultánea C) ---")
 # Cuando inicializamos Contadores de Vocabulario Textos NLP. Un pipeline cuenta palabras.
@@ -299,20 +335,26 @@ print("\n--- Patrón SetDefault (La inyección y Extracción Simultánea C) ---"
 vocabularios_frecuencia_dict = {"el": 5003, "en": 300, "python": 40}
 
 # ESTILO LENTO PYTHONICO (2 Hits de Búsqueda de Memoria O(1) * 2 = O(2)):
-if "artificial" not in vocabularios_frecuencia_dict: # PRIMERA BUSQUEDA EN RAM
-    vocabularios_frecuencia_dict["artificial"] = 0   # PRIMERA INYECCION, SEGUNDO GOLPE DE RAM.
-vocabularios_frecuencia_dict["artificial"] += 1      # TERCER GOLPE RAM (EXTRAER) Y CUARTO RAM INYECTR 1.
+if "artificial" not in vocabularios_frecuencia_dict:  # PRIMERA BUSQUEDA EN RAM
+    vocabularios_frecuencia_dict["artificial"] = (
+        0  # PRIMERA INYECCION, SEGUNDO GOLPE DE RAM.
+    )
+vocabularios_frecuencia_dict["artificial"] += (
+    1  # TERCER GOLPE RAM (EXTRAER) Y CUARTO RAM INYECTR 1.
+)
 
 # ESTILO SENIOR (C-LEVEL SETDEFAULT y Operaciones Compuestas)
 # SetDefault -> Golpea una sola vez a nivel C. ¿No está artificial_2? Metemelo en C a 0 e Inmediatamente devuelvelo!
 valor_retornado_seguro = vocabularios_frecuencia_dict.setdefault("artificial_2", 0)
-vocabularios_frecuencia_dict["artificial_2"] += 1  
+vocabularios_frecuencia_dict["artificial_2"] += 1
 
-print(f"Técnnica SetDefault Instanciatura Rápida: {vocabularios_frecuencia_dict['artificial_2']}")
+print(
+    f"Técnnica SetDefault Instanciatura Rápida: {vocabularios_frecuencia_dict['artificial_2']}"
+)
 
 
 print("\n" + "=" * 80)
-print("=== CAPÍTULO 6: LAS "VISTAS" DINÁMICAS (VIEW OBJECTS DEL DICCIONARIO) ===")
+print('=== CAPÍTULO 6: LAS "VISTAS" DINÁMICAS (VIEW OBJECTS DEL DICCIONARIO) ===')
 print("=" * 80)
 
 """
@@ -337,16 +379,22 @@ ventanas_valores = dict_dataset_splits_tamaños.values()
 ventanas_pares_items = dict_dataset_splits_tamaños.items()
 
 print(f"Ventana Lógica (No copia RAM): {type(ventanas_claves)} = {ventanas_claves}")
-print(f"Peso del Dictionary Matrix (Padre): {sys.getsizeof(dict_dataset_splits_tamaños)} bytes")
-print(f"Peso de la ViewKeys Array (Ventana Hija): {sys.getsizeof(ventanas_claves)} bytes (Es bajísimo e irrisorio porque es inmaterial!)")
+print(
+    f"Peso del Dictionary Matrix (Padre): {sys.getsizeof(dict_dataset_splits_tamaños)} bytes"
+)
+print(
+    f"Peso de la ViewKeys Array (Ventana Hija): {sys.getsizeof(ventanas_claves)} bytes (Es bajísimo e irrisorio porque es inmaterial!)"
+)
 
 print("\n--- El Fenónomeno Mágico: Actualizaciones En Tiempo Real (Live View) ---")
-# Una lista clonada se quedaría Atada al pasado si el Origen Muta. 
+# Una lista clonada se quedaría Atada al pasado si el Origen Muta.
 # La VISTA muta a la par que el objeto base en Milisegundos Cero Delay.
 
 dict_dataset_splits_tamaños["dev"] = 15_000
 
-print(f"Nuevas Claves Vistas Mágicamente Actualizadas tras Inyección Externa Ciega!! : {ventanas_claves}")
+print(
+    f"Nuevas Claves Vistas Mágicamente Actualizadas tras Inyección Externa Ciega!! : {ventanas_claves}"
+)
 
 """
 PELIGRO EXTREMO: RuntimeError Exception - Dictionary Size Changed During Iteration.
@@ -356,28 +404,32 @@ La Tabla C de Python se destrozará porque el índice Puntero sobrecargará o ca
 Alerta! CPython intercepta este Error Cataclísmico Lógico lanzdo una Excpeción que rompre Inmediatamente tu APP.
 """
 
-print("\n--- ¿Cómo elimino Items Dinámicos de un Dict iterativamente para purgarlo en IA? ---")
+print(
+    "\n--- ¿Cómo elimino Items Dinámicos de un Dict iterativamente para purgarlo en IA? ---"
+)
 
 purga_target = {"perro": 19, "gato": 5, "lapiz": 1}
 
 # ERROR ESTUARDO (RuntimeError garantizado en tu consola que rompe el entrenamiento LLM):
 # for clave in purga_target.keys():
-#   if purga_target[clave] < 10: 
-#        del purga_target[clave] 
+#   if purga_target[clave] < 10:
+#        del purga_target[clave]
 
 # FORMA SEGURA CIENTÍFICA: Materializamos temporalmente La Vista a una LISTA de RAM Independiente,
 # y esa lista se reitera libre y pacíficamnente purgada.
 
 # El `list()` forza a Python a Congelar los Items Actuales En una Pila de Datos Ram Independiente!
-for clave_segura in list(purga_target.keys()): 
+for clave_segura in list(purga_target.keys()):
     if purga_target[clave_segura] < 10:
-        del purga_target[clave_segura] # Destripamos sin miedo el Origen!
+        del purga_target[clave_segura]  # Destripamos sin miedo el Origen!
 
 print(f"Diccionario Correctamente Purgado y Vacunado O(N Copy): {purga_target}")
 
 
 print("\n" + "=" * 80)
-print("=== CAPÍTULO 7: EL FENÓMENO PEP-584 FUSIÓN DE CONFIGS DE MODELOS (PIPELINING) ===")
+print(
+    "=== CAPÍTULO 7: EL FENÓMENO PEP-584 FUSIÓN DE CONFIGS DE MODELOS (PIPELINING) ==="
+)
 print("=" * 80)
 
 """
@@ -392,8 +444,17 @@ Usarlo es mandatorio en ML Ops.
 """
 print("\n--- Pipeline Config Merging Moderno Pythonic (Pipe Operators) ---")
 
-hiperparametros_base = {"modelo": "ResNet18", "epocas": 50, "lr": 0.01, "optimizador": "sgd"}
-hiperparametros_custom = {"lr": 0.0005, "optimizador": "adamw_8bit", "scheduller": "cosine"}
+hiperparametros_base = {
+    "modelo": "ResNet18",
+    "epocas": 50,
+    "lr": 0.01,
+    "optimizador": "sgd",
+}
+hiperparametros_custom = {
+    "lr": 0.0005,
+    "optimizador": "adamw_8bit",
+    "scheduller": "cosine",
+}
 
 # Queremos Combinar Base y Custom. Dando Pioridad Máestra a los Customs Sobre los Bases!
 # Si colisionan los parametros, ¿Quien gana? El que esté a la derecha domina CPython y sobrescribe con Blood-Prio.
@@ -407,14 +468,18 @@ print(f"Fusión Perfecta Generativa 3.9+: \n {configuracion_final_mergeada}")
 
 print("\n--- Destrucción Controlada Update In-Place (Operadores Asignadores) ---")
 # ¿Y si no quiero fundar una Config_3 Inmacualada Extra que Malloc consuma mis Mbytes RAMS extras?
-# Acuchillo In-Place Base. 
+# Acuchillo In-Place Base.
 
 hiperparametros_base |= hiperparametros_custom
-print(f"El Operador de asignacion (`|=`) es idéntico C-Layer a `hiper_b.update(hiper_c)` \n Resaltado Origen Updateado In Place O(N): \n {hiperparametros_base}")
+print(
+    f"El Operador de asignacion (`|=`) es idéntico C-Layer a `hiper_b.update(hiper_c)` \n Resaltado Origen Updateado In Place O(N): \n {hiperparametros_base}"
+)
 
 
 print("\n" + "=" * 80)
-print("=== CAPÍTULO 8: MATRIZ DE DECSION IF-ELIF EXTINCTION (DISPATCH MAPS PATTERN) ===")
+print(
+    "=== CAPÍTULO 8: MATRIZ DE DECSION IF-ELIF EXTINCTION (DISPATCH MAPS PATTERN) ==="
+)
 print("=" * 80)
 
 """
@@ -434,28 +499,44 @@ Diccionarios mapeados a funciones (First-Class Objects Referenciados O(1)).
 
 print("\n--- The Elegant Strategy O(1) Calling Flow ---")
 
-def engine_hablar():   return "(Agente Hablando Pipeline Tensor NLP Output...)"
-def engine_matar():    return "(Invocando Tool-Call Gun System Agentic...)"
-def engine_observar(): return "(Activando Computer Vision CV2 YoloV9 ObjDetect...)"
-def engine_default():  return "(Error IA Logica Interna Fallida del LLM. Herramienta Not Found.)"
+
+def engine_hablar():
+    return "(Agente Hablando Pipeline Tensor NLP Output...)"
+
+
+def engine_matar():
+    return "(Invocando Tool-Call Gun System Agentic...)"
+
+
+def engine_observar():
+    return "(Activando Computer Vision CV2 YoloV9 ObjDetect...)"
+
+
+def engine_default():
+    return "(Error IA Logica Interna Fallida del LLM. Herramienta Not Found.)"
+
 
 # Un Diccionaro puede apuntar (Values Pointer) a Funciones Mismas de Python Core en lugar de Numeros!
 ACCIONES_DEL_AGENTE_TABLA_IA = {
     "speakTool": engine_hablar,
     "killTool": engine_matar,
-    "observeTool": engine_observar
+    "observeTool": engine_observar,
 }
 
 comando_enviado_por_LLM = "observeTool"
 
 # RESOLUCIÓN MILISEGUNDO DE INTELIGENCIA Y DISPARO SIN "IF" ALGUNO O(1).
-resultado_del_engine_directo = ACCIONES_DEL_AGENTE_TABLA_IA.get(comando_enviado_por_LLM, engine_default)()
+resultado_del_engine_directo = ACCIONES_DEL_AGENTE_TABLA_IA.get(
+    comando_enviado_por_LLM, engine_default
+)()
 # Paréntesis Extras Mágicos Finales Invocan Pushing Local C-Call () El Callback Escupido ! O(1) Extracción y Execution!
 print(f"Logica Neural Engine Exito Directo: {resultado_del_engine_directo}")
 
 
 print("\n" + "=" * 80)
-print("=== CAPÍTULO 9: INDEXACIÓN INVERTIDA A BASE DICCIONARIOS PARA BUSQUEDAS EN RAG (O(1)) ===")
+print(
+    "=== CAPÍTULO 9: INDEXACIÓN INVERTIDA A BASE DICCIONARIOS PARA BUSQUEDAS EN RAG (O(1)) ==="
+)
 print("=" * 80)
 
 """
@@ -473,13 +554,15 @@ Extracción Cero Latence.
 doc_db_simulacional = {
     "Doc1": "el gato duerme",
     "Doc2": "la IA es peligrosa a veces",
-    "Doc3": "el gato IA despierta super poderoso de repente inteligente"
+    "Doc3": "el gato IA despierta super poderoso de repente inteligente",
 }
 
-indexado_invertido_nlp = {} # Mapeo Lexical
+indexado_invertido_nlp = {}  # Mapeo Lexical
 
 for id_del_doc, texto_del_doc_completo in doc_db_simulacional.items():
-    las_palabras_tokenizadas_crudamente = set(texto_del_doc_completo.split()) # Purificamos duplicados internos locales O(1).
+    las_palabras_tokenizadas_crudamente = set(
+        texto_del_doc_completo.split()
+    )  # Purificamos duplicados internos locales O(1).
     for la_palabra in las_palabras_tokenizadas_crudamente:
         # Usa SET DEFAULT para setear con LISTA u SET limpio en la base para ir Sumando IDs de Docs!!
         if la_palabra not in indexado_invertido_nlp:
@@ -487,8 +570,12 @@ for id_del_doc, texto_del_doc_completo in doc_db_simulacional.items():
         indexado_invertido_nlp[la_palabra].add(id_del_doc)
 
 print("\n--- Búsqueda Inversa Indexada SuperVeloz NLP Algoritmic Core ---")
-print(f"Extraccion de Vocablo Inverso C ['IA'] -> Documentos Encontrados Instantaneamente: {indexado_invertido_nlp.get('IA', set())} ")
-print(f"Extraccion Lexical C ['gato'] -> Multi-Documentos Matching Sets O(1): {indexado_invertido_nlp.get('gato', set())} ")
+print(
+    f"Extraccion de Vocablo Inverso C ['IA'] -> Documentos Encontrados Instantaneamente: {indexado_invertido_nlp.get('IA', set())} "
+)
+print(
+    f"Extraccion Lexical C ['gato'] -> Multi-Documentos Matching Sets O(1): {indexado_invertido_nlp.get('gato', set())} "
+)
 # Nota: Obviamente en 2026 usamos Postgres_Vector / PG_vector / ChromaDB o Elasticsearch, pero su core matemático es exactamente ESTE (Suma Index Trie / Dictonarys).
 
 
@@ -511,7 +598,12 @@ PyTorch.load usa en el Back-end el módulo Pickle y miles de repositoriso open s
 
 print("\n--- La Serializacion JSON Estándar Nativa Rápida (C-Level Dump Hooks) ---")
 
-config_ml_cloud_dict = {"learning": None, "boolsive": True, "epochs_runs": 55, "stringt_metadata": "Config_11A"}
+config_ml_cloud_dict = {
+    "learning": None,
+    "boolsive": True,
+    "epochs_runs": 55,
+    "stringt_metadata": "Config_11A",
+}
 json_payload = json.dumps(config_ml_cloud_dict, indent=2)
 
 print(" -> Jsonificado de Dict:")
@@ -520,13 +612,18 @@ print(json_payload)
 print("\n--- Archivo Pickle (Binario Obj Dumping Persistent Bytes) ---")
 
 serializado_byte__picklesiano_bruto = pickle.dumps(config_ml_cloud_dict)
-print(f"Pura Serialización Binara C Dump Pickled Dict State : \n{serializado_byte__picklesiano_bruto[:45]} [...]")
-print("!Esta basura indescifrable Bytecode puede cargar Clases/Funciones Peligrosas! CUIDADO IA Hackers.")
+print(
+    f"Pura Serialización Binara C Dump Pickled Dict State : \n{serializado_byte__picklesiano_bruto[:45]} [...]"
+)
+print(
+    "!Esta basura indescifrable Bytecode puede cargar Clases/Funciones Peligrosas! CUIDADO IA Hackers."
+)
 
 # DeSerializacion:
 reconstruyido = pickle.loads(serializado_byte__picklesiano_bruto)
-print(f"Deserializando Obj Python... Comprobando Valor Extraído: {reconstruyido['boolsive']}")
-
+print(
+    f"Deserializando Obj Python... Comprobando Valor Extraído: {reconstruyido['boolsive']}"
+)
 
 
 print("\n" + "=" * 80)
@@ -550,8 +647,7 @@ min_val = min(features_raw.values())
 max_val = max(features_raw.values())
 
 features_normalizadas = {
-    k: (v - min_val) / (max_val - min_val) 
-    for k, v in features_raw.items()
+    k: (v - min_val) / (max_val - min_val) for k, v in features_raw.items()
 }
 print(f"Features raw: {features_raw}")
 print(f"Normalizadas: {features_normalizadas}")
@@ -561,11 +657,11 @@ print("\n--- Filtrado de hiperparámetros activos ---")
 
 config_completa = {
     "learning_rate": 0.001,
-    "dropout": 0.0,       # Desactivado (0.0)
+    "dropout": 0.0,  # Desactivado (0.0)
     "weight_decay": 0.01,
-    "momentum": 0.0,      # Desactivado (0.0)
+    "momentum": 0.0,  # Desactivado (0.0)
     "epochs": 100,
-    "patience": 0,        # Desactivado (0)
+    "patience": 0,  # Desactivado (0)
 }
 
 # Solo parámetros con valores activos (no cero)
@@ -576,7 +672,14 @@ print(f"Config activa (sin ceros): {config_activa}")
 print("\n--- Inversión de diccionarios (swap keys/values) ---")
 
 # Útil para mapeos bidireccionales en NLP (id->token, token->id)
-vocab_token_a_id = {"[PAD]": 0, "[UNK]": 1, "[CLS]": 2, "[SEP]": 3, "gato": 4, "perro": 5}
+vocab_token_a_id = {
+    "[PAD]": 0,
+    "[UNK]": 1,
+    "[CLS]": 2,
+    "[SEP]": 3,
+    "gato": 4,
+    "perro": 5,
+}
 
 # Invertir: id -> token
 vocab_id_a_token = {v: k for k, v in vocab_token_a_id.items()}
@@ -600,21 +703,12 @@ print("\n--- Flatten recursivo de dict multinivel ---")
 config_profunda = {
     "model": {
         "name": "transformer",
-        "layers": {
-            "encoder": 12,
-            "decoder": 12,
-            "hidden_size": 768
-        },
-        "attention": {
-            "heads": 12,
-            "dropout": 0.1
-        }
+        "layers": {"encoder": 12, "decoder": 12, "hidden_size": 768},
+        "attention": {"heads": 12, "dropout": 0.1},
     },
-    "training": {
-        "batch_size": 32,
-        "optimizer": "adamw"
-    }
+    "training": {"batch_size": 32, "optimizer": "adamw"},
 }
+
 
 def flatten_dict(d: dict, parent_key: str = "", sep: str = ".") -> dict:
     """
@@ -630,6 +724,7 @@ def flatten_dict(d: dict, parent_key: str = "", sep: str = ".") -> dict:
             items[new_key] = v
     return items
 
+
 config_plana = flatten_dict(config_profunda)
 print(f"Config anidada aplanada:")
 for clave, valor in config_plana.items():
@@ -637,6 +732,7 @@ for clave, valor in config_plana.items():
 
 
 print("\n--- Reconstrucción (unflatten) desde claves con puntos ---")
+
 
 def unflatten_dict(d: dict, sep: str = ".") -> dict:
     """Reconstruye un dict anidado desde claves con notación de puntos."""
@@ -650,6 +746,7 @@ def unflatten_dict(d: dict, sep: str = ".") -> dict:
             objetivo = objetivo[parte]
         objetivo[partes[-1]] = valor
     return resultado
+
 
 reconstruida = unflatten_dict(config_plana)
 print(f"\nReconstruida iguala a la original: {reconstruida == config_profunda}")
@@ -671,6 +768,7 @@ print("\n--- Simulación de state_dict de una red neuronal ---")
 
 # Simulamos pesos como listas (en realidad serían tensores NumPy/PyTorch)
 import random
+
 random.seed(42)
 
 state_dict_simulado = {
@@ -716,6 +814,7 @@ Tres usos principales:
 
 print("\n--- **kwargs: captura de argumentos arbitrarios ---")
 
+
 def entrenar_modelo(modelo: str, epochs: int, **kwargs):
     """
     Función flexible que acepta cualquier hiperparámetro adicional.
@@ -723,11 +822,12 @@ def entrenar_modelo(modelo: str, epochs: int, **kwargs):
     """
     print(f"  Modelo: {modelo}, Epochs: {epochs}")
     print(f"  Hiperparámetros extra: {kwargs}")
-    
+
     # Acceder a kwargs como un dict normal
     lr = kwargs.get("learning_rate", 0.001)
     optimizer = kwargs.get("optimizer", "adam")
     print(f"  LR resuelto: {lr}, Optimizer: {optimizer}")
+
 
 entrenar_modelo("BERT", 10, learning_rate=0.0005, optimizer="adamw", warmup_steps=1000)
 
@@ -871,18 +971,21 @@ config_interna_mutable["epochs"] = 100
 print(f"Reflejado desde el original: {config_publica.get('epochs')}")
 print(f"  -> MappingProxyType es una VISTA, no una copia.")
 
+
 # Patrón de producción: exponer la proxy, mantener el original privado
 class ModelRegistry:
     """Registro de modelos con configuraciones protegidas."""
+
     def __init__(self):
         self._configs = {}
-    
+
     def register(self, name: str, config: dict):
         self._configs[name] = config.copy()
-    
+
     def get_config(self, name: str):
         """Retorna config como solo lectura."""
         return MappingProxyType(self._configs[name])
+
 
 registry = ModelRegistry()
 registry.register("bert", {"lr": 0.001, "layers": 12})
@@ -904,7 +1007,7 @@ configuraciones o detectar diferencias entre modelos.
 print("\n--- Comparación de configs de dos experimentos ---")
 
 exp_a = {"lr": 0.001, "batch_size": 32, "epochs": 50, "optimizer": "adam"}
-exp_b = {"lr": 0.01,  "batch_size": 64, "epochs": 50, "scheduler": "cosine"}
+exp_b = {"lr": 0.01, "batch_size": 64, "epochs": 50, "scheduler": "cosine"}
 
 # Claves comunes (intersección)
 claves_comunes = exp_a.keys() & exp_b.keys()
@@ -969,11 +1072,7 @@ registros = [
     {"tipo": "error", "mensaje": "GPU memory overflow"},
 ]
 
-metricas_encontradas = [
-    v 
-    for reg in registros 
-    if (v := reg.get("valor")) is not None
-]
+metricas_encontradas = [v for reg in registros if (v := reg.get("valor")) is not None]
 print(f"Métricas extraídas con walrus: {metricas_encontradas}")
 
 
@@ -1017,4 +1116,6 @@ Resumen Definitivo MLOps Core Hash Maps:
 
 Con esto, has destruido y conquistado la estructura de Diccionarios.
 """
-print(" FIN DE ARQUIVO 02_diccionarios_hashmaps. Python MLOps Framework Cerrado Exhaustivo.")
+print(
+    " FIN DE ARQUIVO 02_diccionarios_hashmaps. Python MLOps Framework Cerrado Exhaustivo."
+)
