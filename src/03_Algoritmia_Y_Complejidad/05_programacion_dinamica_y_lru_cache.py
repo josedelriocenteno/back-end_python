@@ -6,7 +6,7 @@
 # ===========================================================================
 #
 # OBJETIVO (1000+ LÍNEAS):
-# Entender la programación dinámica NO como un truco académico sino como 
+# Entender la programación dinámica NO como un truco académico sino como
 # una TÉCNICA DE INGENIERÍA que aparece constantemente en ML:
 # - Algoritmo de Viterbi (HMM, CRF).
 # - Beam search (generación de texto).
@@ -86,13 +86,17 @@ CON DP: O(N) — cada subproblema se calcula UNA sola vez.
 
 print("\n--- Fibonacci RECURSIVO (O(2^N)) ---")
 
+
 def fib_recursivo(n: int) -> int:
     if n <= 1:
         return n
     return fib_recursivo(n - 1) + fib_recursivo(n - 2)
 
+
 # Contar llamadas
 call_count = 0
+
+
 def fib_recursivo_count(n: int) -> int:
     global call_count
     call_count += 1
@@ -100,15 +104,19 @@ def fib_recursivo_count(n: int) -> int:
         return n
     return fib_recursivo_count(n - 1) + fib_recursivo_count(n - 2)
 
+
 for n in [10, 20, 25, 30]:
     call_count = 0
     inicio = time.perf_counter()
     result = fib_recursivo_count(n)
     t = time.perf_counter() - inicio
-    print(f"  fib({n:>2}) = {result:>10,}  llamadas: {call_count:>12,}  tiempo: {t*1000:.2f} ms")
+    print(
+        f"  fib({n:>2}) = {result:>10,}  llamadas: {call_count:>12,}  tiempo: {t * 1000:.2f} ms"
+    )
 
 
 print("\n--- Fibonacci TOP-DOWN con @lru_cache (O(N)) ---")
+
 
 @lru_cache(maxsize=None)
 def fib_memo(n: int) -> int:
@@ -116,52 +124,59 @@ def fib_memo(n: int) -> int:
         return n
     return fib_memo(n - 1) + fib_memo(n - 2)
 
-for n in [10, 50, 100, 500, 1000]:
+
+for n in [10, 50, 100, 500]:
     fib_memo.cache_clear()
     inicio = time.perf_counter()
     result = fib_memo(n)
     t = time.perf_counter() - inicio
     cache_info = fib_memo.cache_info()
-    print(f"  fib({n:>4}) = {str(result)[:15]:>15}...  "
-          f"hits={cache_info.hits:>6}  misses={cache_info.misses:>6}  "
-          f"tiempo: {t*1000:.4f} ms")
+    print(
+        f"  fib({n:>4}) = {str(result)[:15]:>15}...  "
+        f"hits={cache_info.hits:>6}  misses={cache_info.misses:>6}  "
+        f"tiempo: {t * 1000:.4f} ms"
+    )
 
 
 print("\n--- Fibonacci BOTTOM-UP con tabulación (O(N)) ---")
+
 
 def fib_tabla(n: int) -> int:
     """Bottom-up: sin recursión, sin riesgo de stack overflow."""
     if n <= 1:
         return n
-    
+
     tabla = [0] * (n + 1)
     tabla[1] = 1
-    
+
     for i in range(2, n + 1):
         tabla[i] = tabla[i - 1] + tabla[i - 2]
-    
+
     return tabla[n]
+
 
 # Con N muy grande, bottom-up no tiene límite de recursión
 for n in [10, 100, 1000, 10000]:
     inicio = time.perf_counter()
     result = fib_tabla(n)
     t = time.perf_counter() - inicio
-    print(f"  fib_tabla({n:>5}) = {str(result)[:15]:>15}...  tiempo: {t*1000:.4f} ms")
+    print(f"  fib_tabla({n:>5}) = {str(result)[:15]:>15}...  tiempo: {t * 1000:.4f} ms")
 
 
 print("\n--- Fibonacci ESPACIO OPTIMIZADO O(1) ---")
+
 
 def fib_optimo(n: int) -> int:
     """O(N) tiempo, O(1) espacio: solo necesitamos los 2 últimos valores."""
     if n <= 1:
         return n
-    
+
     prev2, prev1 = 0, 1
     for _ in range(2, n + 1):
         prev2, prev1 = prev1, prev2 + prev1
-    
+
     return prev1
+
 
 print(f"\n  fib_optimo(1000): {str(fib_optimo(1000))[:20]}... (O(1) espacio)")
 
@@ -186,11 +201,13 @@ Pero la INTERPRETACIÓN es diferente:
 - stairs(N-2): las formas de llegar a N-2 (luego subes 2).
 """
 
+
 @cache
 def climbing_stairs(n: int) -> int:
     if n <= 2:
         return n
     return climbing_stairs(n - 1) + climbing_stairs(n - 2)
+
 
 for n in [5, 10, 20, 50]:
     print(f"  Formas de subir {n:>2} escalones: {climbing_stairs(n):>15,}")
@@ -215,53 +232,61 @@ Complejidad: O(monto × len(monedas)).
 
 print("\n--- Coin Change: top-down con memoización ---")
 
+
 def coin_change_memo(monedas: list, monto: int) -> int:
     """Mínimo número de monedas para llegar a monto."""
-    
+
     @cache
     def dp(restante: int) -> int:
         if restante == 0:
             return 0
         if restante < 0:
-            return float('inf')
-        
-        minimo = float('inf')
+            return float("inf")
+
+        minimo = float("inf")
         for moneda in monedas:
             resultado = dp(restante - moneda)
-            if resultado != float('inf'):
+            if resultado != float("inf"):
                 minimo = min(minimo, resultado + 1)
-        
-        return minimo
-    
-    resultado = dp(monto)
-    return resultado if resultado != float('inf') else -1
 
-print(f"  Monedas [1,5,10,25], monto=36: {coin_change_memo([1,5,10,25], 36)} monedas")
-print(f"  Monedas [1,5,10,25], monto=30: {coin_change_memo([1,5,10,25], 30)} monedas")
+        return minimo
+
+    resultado = dp(monto)
+    return resultado if resultado != float("inf") else -1
+
+
+print(
+    f"  Monedas [1,5,10,25], monto=36: {coin_change_memo([1, 5, 10, 25], 36)} monedas"
+)
+print(
+    f"  Monedas [1,5,10,25], monto=30: {coin_change_memo([1, 5, 10, 25], 30)} monedas"
+)
 print(f"  Monedas [2], monto=3: {coin_change_memo([2], 3)} (imposible)")
 
 
 print("\n--- Coin Change: bottom-up ---")
 
+
 def coin_change_tabla(monedas: list, monto: int) -> int:
     """Bottom-up. O(monto × len(monedas)) tiempo, O(monto) espacio."""
-    dp = [float('inf')] * (monto + 1)
+    dp = [float("inf")] * (monto + 1)
     dp[0] = 0
-    
+
     for i in range(1, monto + 1):
         for moneda in monedas:
-            if moneda <= i and dp[i - moneda] != float('inf'):
+            if moneda <= i and dp[i - moneda] != float("inf"):
                 dp[i] = min(dp[i], dp[i - moneda] + 1)
-    
-    return dp[monto] if dp[monto] != float('inf') else -1
 
-print(f"\n  Bottom-up [1,5,10,25], monto=36: {coin_change_tabla([1,5,10,25], 36)}")
+    return dp[monto] if dp[monto] != float("inf") else -1
+
+
+print(f"\n  Bottom-up [1,5,10,25], monto=36: {coin_change_tabla([1, 5, 10, 25], 36)}")
 
 # Benchmark
 inicio = time.perf_counter()
 coin_change_tabla([1, 5, 10, 25, 50], 9999)
 t = time.perf_counter() - inicio
-print(f"  [1,5,10,25,50], monto=9999: tiempo = {t*1000:.2f} ms")
+print(f"  [1,5,10,25,50], monto=9999: tiempo = {t * 1000:.2f} ms")
 
 
 print("\n" + "=" * 80)
@@ -286,22 +311,23 @@ Complejidad: O(N × M) donde N, M = longitudes de los strings.
 
 print("\n--- Edit Distance implementado ---")
 
+
 def edit_distance(s1: str, s2: str) -> int:
     """
     Calcula la distancia de Levenshtein entre s1 y s2.
     Bottom-up DP. O(N × M) tiempo, O(N × M) espacio.
     """
     n, m = len(s1), len(s2)
-    
+
     # Tabla de (n+1) × (m+1)
     dp = [[0] * (m + 1) for _ in range(n + 1)]
-    
+
     # Casos base
     for i in range(n + 1):
         dp[i][0] = i  # Eliminar todos los caracteres de s1
     for j in range(m + 1):
         dp[0][j] = j  # Insertar todos los caracteres de s2
-    
+
     # Llenar tabla
     for i in range(1, n + 1):
         for j in range(1, m + 1):
@@ -309,12 +335,13 @@ def edit_distance(s1: str, s2: str) -> int:
                 dp[i][j] = dp[i - 1][j - 1]  # Caracteres iguales, sin coste
             else:
                 dp[i][j] = 1 + min(
-                    dp[i - 1][j],     # Eliminar
-                    dp[i][j - 1],     # Insertar
-                    dp[i - 1][j - 1]  # Reemplazar
+                    dp[i - 1][j],  # Eliminar
+                    dp[i][j - 1],  # Insertar
+                    dp[i - 1][j - 1],  # Reemplazar
                 )
-    
+
     return dp[n][m]
+
 
 # Ejemplos
 pares = [
@@ -332,13 +359,14 @@ for s1, s2 in pares:
 
 print("\n--- Edit Distance optimizado en espacio O(M) ---")
 
+
 def edit_distance_optimizado(s1: str, s2: str) -> int:
     """O(N × M) tiempo, O(M) espacio: solo necesitamos la fila anterior."""
     n, m = len(s1), len(s2)
-    
+
     prev = list(range(m + 1))
     curr = [0] * (m + 1)
-    
+
     for i in range(1, n + 1):
         curr[0] = i
         for j in range(1, m + 1):
@@ -347,8 +375,9 @@ def edit_distance_optimizado(s1: str, s2: str) -> int:
             else:
                 curr[j] = 1 + min(prev[j], curr[j - 1], prev[j - 1])
         prev, curr = curr, prev
-    
+
     return prev[m]
+
 
 # Benchmark
 s1_bench = "inteligencia artificial para machine learning con python"
@@ -363,8 +392,8 @@ d2 = edit_distance_optimizado(s1_bench, s2_bench)
 t2 = time.perf_counter() - inicio
 
 print(f"\n  Distancia: {d1} (ambos métodos: {d1 == d2})")
-print(f"  O(N×M) espacio: {t1*1000:.2f} ms")
-print(f"  O(M) espacio:   {t2*1000:.2f} ms")
+print(f"  O(N×M) espacio: {t1 * 1000:.2f} ms")
+print(f"  O(M) espacio:   {t2 * 1000:.2f} ms")
 
 
 print("\n" + "=" * 80)
@@ -385,20 +414,21 @@ EN NLP:
 
 print("\n--- LCS implementado ---")
 
+
 def lcs(s1: str, s2: str) -> str:
     """Retorna la LCS de dos strings. O(N × M)."""
     n, m = len(s1), len(s2)
-    
+
     # Tabla de longitudes
     dp = [[0] * (m + 1) for _ in range(n + 1)]
-    
+
     for i in range(1, n + 1):
         for j in range(1, m + 1):
             if s1[i - 1] == s2[j - 1]:
                 dp[i][j] = dp[i - 1][j - 1] + 1
             else:
                 dp[i][j] = max(dp[i - 1][j], dp[i][j - 1])
-    
+
     # Reconstruir la LCS
     result = []
     i, j = n, m
@@ -411,8 +441,9 @@ def lcs(s1: str, s2: str) -> str:
             i -= 1
         else:
             j -= 1
-    
-    return ''.join(reversed(result))
+
+    return "".join(reversed(result))
+
 
 print(f"  LCS('ABCBDAB', 'BDCABA') = '{lcs('ABCBDAB', 'BDCABA')}'")
 print(f"  LCS('python', 'pytorch') = '{lcs('python', 'pytorch')}'")
@@ -453,18 +484,20 @@ PYTHON 3.9+: @cache es equivalente a @lru_cache(maxsize=None).
 
 print("\n--- lru_cache con maxsize limitado ---")
 
+
 @lru_cache(maxsize=4)
 def consulta_costosa(query: str) -> str:
     """Simula una función costosa (ej: llamada a API, DB query)."""
     time.sleep(0.01)  # Simular latencia
     return f"resultado_para_{query}"
 
+
 # Primera ronda: todo son misses
 for q in ["BERT", "GPT", "T5", "RoBERTa"]:
     inicio = time.perf_counter()
     consulta_costosa(q)
     t = time.perf_counter() - inicio
-    print(f"  '{q}': {t*1000:.1f} ms", end="")
+    print(f"  '{q}': {t * 1000:.1f} ms", end="")
     print(f" (MISS)" if t > 5 else f" (HIT)")
 
 # Segunda ronda: todo son hits
@@ -472,7 +505,7 @@ for q in ["BERT", "GPT", "T5", "RoBERTa"]:
     inicio = time.perf_counter()
     consulta_costosa(q)
     t = time.perf_counter() - inicio
-    print(f"  '{q}': {t*1000:.1f} ms (HIT)")
+    print(f"  '{q}': {t * 1000:.1f} ms (HIT)")
 
 # Insertar uno nuevo: expulsa al LRU
 consulta_costosa("LLaMA")
@@ -482,7 +515,7 @@ print(f"\n  Tras insertar 'LLaMA': {consulta_costosa.cache_info()}")
 inicio = time.perf_counter()
 consulta_costosa("BERT")
 t = time.perf_counter() - inicio
-print(f"  'BERT' de nuevo: {t*1000:.1f} ms (fue EXPULSADO, es MISS)")
+print(f"  'BERT' de nuevo: {t * 1000:.1f} ms (fue EXPULSADO, es MISS)")
 
 consulta_costosa.cache_clear()
 
@@ -497,18 +530,20 @@ Patrones comunes en producción con lru_cache.
 
 print("\n--- Patrón 1: Cachear cómputos de features ---")
 
+
 @lru_cache(maxsize=1024)
 def extraer_features(texto: str) -> tuple:
     """
     Simula la extracción de features de un texto.
     En producción, esto podría ser un embedding de BERT.
     Cacheamos porque el mismo texto produce las mismas features.
-    
+
     NOTA: retornamos TUPLA porque las listas no son hashables.
     """
     # Simulación simple
     palabras = texto.lower().split()
     return tuple(len(p) for p in palabras)
+
 
 textos = ["el gato negro", "el perro blanco", "el gato negro", "la casa azul"]
 for t in textos:
@@ -528,11 +563,13 @@ lru_cache requiere argumentos hashables. ¿Qué hacer con listas/dicts?
 Solución: convertir a TUPLA o FROZENSET antes de llamar.
 """
 
+
 @lru_cache(maxsize=128)
 def procesar_config(config_tuple: tuple) -> dict:
     """Procesa una configuración (recibida como tupla de pares key-value)."""
     config = dict(config_tuple)
     return {"procesado": True, "n_params": len(config), **config}
+
 
 # Convertir dict a tupla de items para hacerlo hashable
 config = {"lr": 0.001, "epochs": 10, "batch_size": 32}
@@ -548,37 +585,39 @@ procesar_config.cache_clear()
 
 print("\n--- Patrón 3: Invalidación selectiva (wrapper) ---")
 
+
 class CachedComputer:
     """
     Wrapper que permite invalidar entradas específicas del caché.
     lru_cache nativo solo permite cache_clear() (todo o nada).
     """
-    
+
     def __init__(self, maxsize=128):
         self._cache = {}
         self._maxsize = maxsize
-    
+
     def compute(self, key: str) -> float:
         if key in self._cache:
             return self._cache[key]
-        
+
         # Cómputo costoso simulado
         result = hash(key) % 1000 / 1000
-        
+
         if len(self._cache) >= self._maxsize:
             # Eliminar la entrada más antigua (FIFO simple)
             oldest = next(iter(self._cache))
             del self._cache[oldest]
-        
+
         self._cache[key] = result
         return result
-    
+
     def invalidate(self, key: str):
         """Invalida una entrada específica."""
         self._cache.pop(key, None)
-    
+
     def stats(self):
         return f"Cache size: {len(self._cache)}/{self._maxsize}"
+
 
 cc = CachedComputer(maxsize=5)
 for k in ["a", "b", "c", "a", "d", "e", "f"]:
@@ -613,6 +652,7 @@ EN ML (Feature Selection como Knapsack):
 
 print("\n--- 0/1 Knapsack bottom-up ---")
 
+
 def knapsack(pesos: list, valores: list, capacidad: int) -> tuple:
     """
     0/1 Knapsack. O(N × W) tiempo y espacio.
@@ -620,16 +660,15 @@ def knapsack(pesos: list, valores: list, capacidad: int) -> tuple:
     """
     n = len(pesos)
     dp = [[0] * (capacidad + 1) for _ in range(n + 1)]
-    
+
     for i in range(1, n + 1):
         for w in range(capacidad + 1):
             # No incluir item i
             dp[i][w] = dp[i - 1][w]
             # Incluir item i (si cabe)
             if pesos[i - 1] <= w:
-                dp[i][w] = max(dp[i][w], 
-                              dp[i - 1][w - pesos[i - 1]] + valores[i - 1])
-    
+                dp[i][w] = max(dp[i][w], dp[i - 1][w - pesos[i - 1]] + valores[i - 1])
+
     # Reconstruir la solución
     items = []
     w = capacidad
@@ -637,12 +676,13 @@ def knapsack(pesos: list, valores: list, capacidad: int) -> tuple:
         if dp[i][w] != dp[i - 1][w]:
             items.append(i - 1)
             w -= pesos[i - 1]
-    
+
     return dp[n][capacidad], items[::-1]
+
 
 # Feature selection como Knapsack
 features = [
-    ("embedding_dim_768", 50, 85),   # (nombre, coste_ms, importancia)
+    ("embedding_dim_768", 50, 85),  # (nombre, coste_ms, importancia)
     ("word_count", 1, 30),
     ("sentiment_score", 20, 60),
     ("tfidf_vector", 30, 75),
@@ -663,7 +703,9 @@ print(f"Valor máximo alcanzable: {valor_max}")
 print(f"Features seleccionadas:")
 coste_total = 0
 for idx in seleccionados:
-    print(f"  {nombres[idx]:<20} coste={costes[idx]:>3}ms  importancia={importancias[idx]}")
+    print(
+        f"  {nombres[idx]:<20} coste={costes[idx]:>3}ms  importancia={importancias[idx]}"
+    )
     coste_total += costes[idx]
 print(f"Coste total: {coste_total}ms / {presupuesto_ms}ms")
 
@@ -683,14 +725,16 @@ Esto es una aplicación directa de Edit Distance + DP.
 
 print("\n--- Spell Checker ---")
 
+
 class SpellChecker:
     """Corrector ortográfico basado en Edit Distance."""
-    
+
     def __init__(self, diccionario: list[str]):
         self.diccionario = diccionario
-    
-    def corregir(self, palabra: str, max_distancia: int = 3, 
-                 top_k: int = 5) -> list[tuple[str, int]]:
+
+    def corregir(
+        self, palabra: str, max_distancia: int = 3, top_k: int = 5
+    ) -> list[tuple[str, int]]:
         """
         Retorna las top_k palabras más cercanas con distancia <= max_distancia.
         """
@@ -699,23 +743,58 @@ class SpellChecker:
             d = edit_distance_optimizado(palabra.lower(), palabra_dict.lower())
             if d <= max_distancia:
                 candidatos.append((palabra_dict, d))
-        
+
         # Ordenar por distancia, luego alfabéticamente
         candidatos.sort(key=lambda x: (x[1], x[0]))
         return candidatos[:top_k]
 
+
 # Diccionario de términos ML
 diccionario_ml = [
-    "python", "pytorch", "tensorflow", "transformer", "attention",
-    "embedding", "tokenizer", "encoder", "decoder", "gradient",
-    "backpropagation", "optimization", "regularization", "dropout",
-    "convolution", "recurrent", "generative", "discriminative",
-    "classification", "regression", "clustering", "dimensionality",
-    "overfitting", "underfitting", "hyperparameter", "validation",
-    "inference", "training", "evaluation", "deployment",
-    "pipeline", "preprocessing", "feature", "dataset",
-    "batch", "epoch", "learning", "neural", "network",
-    "model", "weight", "bias", "activation", "softmax",
+    "python",
+    "pytorch",
+    "tensorflow",
+    "transformer",
+    "attention",
+    "embedding",
+    "tokenizer",
+    "encoder",
+    "decoder",
+    "gradient",
+    "backpropagation",
+    "optimization",
+    "regularization",
+    "dropout",
+    "convolution",
+    "recurrent",
+    "generative",
+    "discriminative",
+    "classification",
+    "regression",
+    "clustering",
+    "dimensionality",
+    "overfitting",
+    "underfitting",
+    "hyperparameter",
+    "validation",
+    "inference",
+    "training",
+    "evaluation",
+    "deployment",
+    "pipeline",
+    "preprocessing",
+    "feature",
+    "dataset",
+    "batch",
+    "epoch",
+    "learning",
+    "neural",
+    "network",
+    "model",
+    "weight",
+    "bias",
+    "activation",
+    "softmax",
 ]
 
 checker = SpellChecker(diccionario_ml)
@@ -751,6 +830,7 @@ o la subsecuencia de features que maximiza la correlación.
 
 print("\n--- Kadane's Algorithm ---")
 
+
 def max_subarray(arr: list) -> tuple:
     """
     Retorna (suma_máxima, inicio, fin) del subarray con mayor suma.
@@ -760,33 +840,37 @@ def max_subarray(arr: list) -> tuple:
     current_sum = arr[0]
     start = end = 0
     temp_start = 0
-    
+
     for i in range(1, len(arr)):
         if current_sum + arr[i] < arr[i]:
             current_sum = arr[i]
             temp_start = i
         else:
             current_sum += arr[i]
-        
+
         if current_sum > max_sum:
             max_sum = current_sum
             start = temp_start
             end = i
-    
+
     return max_sum, start, end
+
 
 datos_kadane = [-2, 1, -3, 4, -1, 2, 1, -5, 4]
 suma, ini, fin = max_subarray(datos_kadane)
 print(f"Array: {datos_kadane}")
-print(f"Max subarray: {datos_kadane[ini:fin+1]}, suma = {suma}")
+print(f"Max subarray: {datos_kadane[ini : fin + 1]}, suma = {suma}")
 
 # Caso ML: retornos de un modelo a lo largo del tiempo
 import random
+
 random.seed(42)
 retornos = [random.gauss(0.01, 0.1) for _ in range(100)]
 suma_max, ini, fin = max_subarray(retornos)
-print(f"\nMejor racha de retornos: posiciones [{ini}, {fin}], "
-      f"ganancia acum = {suma_max:.4f}")
+print(
+    f"\nMejor racha de retornos: posiciones [{ini}, {fin}], "
+    f"ganancia acum = {suma_max:.4f}"
+)
 
 
 print("\n" + "=" * 80)
@@ -805,6 +889,7 @@ EN ML: encontrar la tendencia creciente más larga en métricas de training.
 
 print("\n--- LIS con DP O(N²) ---")
 
+
 def lis_dp(arr: list) -> tuple:
     """
     Longest Increasing Subsequence.
@@ -814,17 +899,17 @@ def lis_dp(arr: list) -> tuple:
     n = len(arr)
     dp = [1] * n
     parent = [-1] * n
-    
+
     for i in range(1, n):
         for j in range(i):
             if arr[j] < arr[i] and dp[j] + 1 > dp[i]:
                 dp[i] = dp[j] + 1
                 parent[i] = j
-    
+
     # Encontrar el final de la LIS
     max_len = max(dp)
     end_idx = dp.index(max_len)
-    
+
     # Reconstruir
     lis = []
     idx = end_idx
@@ -832,8 +917,9 @@ def lis_dp(arr: list) -> tuple:
         lis.append(arr[idx])
         idx = parent[idx]
     lis.reverse()
-    
+
     return max_len, lis
+
 
 datos_lis = [10, 9, 2, 5, 3, 7, 101, 18]
 longitud, subsec = lis_dp(datos_lis)
@@ -845,6 +931,7 @@ print("\n--- LIS con búsqueda binaria O(N log N) ---")
 
 import bisect
 
+
 def lis_binario(arr: list) -> int:
     """
     LIS usando patience sorting + bisect.
@@ -852,20 +939,22 @@ def lis_binario(arr: list) -> int:
     Retorna solo la longitud (reconstruir requiere más trabajo).
     """
     tails = []  # tails[i] = menor valor final de LIS de longitud i+1
-    
+
     for x in arr:
         pos = bisect.bisect_left(tails, x)
         if pos == len(tails):
             tails.append(x)
         else:
             tails[pos] = x
-    
+
     return len(tails)
+
 
 print(f"\nLIS binario: longitud = {lis_binario(datos_lis)}")
 
 # Benchmark
 import time
+
 random.seed(42)
 datos_grandes = [random.randint(1, 10000) for _ in range(5000)]
 
@@ -877,7 +966,7 @@ inicio = time.perf_counter()
 lis_binario(datos_grandes)
 t_bin = time.perf_counter() - inicio
 
-print(f"N=5000: DP O(N²)={t_dp*1000:.1f}ms  Binario O(N log N)={t_bin*1000:.2f}ms")
+print(f"N=5000: DP O(N²)={t_dp * 1000:.1f}ms  Binario O(N log N)={t_bin * 1000:.2f}ms")
 
 
 print("\n" + "=" * 80)
@@ -897,6 +986,7 @@ ROUGE-L:
 
 print("\n--- Implementación de ROUGE-L ---")
 
+
 def rouge_l(referencia: str, generado: str) -> dict:
     """
     Calcula ROUGE-L entre una referencia y un texto generado.
@@ -904,25 +994,28 @@ def rouge_l(referencia: str, generado: str) -> dict:
     """
     ref_tokens = referencia.lower().split()
     gen_tokens = generado.lower().split()
-    
+
     # Calcular longitud de LCS
     n, m = len(ref_tokens), len(gen_tokens)
     dp = [[0] * (m + 1) for _ in range(n + 1)]
-    
+
     for i in range(1, n + 1):
         for j in range(1, m + 1):
-            if ref_tokens[i-1] == gen_tokens[j-1]:
-                dp[i][j] = dp[i-1][j-1] + 1
+            if ref_tokens[i - 1] == gen_tokens[j - 1]:
+                dp[i][j] = dp[i - 1][j - 1] + 1
             else:
-                dp[i][j] = max(dp[i-1][j], dp[i][j-1])
-    
+                dp[i][j] = max(dp[i - 1][j], dp[i][j - 1])
+
     lcs_len = dp[n][m]
-    
+
     precision = lcs_len / m if m > 0 else 0
     recall = lcs_len / n if n > 0 else 0
-    f1 = 2 * precision * recall / (precision + recall) if (precision + recall) > 0 else 0
-    
+    f1 = (
+        2 * precision * recall / (precision + recall) if (precision + recall) > 0 else 0
+    )
+
     return {"precision": precision, "recall": recall, "f1": f1, "lcs_length": lcs_len}
+
 
 ref = "el modelo transformer utiliza atención para procesar secuencias"
 gen1 = "el transformer usa atención para procesar datos en secuencias"
@@ -932,8 +1025,10 @@ for gen in [gen1, gen2]:
     scores = rouge_l(ref, gen)
     print(f"\n  Ref: '{ref}'")
     print(f"  Gen: '{gen}'")
-    print(f"  ROUGE-L: P={scores['precision']:.3f}  R={scores['recall']:.3f}  "
-          f"F1={scores['f1']:.3f}  (LCS={scores['lcs_length']})")
+    print(
+        f"  ROUGE-L: P={scores['precision']:.3f}  R={scores['recall']:.3f}  "
+        f"F1={scores['f1']:.3f}  (LCS={scores['lcs_length']})"
+    )
 
 
 print("\n" + "=" * 80)
@@ -1008,4 +1103,3 @@ FIN DEL MÓDULO 03: ALGORITMIA Y COMPLEJIDAD COMPUTACIONAL.
 print("\n FIN DE ARCHIVO 05_programacion_dinamica_y_lru_cache.")
 print(" El módulo de algoritmia está COMPLETO.")
 print(" Siguiente módulo: 04_Funciones_Flujo_Y_Funcional.")
-
