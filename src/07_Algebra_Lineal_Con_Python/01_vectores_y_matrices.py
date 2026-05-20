@@ -25,6 +25,10 @@
 import numpy as np
 import time
 
+# NumPy es la biblioteca central para algebra lineal en Python.
+# Trabaja con arrays multidimensionales que son mucho mas rapidos
+# y eficientes que las listas nativas de Python.
+
 
 # =====================================================================
 #   PARTE 1: ESCALARES, VECTORES, MATRICES, TENSORES
@@ -40,10 +44,15 @@ Vector:   1 dimension. Lista de numeros.      np.array([1, 2, 3])
 Matriz:   2 dimensiones. Tabla de numeros.    np.array([[1,2],[3,4]])
 Tensor:   N dimensiones. Generalizacion.      np.array([[[1,2],[3,4]]])
 
+NOTA IMPORTANTE:
+- La dimension (ndim) indica cuantas "coordenadas" necesitarias
+  para escoger un elemento.
+- El shape indica el tamano de cada dimension.
+
 EN ML:
-- Escalar: learning rate, loss.
+- Escalar: learning rate, loss, bias de una neurona.
 - Vector: embedding de una palabra, features de una muestra.
-- Matriz: batch de embeddings, pesos de una capa.
+- Matriz: batch de embeddings, pesos de una capa, datos tabulares.
 - Tensor 3D: secuencia de embeddings (batch, seq_len, embed_dim).
 - Tensor 4D: imagen (batch, channels, height, width).
 """
@@ -55,10 +64,21 @@ vector = np.array([1.0, 2.0, 3.0])
 matriz = np.array([[1, 2, 3], [4, 5, 6]])
 tensor_3d = np.random.randn(2, 3, 4)  # batch=2, seq=3, dim=4
 
-for nombre, arr in [("Escalar", escalar), ("Vector", vector),
-                     ("Matriz", matriz), ("Tensor 3D", tensor_3d)]:
-    print(f"  {nombre}: shape={arr.shape}, ndim={arr.ndim}, "
-          f"dtype={arr.dtype}, size={arr.size}")
+# Recorremos cada objeto para mostrar sus propiedades.
+# shape = dimensiones de cada eje.
+# ndim  = numero de ejes.
+# dtype = tipo de datos numericos.
+# size  = numero total de elementos.
+for nombre, arr in [
+    ("Escalar", escalar),
+    ("Vector", vector),
+    ("Matriz", matriz),
+    ("Tensor 3D", tensor_3d),
+]:
+    print(
+        f"  {nombre}: shape={arr.shape}, ndim={arr.ndim}, "
+        f"dtype={arr.dtype}, size={arr.size}"
+    )
 
 
 # =====================================================================
@@ -75,7 +95,12 @@ NumPy ofrece multiples formas de crear arrays optimizados.
 
 print("\n--- Funciones de creacion ---")
 
-# Zeros, ones, full
+# NumPy provee funciones rapidas para crear arrays.
+# Estas funciones son utiles cuando queremos iniciar
+# datos antes de calcular o entrenar modelos.
+# - zeros: array lleno de ceros.
+# - ones: array lleno de unos.
+# - full: array lleno de un valor fijo.
 zeros = np.zeros((3, 4))
 ones = np.ones((2, 3))
 full = np.full((2, 2), 7.0)
@@ -155,6 +180,8 @@ print(f"  a = {a}")
 print(f"  b = {b}")
 print(f"  a + b = {a + b}")
 print(f"  a - b = {a - b}")
+# En NumPy, la multiplicacion * entre vectores es elemento a elemento.
+# Para multiplicacion de vectores reales como producto escalar se usa np.dot o @.
 print(f"  a * b (elemento) = {a * b}")  # NO es producto matricial
 print(f"  a / b (elemento) = {a / b}")
 
@@ -162,31 +189,48 @@ print(f"  a / b (elemento) = {a / b}")
 print("\n--- Producto escalar (dot product) ---")
 
 """
-dot(a, b) = sum(a_i * b_i) = |a| * |b| * cos(theta)
+El producto escalar combina dos vectores del mismo tamanio.
+La formula es:
+    dot(a, b) = sum_i (a_i * b_i)
 
-EN ML: similaridad entre embeddings.
+En geometria, dot(a,b) = |a|*|b|*cos(theta), donde theta es el angulo.
+- Si es cercano a 0, los vectores son similares (angulo pequeño).
+- Si es cercano a 0, cos(theta)=0, vectores orthogonales.
+- Si es negativo, tienen direccion opuesta.
+
+EN ML: similaridad entre embeddings y calculo de proyecciones.mentarios.
+
+Ran python -m py_compile src/07_Algebra_Lineal_Con_Pyt...
+Considered Python usage
+Ran python3 -m py_compile src/07_Algebra_Lineal_Con_Py...
+python3 -m py_compile src/07_Algebra_Lineal_Con_Python/01
 """
 
 dot = np.dot(a, b)  # = 1*4 + 2*5 + 3*6 = 32
-dot_alt = a @ b     # Operador @ es lo mismo
+dot_alt = a @ b  # El operador @ hace la misma operacion.
 
 print(f"  a · b = {dot}")
 print(f"  a @ b = {dot_alt}")
-print(f"  Manual: {sum(ai * bi for ai, bi in zip(a, b))}")
+print("  Calculo manual elemento a elemento:")
+print(f"    {', '.join(str(ai * bi) for ai, bi in zip(a, b))}")
+print(f"  Suma de productos = {sum(ai * bi for ai, bi in zip(a, b))}")
 
 
 print("\n--- Normas ---")
 
 """
-L1 (Manhattan): sum(|x_i|)
-L2 (Euclidea):  sqrt(sum(x_i^2))
-Linf (Max):     max(|x_i|)
+Las normas miden el tamano de un vector.
+- L1 mide la suma de valores absolutos.
+- L2 mide la distancia Euclidea desde el origen.
+- Linf mide el valor absoluto maximo.
 
-EN ML: regularizacion L1 (sparsity), L2 (weight decay).
+EN ML: las normas se usan para comparar vectores,
+calcular distancias, y en regularizacion para evitar overfitting.
 """
 
 v = np.array([3.0, -4.0, 5.0])
 
+# np.linalg.norm aplica la norma deseada segun ord.
 l1 = np.linalg.norm(v, ord=1)
 l2 = np.linalg.norm(v, ord=2)
 linf = np.linalg.norm(v, ord=np.inf)
@@ -196,7 +240,8 @@ print(f"  ||v||_1 (L1): {l1}")
 print(f"  ||v||_2 (L2): {l2}")
 print(f"  ||v||_inf:     {linf}")
 
-# Normalizar a norma unitaria
+# Normalizar un vector significa escalarlo para que su norma L2 sea 1.
+# Esto es comun en embeddings y redes neuronales para tener magnitudes comparables.
 v_norm = v / np.linalg.norm(v)
 print(f"\n  v normalizado: {v_norm}")
 print(f"  ||v_norm||_2 = {np.linalg.norm(v_norm):.10f}")
@@ -205,7 +250,10 @@ print(f"  ||v_norm||_2 = {np.linalg.norm(v_norm):.10f}")
 print("\n--- Producto exterior ---")
 
 """
-outer(a, b) produce una MATRIZ: resultado[i,j] = a[i] * b[j]
+El producto exterior toma un vector de tamaño m y otro de tamaño n
+y crea una matriz m x n.
+Cada elemento de la matriz es el producto de un elemento de a
+por un elemento de b.
 """
 
 a_small = np.array([1, 2, 3])
@@ -213,8 +261,10 @@ b_small = np.array([4, 5])
 
 outer = np.outer(a_small, b_small)
 print(f"  a = {a_small}, b = {b_small}")
+print("  outer(a, b) produce una matriz donde cada fila es a * b[j]:")
 print(f"  outer(a, b):\n{outer}")
 print(f"  Shape: {outer.shape}")
+print("  Esto es util para construir matrices de correlaciones y combinaciones.")
 
 
 # =====================================================================
@@ -228,32 +278,40 @@ print("=" * 80)
 print("\n--- Multiplicacion de matrices ---")
 
 """
-C = A @ B  (o np.matmul(A, B))
-(m x n) @ (n x p) = (m x p)
-
-REGLA: columnas de A = filas de B.
+La multiplicacion de matrices generaliza el producto dot.
+Para multiplicar A @ B, el numero de columnas de A debe ser igual
+al numero de filas de B.
+El resultado tiene tantas filas como A y tantas columnas como B.
 """
 
 A = np.array([[1, 2], [3, 4], [5, 6]])  # 3x2
 B = np.array([[7, 8, 9], [10, 11, 12]])  # 2x3
 
+# El resultado C es de forma 3x3.
 C = A @ B  # 3x3
 print(f"  A (3x2):\n{A}")
 print(f"  B (2x3):\n{B}")
 print(f"  A @ B (3x3):\n{C}")
 
-# Verificar manualmente primer elemento
-print(f"\n  C[0,0] = 1*7 + 2*10 = {1*7 + 2*10}")
-print(f"  C[0,1] = 1*8 + 2*11 = {1*8 + 2*11}")
+# Explicando la primera fila de C:
+# C[0,0] = A[0,0]*B[0,0] + A[0,1]*B[1,0]
+print(f"\n  C[0,0] = 1*7 + 2*10 = {1 * 7 + 2 * 10}")
+print(f"  C[0,1] = 1*8 + 2*11 = {1 * 8 + 2 * 11}")
+print("  Cada elemento de C se obtiene sumando productos cruzados.")
 
 
 print("\n--- Transpuesta ---")
 
+# La transpuesta invierte las filas y columnas.
 M = np.array([[1, 2, 3], [4, 5, 6]])
 print(f"  M (2x3):\n{M}")
 print(f"  M.T (3x2):\n{M.T}")
 
-# Propiedad: (A @ B).T = B.T @ A.T
+# La transpuesta es util para cambiar la orientacion de los datos,
+# por ejemplo para convertir vectores fila en vectores columna.
+
+# Propiedad importante de la transpuesta:
+# (A @ B).T = B.T @ A.T
 D = np.random.randn(2, 3)
 E = np.random.randn(3, 4)
 assert np.allclose((D @ E).T, E.T @ D.T)
@@ -326,7 +384,7 @@ print(f"  M + 5:\n{M + 5}")  # (2,3) + () -> broadcasting
 print("\n--- Vector + matriz ---")
 
 M = np.array([[1, 2, 3], [4, 5, 6]])  # (2, 3)
-v = np.array([10, 20, 30])            # (3,) -> (1, 3) -> (2, 3)
+v = np.array([10, 20, 30])  # (3,) -> (1, 3) -> (2, 3)
 
 print(f"  M (2x3):\n{M}")
 print(f"  v: {v}")
@@ -338,8 +396,8 @@ print("\n--- Normalizacion por columna (broadcasting) ---")
 # Restar media por columna (muy comun en ML)
 datos = np.random.randn(5, 3)  # 5 muestras, 3 features
 
-media = datos.mean(axis=0)   # shape (3,)
-std = datos.std(axis=0)      # shape (3,)
+media = datos.mean(axis=0)  # shape (3,)
+std = datos.std(axis=0)  # shape (3,)
 
 normalizado = (datos - media) / std  # Broadcasting!
 
@@ -352,13 +410,14 @@ print(f"  Std tras norm: {normalizado.std(axis=0)}")
 
 print("\n--- Softmax con broadcasting ---")
 
+
 def softmax(x):
     """Softmax numericamente estable."""
     e_x = np.exp(x - np.max(x, axis=-1, keepdims=True))
     return e_x / e_x.sum(axis=-1, keepdims=True)
 
-logits = np.array([[2.0, 1.0, 0.1],
-                    [1.0, 3.0, 0.5]])
+
+logits = np.array([[2.0, 1.0, 0.1], [1.0, 3.0, 0.5]])
 
 probs = softmax(logits)
 print(f"\n  Logits:\n{logits}")
@@ -442,9 +501,11 @@ EN ML: comparar embeddings, busqueda semantica, recomendaciones.
 
 print("\n--- Similaridad coseno ---")
 
+
 def cosine_similarity(a, b):
     """Similaridad coseno entre dos vectores."""
     return np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b))
+
 
 # Simular embeddings de palabras
 np.random.seed(42)
@@ -459,8 +520,10 @@ print(f"  cos(rey, rey):   {cosine_similarity(emb_rey, emb_rey):.4f}")
 
 print("\n--- Distancia euclidea ---")
 
+
 def euclidean_distance(a, b):
     return np.linalg.norm(a - b)
+
 
 print(f"  dist(rey, reina): {euclidean_distance(emb_rey, emb_reina):.4f}")
 print(f"  dist(rey, gato):  {euclidean_distance(emb_rey, emb_gato):.4f}")
@@ -528,20 +591,21 @@ similaridad coseno. Esto es la BASE de RAG.
 
 print("\n--- Mini search engine ---")
 
+
 class SemanticSearch:
     """Motor de busqueda basado en embeddings."""
-    
+
     def __init__(self, embed_dim: int = 16):
         self.embed_dim = embed_dim
         self.documentos = []
         self.embeddings = None
         self.rng = np.random.RandomState(42)
-    
+
     def _embed(self, texto: str) -> np.ndarray:
         """Embedding simulado (hash-based para reproducibilidad)."""
         np.random.seed(hash(texto) % 2**31)
         return np.random.randn(self.embed_dim)
-    
+
     def indexar(self, documentos: list[str]):
         """Indexar documentos."""
         self.documentos = documentos
@@ -549,19 +613,20 @@ class SemanticSearch:
         norms = np.linalg.norm(embs, axis=1, keepdims=True)
         self.embeddings = embs / norms  # Normalizar
         print(f"  Indexados {len(documentos)} documentos ({self.embeddings.shape})")
-    
+
     def buscar(self, query: str, top_k: int = 3) -> list:
         """Buscar documentos similares."""
         q_emb = self._embed(query)
         q_emb = q_emb / np.linalg.norm(q_emb)
-        
+
         # Similaridad coseno: dot con embeddings normalizados
         scores = self.embeddings @ q_emb
-        
+
         # Top-K
         top_idx = np.argsort(scores)[::-1][:top_k]
-        
+
         return [(self.documentos[i], float(scores[i])) for i in top_idx]
+
 
 search = SemanticSearch(embed_dim=32)
 
@@ -609,10 +674,10 @@ c_np = a_np + b_np
 t_numpy = time.perf_counter() - start
 
 print(f"  Suma de {N:,} elementos:")
-print(f"    Python: {t_python*1000:.2f} ms")
-print(f"    NumPy:  {t_numpy*1000:.2f} ms")
+print(f"    Python: {t_python * 1000:.2f} ms")
+print(f"    NumPy:  {t_numpy * 1000:.2f} ms")
 if t_numpy > 0:
-    print(f"    Speedup: {t_python/t_numpy:.0f}x")
+    print(f"    Speedup: {t_python / t_numpy:.0f}x")
 
 # Dot product
 start = time.perf_counter()
@@ -624,8 +689,8 @@ dot_np = np.dot(a_np, b_np)
 t_dot_np = time.perf_counter() - start
 
 print(f"\n  Dot product de {N:,} elementos:")
-print(f"    Python: {t_dot_py*1000:.2f} ms")
-print(f"    NumPy:  {t_dot_np*1000:.2f} ms")
+print(f"    Python: {t_dot_py * 1000:.2f} ms")
+print(f"    NumPy:  {t_dot_np * 1000:.2f} ms")
 
 
 print("\n" + "=" * 80)
@@ -687,11 +752,10 @@ Normas para matrices (no solo vectores):
 - Spectral: max(sigma_i) (maximo valor singular)
 """
 
-M = np.array([[1, 2, 3],
-               [4, 5, 6]], dtype=float)
+M = np.array([[1, 2, 3], [4, 5, 6]], dtype=float)
 
-frob = np.linalg.norm(M, 'fro')
-nuc = np.linalg.norm(M, 'nuc')
+frob = np.linalg.norm(M, "fro")
+nuc = np.linalg.norm(M, "nuc")
 spec = np.linalg.norm(M, 2)
 
 print(f"  M:\n{M}")
@@ -745,8 +809,8 @@ print(f"  stack(axis=1): {stack_1.shape}\n{stack_1}")
 
 print("\n--- Memory layout: C vs F order ---")
 
-a_c = np.array([[1, 2, 3], [4, 5, 6]], order='C')  # Row-major
-a_f = np.array([[1, 2, 3], [4, 5, 6]], order='F')  # Column-major
+a_c = np.array([[1, 2, 3], [4, 5, 6]], order="C")  # Row-major
+a_f = np.array([[1, 2, 3], [4, 5, 6]], order="F")  # Column-major
 
 print(f"  C-order (row-major): {a_c.flags['C_CONTIGUOUS']}")
 print(f"  F-order (col-major): {a_f.flags['F_CONTIGUOUS']}")
@@ -771,57 +835,63 @@ Demuestra como el algebra lineal permite ML eficiente.
 
 print("\n--- KNN desde cero ---")
 
+
 class KNNClassifier:
     """KNN usando distancia euclidea con NumPy vectorizado."""
-    
+
     def __init__(self, k: int = 3):
         self.k = k
-    
+
     def fit(self, X: np.ndarray, y: np.ndarray):
         self.X_train = X
         self.y_train = y
-    
+
     def predict(self, X: np.ndarray) -> np.ndarray:
         # Calcular distancias: ||a - b||^2 = ||a||^2 + ||b||^2 - 2*a·b
         # Esto es mucho mas rapido que loops
         dists_sq = (
-            np.sum(X**2, axis=1, keepdims=True)    # ||a||^2
-            + np.sum(self.X_train**2, axis=1)       # ||b||^2
-            - 2 * X @ self.X_train.T                # -2*a·b
+            np.sum(X**2, axis=1, keepdims=True)  # ||a||^2
+            + np.sum(self.X_train**2, axis=1)  # ||b||^2
+            - 2 * X @ self.X_train.T  # -2*a·b
         )
-        
+
         # K vecinos mas cercanos
-        k_nearest = np.argsort(dists_sq, axis=1)[:, :self.k]
-        
+        k_nearest = np.argsort(dists_sq, axis=1)[:, : self.k]
+
         # Voto mayoritario
         preds = []
         for neighbors in k_nearest:
             labels = self.y_train[neighbors]
             values, counts = np.unique(labels, return_counts=True)
             preds.append(values[np.argmax(counts)])
-        
+
         return np.array(preds)
-    
+
     def score(self, X: np.ndarray, y: np.ndarray) -> float:
         preds = self.predict(X)
         return np.mean(preds == y)
 
+
 # Generar datos de 3 clases
 np.random.seed(42)
 n_per_class = 50
-X_train = np.vstack([
-    np.random.randn(n_per_class, 2) + [2, 2],
-    np.random.randn(n_per_class, 2) + [-2, 2],
-    np.random.randn(n_per_class, 2) + [0, -2],
-])
-y_train = np.array([0]*n_per_class + [1]*n_per_class + [2]*n_per_class)
+X_train = np.vstack(
+    [
+        np.random.randn(n_per_class, 2) + [2, 2],
+        np.random.randn(n_per_class, 2) + [-2, 2],
+        np.random.randn(n_per_class, 2) + [0, -2],
+    ]
+)
+y_train = np.array([0] * n_per_class + [1] * n_per_class + [2] * n_per_class)
 
-X_test = np.vstack([
-    np.random.randn(20, 2) + [2, 2],
-    np.random.randn(20, 2) + [-2, 2],
-    np.random.randn(20, 2) + [0, -2],
-])
-y_test = np.array([0]*20 + [1]*20 + [2]*20)
+X_test = np.vstack(
+    [
+        np.random.randn(20, 2) + [2, 2],
+        np.random.randn(20, 2) + [-2, 2],
+        np.random.randn(20, 2) + [0, -2],
+    ]
+)
+y_test = np.array([0] * 20 + [1] * 20 + [2] * 20)
 
 knn = KNNClassifier(k=5)
 knn.fit(X_train, y_train)
@@ -851,30 +921,30 @@ print("\n--- Einsum basico ---")
 # Dot product: i,i -> (suma sobre i)
 a = np.array([1, 2, 3])
 b = np.array([4, 5, 6])
-dot_ein = np.einsum('i,i->', a, b)
+dot_ein = np.einsum("i,i->", a, b)
 print(f"  dot(a,b) einsum: {dot_ein}")
 
 # Matrix multiply: ij,jk -> ik
 A = np.random.randn(3, 4)
 B = np.random.randn(4, 5)
-C_ein = np.einsum('ij,jk->ik', A, B)
+C_ein = np.einsum("ij,jk->ik", A, B)
 print(f"  matmul einsum: {np.allclose(C_ein, A @ B)}")
 
 # Trace: ii ->
 M = np.random.randn(4, 4)
-trace_ein = np.einsum('ii->', M)
+trace_ein = np.einsum("ii->", M)
 print(f"  trace einsum: {trace_ein:.4f} == {np.trace(M):.4f}")
 
 # Batch dot product: bi,bi -> b
 batch_a = np.random.randn(10, 8)
 batch_b = np.random.randn(10, 8)
-batch_dot = np.einsum('bi,bi->b', batch_a, batch_b)
+batch_dot = np.einsum("bi,bi->b", batch_a, batch_b)
 print(f"  batch dot product shape: {batch_dot.shape}")
 
 # Attention: (batch, seq, dim) @ (batch, dim, seq) -> (batch, seq, seq)
 Q = np.random.randn(2, 5, 8)
 K = np.random.randn(2, 5, 8)
-scores_ein = np.einsum('bsd,btd->bst', Q, K)
+scores_ein = np.einsum("bsd,btd->bst", Q, K)
 print(f"  attention scores einsum: {scores_ein.shape}")
 
 
@@ -905,7 +975,7 @@ dense = sp.toarray()
 print(f"  Matriz {n}x{n}, densidad={density}")
 print(f"  Dense: {dense.nbytes:,} bytes")
 print(f"  Sparse: ~{sp.data.nbytes + sp.indices.nbytes + sp.indptr.nbytes:,} bytes")
-print(f"  No-ceros: {sp.nnz:,} de {n*n:,}")
+print(f"  No-ceros: {sp.nnz:,} de {n * n:,}")
 
 # Operacion sparse vs dense
 v = np.random.randn(n)
@@ -919,8 +989,8 @@ r_sparse = sp @ v
 t_sparse = time.perf_counter() - start
 
 print(f"\n  Multiplicacion matrix-vector:")
-print(f"    Dense:  {t_dense*1000:.2f} ms")
-print(f"    Sparse: {t_sparse*1000:.2f} ms")
+print(f"    Dense:  {t_dense * 1000:.2f} ms")
+print(f"    Sparse: {t_sparse * 1000:.2f} ms")
 print(f"    Resultados iguales: {np.allclose(r_dense, r_sparse)}")
 
 
@@ -944,8 +1014,7 @@ for doc_id in range(n_docs):
     tfidf_cols.extend(word_ids)
 
 tfidf = sparse.csr_matrix(
-    (tfidf_data, (tfidf_rows, tfidf_cols)),
-    shape=(n_docs, vocab_size)
+    (tfidf_data, (tfidf_rows, tfidf_cols)), shape=(n_docs, vocab_size)
 )
 
 print(f"  TF-IDF matrix: {tfidf.shape}")
@@ -966,6 +1035,7 @@ Fundamental en clustering (K-means), KNN, DBSCAN.
 
 print("\n--- Distancia pairwise vectorizada ---")
 
+
 def pairwise_distances(X):
     """Distancia euclidea entre todos los pares. O(N^2)."""
     # ||a - b||^2 = ||a||^2 + ||b||^2 - 2*a·b
@@ -974,6 +1044,7 @@ def pairwise_distances(X):
     # Corregir posibles negativos por precision numerica
     dists_sq = np.maximum(dists_sq, 0)
     return np.sqrt(dists_sq)
+
 
 np.random.seed(42)
 X_dist = np.random.randn(100, 10)
@@ -984,9 +1055,9 @@ t_vec = time.perf_counter() - start
 
 print(f"  {X_dist.shape[0]} puntos en {X_dist.shape[1]}D")
 print(f"  Matriz de distancias: {D.shape}")
-print(f"  Tiempo: {t_vec*1000:.2f} ms")
-print(f"  D[0,0] = {D[0,0]:.4f} (auto-distancia)")
-print(f"  D[0,1] = {D[0,1]:.4f}")
+print(f"  Tiempo: {t_vec * 1000:.2f} ms")
+print(f"  D[0,0] = {D[0, 0]:.4f} (auto-distancia)")
+print(f"  D[0,1] = {D[0, 1]:.4f}")
 print(f"  Simetrica: {np.allclose(D, D.T)}")
 
 
