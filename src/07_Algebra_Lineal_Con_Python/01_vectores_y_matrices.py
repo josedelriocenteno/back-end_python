@@ -5,21 +5,36 @@
 # ARCHIVO 01: Vectores, Matrices y Operaciones Fundamentales
 # ===========================================================================
 #
-# OBJETIVO (1000+ LINEAS):
-# Dominar vectores y matrices con NumPy: creacion, operaciones,
-# broadcasting, algebra lineal basica. Todo orientado a ML/IA.
+# PREREQUISITO: Haber leido 00_prerrequisitos_matematicos.py
+#   (intuicion geometrica, derivadas parciales, gradiente, linealidad)
+#
+# QUE VAS A APRENDER:
+#   Este archivo cubre las HERRAMIENTAS BASICAS del algebra lineal
+#   computacional. Piensa en el como aprender a usar el martillo,
+#   la sierra y los clavos ANTES de construir una casa.
+#
+#   Cada seccion sigue este patron:
+#     1. QUE es el concepto (definicion simple).
+#     2. POR QUE importa en ML/IA (motivacion).
+#     3. COMO se calcula con NumPy (codigo).
+#     4. EJEMPLO practico conectado a redes neuronales.
 #
 # CONTENIDO:
-#   1. Escalares, vectores, matrices, tensores.
-#   2. Creacion de arrays con NumPy.
-#   3. Operaciones vectoriales: suma, producto punto, normas.
-#   4. Operaciones matriciales: multiplicacion, transpuesta, inversa.
-#   5. Broadcasting: reglas y aplicaciones.
-#   6. Indexacion avanzada.
-#   7. Aplicaciones ML: similaridad coseno, distancias.
-#   8. Ejercicio: operaciones sobre embeddings.
+#   Cap 1-2:   Tipos de datos (escalar, vector, matriz, tensor) + NumPy.
+#   Cap 3:     Producto punto — LA operacion mas importante.
+#   Cap 4:     Multiplicacion matricial, transpuesta, inversa.
+#   Cap 5:     Broadcasting — operar arrays de distinto shape.
+#   Cap 6:     Indexacion avanzada (slicing, masks, fancy indexing).
+#   Cap 7:     Similaridad coseno — comparar embeddings.
+#   Cap 8-9:   Estadisticas y ejercicio (motor de busqueda).
+#   Cap 10-17: Benchmark, einsum, sparse, KNN, pairwise distances.
 #
-# NIVEL: ARQUITECTO ML / DATA ENGINEER SENIOR.
+# COMO ESTUDIAR:
+#   - Lee los comentarios ANTES del codigo.
+#   - Intenta predecir el output ANTES de ejecutar.
+#   - Si algo no tiene sentido, PARA y vuelve al prerrequisito.
+#
+# NIVEL: Desde cero hasta ingeniero IA.
 # ===========================================================================
 
 import numpy as np
@@ -39,22 +54,30 @@ print("=== CAPITULO 1: JERARQUIA DE OBJETOS MATEMATICOS ===")
 print("=" * 80)
 
 """
-Escalar:  0 dimensiones. Un numero.          np.array(5)
-Vector:   1 dimension. Lista de numeros.      np.array([1, 2, 3])
-Matriz:   2 dimensiones. Tabla de numeros.    np.array([[1,2],[3,4]])
-Tensor:   N dimensiones. Generalizacion.      np.array([[[1,2],[3,4]]])
+En matematicas (y en ML), trabajamos con 4 tipos de objetos:
 
-NOTA IMPORTANTE:
-- La dimension (ndim) indica cuantas "coordenadas" necesitarias
-  para escoger un elemento.
-- El shape indica el tamano de cada dimension.
+  ESCALAR:  Un solo numero. Dimensiones: 0.
+            Ejemplo: la temperatura es 22.5°C.
+            En ML: learning rate = 0.001, loss = 0.34.
 
-EN ML:
-- Escalar: learning rate, loss, bias de una neurona.
-- Vector: embedding de una palabra, features de una muestra.
-- Matriz: batch de embeddings, pesos de una capa, datos tabulares.
-- Tensor 3D: secuencia de embeddings (batch, seq_len, embed_dim).
-- Tensor 4D: imagen (batch, channels, height, width).
+  VECTOR:   Una lista ordenada de numeros. Dimensiones: 1.
+            Ejemplo: la posicion GPS [latitud, longitud].
+            En ML: el embedding de la palabra 'gato' = [0.2, -0.5, 0.8, ...].
+
+  MATRIZ:   Una tabla de numeros (filas x columnas). Dimensiones: 2.
+            Ejemplo: una hoja de calculo con 100 filas y 5 columnas.
+            En ML: los pesos de una capa nn.Linear(768, 128) = matriz 128x768.
+
+  TENSOR:   La generalizacion a N dimensiones.
+            Ejemplo: un video = (frames, alto, ancho, colores) = 4D.
+            En ML: un batch de frases = (batch, seq_len, embed_dim) = 3D.
+
+CLAVE PARA ENTENDERLO:
+  - ndim = cuantos indices necesitas para localizar UN numero.
+    Escalar: 0 indices. Vector: 1 indice (posicion).
+    Matriz: 2 indices (fila, columna). Tensor 3D: 3 indices.
+  - shape = cuantos elementos hay en cada dimension.
+    shape(3, 4) = 3 filas, 4 columnas.
 """
 
 print("\n--- Dimensiones ---")
@@ -164,11 +187,15 @@ print("=== CAPITULO 3: OPERACIONES VECTORIALES ===")
 print("=" * 80)
 
 """
-Operaciones fundamentales sobre vectores:
-- Suma/resta elemento a elemento
-- Producto escalar (dot product)
-- Normas (L1, L2, Linf)
-- Producto exterior
+OPERACIONES VECTORIALES — Las 4 operaciones basicas:
+
+  1. SUMA/RESTA: combinar movimientos (vector + vector = vector).
+  2. PRODUCTO PUNTO: medir "cuanto se parecen" dos vectores (vector · vector = escalar).
+  3. NORMAS: medir el "tamano" de un vector (vector -> escalar).
+  4. PRODUCTO EXTERIOR: crear una matriz a partir de dos vectores.
+
+Estas 4 operaciones son los ladrillos con los que se construye TODO
+en ML: capas lineales, regularizacion, similaridad, attention.
 """
 
 print("\n--- Suma y resta ---")
@@ -189,21 +216,28 @@ print(f"  a / b (elemento) = {a / b}")
 print("\n--- Producto escalar (dot product) ---")
 
 """
-El producto escalar combina dos vectores del mismo tamanio.
-La formula es:
-    dot(a, b) = sum_i (a_i * b_i)
+EL PRODUCTO PUNTO ES LA OPERACION MAS IMPORTANTE DEL ALGEBRA LINEAL.
 
-En geometria, dot(a,b) = |a|*|b|*cos(theta), donde theta es el angulo.
-- Si es cercano a 0, los vectores son similares (angulo pequeño).
-- Si es cercano a 0, cos(theta)=0, vectores orthogonales.
-- Si es negativo, tienen direccion opuesta.
+Formula algebraica:
+    dot(a, b) = a[0]*b[0] + a[1]*b[1] + ... + a[n]*b[n]
+    Es decir: multiplicas elemento a elemento y sumas todo.
 
-EN ML: similaridad entre embeddings y calculo de proyecciones.mentarios.
+Formula geometrica:
+    dot(a, b) = |a| * |b| * cos(theta)
+    Donde theta es el angulo entre los dos vectores.
 
-Ran python -m py_compile src/07_Algebra_Lineal_Con_Pyt...
-Considered Python usage
-Ran python3 -m py_compile src/07_Algebra_Lineal_Con_Py...
-python3 -m py_compile src/07_Algebra_Lineal_Con_Python/01
+Que te dice el resultado:
+    dot > 0  ->  los vectores apuntan en la MISMA direccion (angulo < 90°).
+    dot = 0  ->  los vectores son PERPENDICULARES (angulo = 90°).
+    dot < 0  ->  los vectores apuntan en direcciones OPUESTAS (angulo > 90°).
+
+POR QUE ES TAN IMPORTANTE EN ML:
+    - CAPAS LINEALES: y = W @ x es un conjunto de productos punto.
+      Cada neurona calcula el dot product de sus pesos con la entrada.
+    - SIMILARIDAD: si normalizas los vectores, el dot product
+      te da directamente la similaridad coseno.
+    - ATTENTION: Q @ K^T son productos punto entre queries y keys.
+    - BUSQUEDA SEMANTICA: encontrar documentos similares = dot product.
 """
 
 dot = np.dot(a, b)  # = 1*4 + 2*5 + 3*6 = 32
@@ -219,13 +253,28 @@ print(f"  Suma de productos = {sum(ai * bi for ai, bi in zip(a, b))}")
 print("\n--- Normas ---")
 
 """
-Las normas miden el tamano de un vector.
-- L1 mide la suma de valores absolutos.
-- L2 mide la distancia Euclidea desde el origen.
-- Linf mide el valor absoluto maximo.
+Las NORMAS miden el "tamano" de un vector. Pero hay distintas
+formas de medir "tamano", y cada una es util en un contexto diferente.
 
-EN ML: las normas se usan para comparar vectores,
-calcular distancias, y en regularizacion para evitar overfitting.
+Imagina que quieres medir la distancia de tu casa al trabajo:
+
+  L1 (Manhattan):  Distancia caminando por calles (solo recto).
+                   |v| = |v1| + |v2| + ... + |vn|
+                   EN ML: Regularizacion L1 (Lasso) -> produce pesos CERO
+                   (elimina features irrelevantes, feature selection).
+
+  L2 (Euclidea):   Distancia "en linea recta" (como el cuervo vuela).
+                   |v| = sqrt(v1² + v2² + ... + vn²)
+                   EN ML: Regularizacion L2 (Ridge) -> hace pesos PEQUENOS
+                   (pero no exactamente cero).
+
+  L∞ (Max):        Solo mira el valor MAS GRANDE.
+                   |v| = max(|v1|, |v2|, ..., |vn|)
+                   EN ML: clipping de gradientes, limitar valores extremos.
+
+NORMALIZAR un vector = dividirlo por su norma L2.
+  Resultado: un vector que apunta en la MISMA direccion pero tiene magnitud 1.
+  EN ML: normalizar embeddings antes de calcular similaridad coseno.
 """
 
 v = np.array([3.0, -4.0, 5.0])
@@ -278,10 +327,24 @@ print("=" * 80)
 print("\n--- Multiplicacion de matrices ---")
 
 """
-La multiplicacion de matrices generaliza el producto dot.
-Para multiplicar A @ B, el numero de columnas de A debe ser igual
-al numero de filas de B.
-El resultado tiene tantas filas como A y tantas columnas como B.
+MULTIPLICACION DE MATRICES — El corazon de las redes neuronales.
+
+Para multiplicar A @ B:
+  - El numero de COLUMNAS de A debe ser igual al numero de FILAS de B.
+  - El resultado tiene las FILAS de A y las COLUMNAS de B.
+  - Cada elemento del resultado es un PRODUCTO PUNTO entre una fila de A
+    y una columna de B.
+
+Regla de shapes: (m, n) @ (n, p) = (m, p)
+  La 'n' del medio debe coincidir. Se 'cancela' como en una fraccion.
+
+POR QUE ES FUNDAMENTAL:
+  Cuando haces y = W @ x en una red neuronal:
+  - W es (output_dim, input_dim) — los pesos de la capa.
+  - x es (input_dim,) — la entrada.
+  - y es (output_dim,) — la salida.
+  Cada neurona de salida calcula el dot product de SUS pesos con x.
+  Multiplicar por W = aplicar TODAS las neuronas a la vez.
 """
 
 A = np.array([[1, 2], [3, 4], [5, 6]])  # 3x2
@@ -322,7 +385,7 @@ print("\n--- Inversa ---")
 
 """
 A @ A^-1 = I (identidad)
-Solo existe para matrices CUADRADAS y SINGULARES (det != 0).
+Solo existe para matrices CUADRADAS y NO SINGULARES (det != 0).
 """
 
 M_sq = np.array([[2.0, 1.0], [1.0, 3.0]])
@@ -361,18 +424,28 @@ print("=== CAPITULO 5: BROADCASTING ===")
 print("=" * 80)
 
 """
-Broadcasting: NumPy expande automaticamente dimensiones para
-operar entre arrays de diferentes shapes.
+BROADCASTING — Como NumPy opera arrays de distinto tamano.
 
-REGLAS:
-1. Si ndim difiere, el array menor se expande con dims de 1.
-2. Las dims deben ser iguales O una debe ser 1.
-3. Se expande la dim de tamaño 1 para coincidir.
+Problema: quieres sumar una matriz (3, 4) con un vector (4,).
+  En teoria no puedes: tienen shapes distintos.
+  NumPy lo resuelve "estirando" el vector para que encaje.
 
-EJEMPLO:
-  (3, 4) + (4,)     -> (3, 4) + (1, 4) -> OK
-  (3, 4) + (3, 1)   -> OK
-  (3, 4) + (3,)     -> ERROR (4 != 3)
+REGLAS (memoriza estas 3):
+  1. Si un array tiene MENOS dimensiones, se le agregan dims de 1 a la izquierda.
+     (4,) -> (1, 4)
+  2. En cada dimension, los tamanos deben ser IGUALES o uno debe ser 1.
+  3. El tamano 1 se "estira" (repite) para coincidir con el otro.
+
+EJEMPLOS:
+  (3, 4) + (4,)     ->  (3, 4) + (1, 4)  ->  OK: el 1 se estira a 3
+  (3, 4) + (3, 1)   ->  OK: el 1 se estira a 4
+  (3, 4) + (3,)     ->  ERROR: 4 != 3, ninguno es 1
+
+POR QUE IMPORTA EN ML:
+  - Restar la media por feature a un batch: (batch, features) - (features,)
+  - Sumar bias a todas las muestras: (batch, output) + (output,)
+  - Softmax: restar max por fila para estabilidad numerica.
+  Sin broadcasting, necesitarias loops lentos en Python.
 """
 
 print("\n--- Escalar + matriz ---")
@@ -492,11 +565,27 @@ print("=== CAPITULO 7: SIMILARIDAD COSENO Y DISTANCIAS ===")
 print("=" * 80)
 
 """
-Similaridad coseno: mide el angulo entre dos vectores.
-cos(a, b) = (a · b) / (||a|| * ||b||)
-Rango: [-1, 1]. 1 = identicos, 0 = ortogonales, -1 = opuestos.
+SIMILARIDAD COSENO — Medir el "parecido" entre dos vectores.
 
-EN ML: comparar embeddings, busqueda semantica, recomendaciones.
+Formula:
+  cos(a, b) = (a · b) / (||a|| * ||b||)
+
+Que mide: el ANGULO entre dos vectores, ignorando su magnitud.
+  cos = 1   ->  misma direccion (identicos en significado).
+  cos = 0   ->  perpendiculares (nada que ver).
+  cos = -1  ->  opuestos.
+
+Por que NO usar distancia euclidea para embeddings:
+  Dos textos largos tendran vectores de mayor magnitud que textos cortos.
+  La distancia euclidea penalizaria esto. La similaridad coseno solo
+  mira la DIRECCION, no el tamano.
+
+EN ML:
+  - BUSQUEDA SEMANTICA: "encuentra los documentos mas parecidos a esta query"
+  - RAG: retrieval = buscar los chunks con mayor cosine similarity.
+  - EMBEDDINGS: OpenAI, Sentence-BERT, etc. devuelven vectores normalizados
+    donde dot product = cosine similarity directamente.
+  - RECOMENDACIONES: usuarios con gustos similares tienen vectores similares.
 """
 
 print("\n--- Similaridad coseno ---")

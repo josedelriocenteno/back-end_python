@@ -5,21 +5,27 @@
 # ARCHIVO 03: Eigenvalues, SVD, PCA y Aplicaciones en ML
 # ===========================================================================
 #
-# OBJETIVO (1000+ LINEAS):
-# Dominar eigenvalues/eigenvectors, SVD, PCA, y aplicaciones
-# directas en ML: reduccion de dimension, compresion, analisis.
+# PREREQUISITO: Haber leido 02_transformaciones_y_sistemas.py
+#
+# QUE VAS A APRENDER:
+#   Este archivo cubre las herramientas MAS POTENTES del algebra lineal.
+#   Son las que permiten:
+#   - Comprimir datos sin perder informacion importante (PCA, SVD).
+#   - Entender la geometria del loss landscape (Hessiana).
+#   - Rankear paginas web (PageRank).
+#   - Encontrar clusters en datos complejos (Spectral Clustering).
 #
 # CONTENIDO:
-#   1. Eigenvalues y eigenvectors: concepto e intuicion.
-#   2. Diagonalizacion.
-#   3. SVD (Singular Value Decomposition).
-#   4. PCA (Principal Component Analysis) desde cero.
-#   5. Compresion con SVD trucado.
-#   6. Matrices especiales: simetrica, positiva definida.
-#   7. Aplicaciones: regularizacion, whitening, analisis.
-#   8. Ejercicio: PCA completo sobre dataset.
+#   Cap 1:     Eigenvalues/eigenvectors (la idea mas profunda).
+#   Cap 2:     Diagonalizacion (A^k eficiente).
+#   Cap 3:     Matrices simetricas y positivas definidas.
+#   Cap 4:     SVD (funciona para CUALQUIER matriz).
+#   Cap 5-6:   PCA paso a paso + clase completa.
+#   Cap 7:     Pseudo-inversa, whitening, compresion.
+#   Cap 8:     Ejercicio: analisis de dataset.
+#   Cap 9-15:  PageRank, LSA, K-Means, Spectral, Hessiana.
 #
-# NIVEL: ARQUITECTO ML / DATA ENGINEER SENIOR.
+# NIVEL: Desde cero hasta ingeniero IA.
 # ===========================================================================
 
 import numpy as np
@@ -35,16 +41,35 @@ print("=== CAPITULO 1: EIGENVALUES Y EIGENVECTORS ===")
 print("=" * 80)
 
 """
-Dado A (n x n), un eigenvector v y eigenvalue lambda cumplen:
+EIGENVALUES Y EIGENVECTORS — La idea mas profunda del algebra lineal.
+
+Pregunta fundamental:
+  Cuando aplicas una transformacion (matriz A) a un vector,
+  normalmente el vector CAMBIA de direccion y de magnitud.
+  Pero hay vectores especiales que SOLO cambian de tamano, no de direccion.
+  Esos son los EIGENVECTORS.
+
+Definicion:
   A @ v = lambda * v
+  Donde:
+    v = eigenvector (el vector especial que no cambia de direccion).
+    lambda = eigenvalue (cuanto se estira o encoge: el factor de escala).
 
-El eigenvector NO CAMBIA DE DIRECCION al transformar con A.
-Solo se escala por lambda.
+Intuicion:
+  Imagina que aplastas una pelota de plastilina (transformacion).
+  La mayoria de puntos se mueven en direcciones complicadas.
+  Pero hay ejes donde los puntos solo se alejan o acercan del centro.
+  Esos ejes son los eigenvectors. Cuanto se alejan es el eigenvalue.
 
-EN ML:
-- PCA: eigenvectors de la matriz de covarianza = componentes principales.
-- PageRank: eigenvector dominante de la matriz de transicion.
-- Estabilidad: eigenvalues de la Hessiana indican curvatura del loss.
+POR QUE SON FUNDAMENTALES EN ML:
+  - PCA: los eigenvectors de la matriz de covarianza son las
+    "direcciones de maxima varianza" -> componentes principales.
+  - PageRank: el eigenvector dominante de la matriz de transicion
+    nos da la importancia relativa de cada pagina.
+  - Hessiana: los eigenvalues de la matriz de segundas derivadas
+    nos dicen la curvatura del loss landscape -> si estamos en
+    un minimo, un maximo, o un saddle point.
+  - Estabilidad: si todos los |eigenvalues| < 1, el sistema es estable.
 """
 
 print("\n--- Calcular eigenvalues/eigenvectors ---")
@@ -209,19 +234,36 @@ print("=== CAPITULO 4: SVD (SINGULAR VALUE DECOMPOSITION) ===")
 print("=" * 80)
 
 """
-CUALQUIER matriz A (m x n) se descompone como:
+SVD (Singular Value Decomposition) — La descomposicion mas general.
+
+PROBLEMA: La eigendecomposition solo funciona con matrices CUADRADAS.
+  Pero en ML, las matrices casi nunca son cuadradas:
+  - Datos: (n_muestras, n_features) = (1000, 50)
+  - Pesos: (output_dim, input_dim) = (128, 768)
+
+SOLUCION: SVD funciona con CUALQUIER matriz A (m x n):
   A = U @ S @ V^T
 
-Donde:
-  U: (m x m) vectores singulares izquierdos (ortonormales)
-  S: (m x n) diagonal de valores singulares (no negativos, decrecientes)
-  V^T: (n x n) vectores singulares derechos (ortonormales)
+  U:  (m x m) vectores singulares izquierdos. Columnas ortonormales.
+      Piensa en ellos como las "direcciones de salida".
+  S:  (m x n) diagonal con los valores singulares (sigma_1 >= sigma_2 >= ...).
+      Son como los eigenvalues pero siempre positivos.
+      Indican la "importancia" de cada componente.
+  V^T: (n x n) vectores singulares derechos. Filas ortonormales.
+      Piensa en ellos como las "direcciones de entrada".
 
-EN ML:
-- Compresion de matrices (SVD truncado)
-- PCA (SVD de la matriz centrada)
-- LSA (Latent Semantic Analysis en NLP)
-- Pseudo-inversa
+INTUICION:
+  SVD descompone cualquier transformacion en 3 pasos simples:
+  1. V^T rota el espacio de entrada.
+  2. S estira/encoge cada eje (por los valores singulares).
+  3. U rota el resultado al espacio de salida.
+
+POR QUE ES TAN UTIL EN ML:
+  - PCA: hacer SVD de la matriz centrada = PCA (mas rapido que eigh).
+  - COMPRESION: guardar solo los k mayores valores singulares
+    = la mejor aproximacion de rango k (teorema de Eckart-Young).
+  - LSA: SVD sobre la matriz termino-documento para encontrar temas.
+  - PSEUDO-INVERSA: resolver sistemas aunque A no sea cuadrada.
 """
 
 print("\n--- SVD basico ---")
@@ -278,16 +320,34 @@ print("=== CAPITULO 5: PCA (Principal Component Analysis) ===")
 print("=" * 80)
 
 """
-PCA: encontrar las direcciones de maxima varianza.
+PCA (Principal Component Analysis) — Reduccion de dimensionalidad.
 
-Algoritmo:
-1. Centrar los datos (restar media).
-2. Calcular matriz de covarianza.
-3. Eigendecomposition.
-4. Seleccionar top-k eigenvectors.
-5. Proyectar datos.
+Problema real: tienes datos con 1000 features. Pero muchos features
+estan correlacionados (son redundantes). ¿Puedes reducir a 50 features
+sin perder mucha informacion?
 
-Equivalente a SVD de la matriz centrada.
+Que hace PCA: encuentra las DIRECCIONES donde los datos varian mas.
+  Imagina una nube de puntos alargada como un puro.
+  El eje largo del puro = primer componente principal (maxima varianza).
+  El eje corto = segundo componente principal (segunda mayor varianza).
+  Si solo te quedas con el eje largo, capturas la mayor parte de la info.
+
+Algoritmo paso a paso:
+  1. CENTRAR los datos (restar la media por feature).
+  2. Calcular la matriz de COVARIANZA (C = X^T @ X / (n-1)).
+  3. Calcular EIGENVALUES y EIGENVECTORS de C.
+  4. Ordenar por eigenvalue de MAYOR a MENOR.
+  5. SELECCIONAR los top-k eigenvectors (componentes principales).
+  6. PROYECTAR: X_reducido = X_centrado @ V_k.
+
+Equivalente a SVD: los componentes principales son las filas de V^T
+del SVD de la matriz centrada (y es mas rapido computacionalmente).
+
+EN ML:
+  - Preprocesamiento: reducir features antes de entrenar.
+  - Visualizacion: proyectar datos de alta dimension a 2D/3D.
+  - Compresion: imagenes, senales, datos tabulares.
+  - Deteccion de anomalias: puntos lejanos en el espacio PCA.
 """
 
 print("\n--- PCA paso a paso ---")
@@ -603,10 +663,29 @@ print("=== CAPITULO 9: PAGERANK ===")
 print("=" * 80)
 
 """
-PageRank: el eigenvector dominante de la matriz de transicion.
-Google lo usa para rankear paginas web.
+PAGERANK — Como Google rankea paginas web.
 
-M @ v = v  (eigenvector con eigenvalue = 1)
+Idea brillante (Larry Page, 1998):
+  Una pagina web es "importante" si OTRAS paginas importantes enlazan a ella.
+  Es una definicion circular, pero se resuelve con eigenvectors.
+
+Como funciona:
+  1. Construir un grafo: paginas = nodos, enlaces = aristas.
+  2. Crear la MATRIZ DE TRANSICION M:
+     M[i,j] = 1/n_enlaces_de_j si la pagina j enlaza a la pagina i.
+  3. El PageRank es el EIGENVECTOR DOMINANTE de M
+     (el eigenvector con eigenvalue = 1).
+
+Power iteration:
+  En vez de calcular eigenvectors directamente (caro para millones de paginas),
+  se usa un truco iterativo:
+    v_{n+1} = M @ v_n  (normalizado)
+  Esto converge al eigenvector dominante. Rapido y escalable.
+
+Damping factor (d = 0.85):
+  Con probabilidad d, sigues un enlace.
+  Con probabilidad (1-d), saltas a una pagina aleatoria.
+  Esto evita que paginas sin enlaces salientes sean "trampas".
 """
 
 print("\n--- PageRank desde cero ---")
@@ -927,13 +1006,26 @@ print("=== CAPITULO 14: SPECTRAL CLUSTERING ===")
 print("=" * 80)
 
 """
-Spectral clustering: usar eigenvectors del Laplaciano del grafo
-para encontrar clusters.
+SPECTRAL CLUSTERING — Cuando K-Means falla.
 
-1. Construir grafo de similaridad.
-2. Calcular Laplaciano: L = D - W.
-3. Eigenvectors del Laplaciano mas pequeños.
-4. K-Means en el espacio de eigenvectors.
+Problema: K-Means asume que los clusters son "bolas" (convexos).
+  Si los datos forman circulos concentricos, anillos, o formas complejas,
+  K-Means no puede separarlos.
+
+Solucion: usar la estructura del GRAFO de similaridad:
+  1. Construir un grafo donde nodos cercanos estan conectados.
+  2. Calcular el LAPLACIANO del grafo: L = D - W
+     (D = diagonal de grados, W = matriz de pesos/afinidad).
+  3. Los EIGENVECTORS del Laplaciano con eigenvalues mas PEQUENOS
+     codifican la estructura de clusters.
+  4. Aplicar K-Means en el espacio de esos eigenvectors.
+
+Por que funciona: los eigenvectors del Laplaciano son como
+  "coordenadas naturales" del grafo. Nodos en el mismo cluster
+  tienen valores similares en estos eigenvectors.
+
+EN ML: util para segmentacion de imagenes, comunidades en redes
+  sociales, y cualquier dato con geometria no convexa.
 """
 
 print("\n--- Spectral Clustering simplificado ---")
@@ -997,15 +1089,25 @@ print("=== CAPITULO 15: HESSIANA Y CURVATURA ===")
 print("=" * 80)
 
 """
-La Hessiana H (matriz de segundas derivadas) indica la curvatura
-del loss landscape.
+HESSIANA — Entender la "forma" del loss landscape.
 
-Eigenvalues de H:
-- Todos positivos -> minimo local.
-- Mixtos -> saddle point.
-- Ratio max/min -> condicionamiento.
+La Hessiana H es la matriz de SEGUNDAS derivadas parciales.
+  H[i,j] = d²L / (dw_i * dw_j)
 
-EN ML: explica por que Adam > SGD en muchos casos.
+Que te dice:
+  - Es como un "mapa de curvatura" del terreno de la loss function.
+  - Si el terreno es un valle estrecho y largo (mala condicion),
+    SGD rebota de un lado a otro y converge lento.
+  - Si el terreno es un cuenco uniforme (buena condicion),
+    SGD baja directo al minimo.
+
+Eigenvalues de la Hessiana:
+  - TODOS positivos -> minimo local (el valle va hacia arriba en todas direcciones).
+  - Algunos negativos -> saddle point (subida por un lado, bajada por otro).
+  - Ratio max/min -> CONDICIONAMIENTO.
+    Ratio alto = valle muy elongado = SGD lento.
+    Esto explica por que Adam (que adapta el lr por parametro)
+    funciona mejor que SGD puro en muchos casos.
 """
 
 print("\n--- Analisis de Hessiana ---")

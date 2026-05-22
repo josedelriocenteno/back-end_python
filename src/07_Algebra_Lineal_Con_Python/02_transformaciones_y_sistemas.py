@@ -5,21 +5,25 @@
 # ARCHIVO 02: Transformaciones Lineales y Sistemas de Ecuaciones
 # ===========================================================================
 #
-# OBJETIVO (1000+ LINEAS):
-# Dominar transformaciones lineales, sistemas de ecuaciones,
-# proyecciones, y sus aplicaciones directas en ML/IA.
+# PREREQUISITO: Haber leido 01_vectores_y_matrices.py
+#
+# QUE VAS A APRENDER:
+#   Este archivo conecta el algebra lineal con el ENTRENAMIENTO de modelos.
+#   Aqui es donde entiendes que una red neuronal ES algebra lineal +
+#   funciones no lineales, y que entrenarla ES resolver un problema
+#   de optimizacion.
 #
 # CONTENIDO:
-#   1. Transformaciones lineales: concepto geometrico.
-#   2. Rotaciones, escalado, reflexiones.
-#   3. Sistemas de ecuaciones: Ax = b.
-#   4. Minimos cuadrados (OLS).
-#   5. Proyecciones y subespacios.
-#   6. Rango, espacio nulo, independencia lineal.
-#   7. Aplicaciones: regresion lineal, PCA geometrico.
-#   8. Ejercicio: regresion lineal desde cero.
+#   Cap 1-2:   Transformaciones lineales (rotacion, escalado, nn.Linear).
+#   Cap 3:     Sistemas de ecuaciones Ax = b.
+#   Cap 4:     Minimos cuadrados = regresion lineal (la conexion clave).
+#   Cap 5-6:   Proyecciones, rango, independencia lineal.
+#   Cap 7-8:   Ejercicio de regresion + Factorizaciones LU/QR.
+#   Cap 9-10:  Gram-Schmidt + Descenso de gradiente.
+#   Cap 11-12: Ridge, Logistic Regression.
+#   Cap 13-16: Attention, SGD momentum, estabilidad numerica.
 #
-# NIVEL: ARQUITECTO ML / DATA ENGINEER SENIOR.
+# NIVEL: Desde cero hasta ingeniero IA.
 # ===========================================================================
 
 import numpy as np
@@ -35,15 +39,31 @@ print("=== CAPITULO 1: TRANSFORMACIONES LINEALES ===")
 print("=" * 80)
 
 """
-Una transformacion lineal T: R^n -> R^m cumple:
+TRANSFORMACION LINEAL = "mover puntos en el espacio con reglas".
+
+Una transformacion lineal T toma un vector y devuelve otro vector,
+cumpliendo las reglas de linealidad (ver archivo 00):
   T(a + b) = T(a) + T(b)
   T(c * a) = c * T(a)
 
-TODA transformacion lineal se puede representar como una MATRIZ.
-T(x) = A @ x
+EL PUNTO CLAVE:
+  TODA transformacion lineal se puede escribir como T(x) = A @ x,
+  donde A es una MATRIZ. La matriz ES la transformacion.
 
-EN ML: una capa lineal (nn.Linear) ES una transformacion lineal.
-y = W @ x + b
+EN REDES NEURONALES:
+  Una capa nn.Linear(in_features, out_features) crea:
+    - Una matriz W de shape (out_features, in_features)
+    - Un vector b de shape (out_features,)
+    - Calcula: y = W @ x + b
+
+  Los PESOS que la red aprende son los numeros DENTRO de esa matriz.
+  Entrenar = encontrar la matriz W que transforma inputs en outputs correctos.
+
+EJEMPLOS DE TRANSFORMACIONES:
+  - Rotacion: girar puntos (preserva forma y tamano).
+  - Escalado: estirar/encoger en cada eje.
+  - Reflexion: espejo respecto a un eje.
+  - Proyeccion: "aplastar" a una dimension menor (como PCA).
 """
 
 print("\n--- Transformacion como multiplicacion matricial ---")
@@ -168,14 +188,26 @@ print("=== CAPITULO 3: SISTEMAS DE ECUACIONES (Ax = b) ===")
 print("=" * 80)
 
 """
-Sistema de ecuaciones lineales:
-  2x + y = 5
-  x + 3y = 7
+SISTEMAS DE ECUACIONES LINEALES: Ax = b
 
-En forma matricial: A @ x = b
-  A = [[2, 1], [1, 3]]
-  b = [5, 7]
-  x = ?
+En palabras simples: tienes varias ecuaciones con varias incognitas
+y quieres encontrar los valores que las satisfacen TODAS a la vez.
+
+Ejemplo del mundo real:
+  "Compre 2 cafes y 1 zumo por 5 euros."
+  "Compre 1 cafe y 3 zumos por 7 euros."
+  -> ¿Cuanto cuesta un cafe? ¿Y un zumo?
+
+  2x + y = 5     ->   A = [[2, 1], [1, 3]]
+  x + 3y = 7     ->   b = [5, 7]
+                 ->   x = solve(A, b)
+
+POR QUE IMPORTA EN ML:
+  - Regresion lineal = resolver un sistema de ecuaciones.
+  - Los pesos optimos de un modelo lineal son la SOLUCION de A^T A x = A^T b.
+  - El NUMERO DE CONDICION indica si el sistema es estable:
+    bajo (< 100) = bien condicionado, la solucion es fiable.
+    alto (> 10000) = mal condicionado, pequenas perturbaciones cambian todo.
 """
 
 print("\n--- Resolver sistema ---")
@@ -226,12 +258,26 @@ print("=== CAPITULO 4: MINIMOS CUADRADOS (OLS) ===")
 print("=" * 80)
 
 """
-Cuando hay MAS ecuaciones que incognitas (sobredeterminado),
-no hay solucion exacta. Buscamos x que minimiza ||Ax - b||^2.
+MINIMOS CUADRADOS (OLS) = REGRESION LINEAL.
 
-Solucion: x = (A^T A)^-1 A^T b  (ecuaciones normales)
+Esta es la conexion mas importante entre algebra lineal y ML.
 
-!!! ESTO ES REGRESION LINEAL !!!
+Problema: tienes MAS ecuaciones que incognitas (sobredeterminado).
+  100 datos, 2 parametros -> no hay solucion exacta.
+  Buscamos la solucion que MINIMIZA el error: min ||Ax - b||²
+
+Solucion analitica (ecuaciones normales):
+  x = (A^T A)^{-1} A^T b
+
+ESTO ES EXACTAMENTE REGRESION LINEAL:
+  - A = matriz de features (cada fila = una muestra).
+  - b = vector de targets (lo que quieres predecir).
+  - x = vector de pesos/coeficientes del modelo.
+  - A @ x = predicciones del modelo.
+  - ||A @ x - b||² = MSE loss (lo que minimizamos).
+
+En NumPy: np.linalg.lstsq(A, b) resuelve esto.
+Es lo que hace sklearn.linear_model.LinearRegression por dentro.
 """
 
 print("\n--- Regresion lineal = minimos cuadrados ---")
@@ -644,12 +690,27 @@ print("=== CAPITULO 11: DESCENSO DE GRADIENTE ===")
 print("=" * 80)
 
 """
-Alternativa a ecuaciones normales: descenso de gradiente.
-Minimizar loss = ||X @ w - y||^2
+DESCENSO DE GRADIENTE — El algoritmo que entrena TODA red neuronal.
 
-Gradiente: dL/dw = 2 * X^T @ (X @ w - y) / n
+Las ecuaciones normales (x = (A^T A)^{-1} A^T b) son elegantes pero:
+  - Requieren invertir una matriz, que cuesta O(n³).
+  - Con millones de parametros, es IMPOSIBLE.
 
-EN ML: TODA optimizacion es descenso de gradiente.
+Alternativa: descenso de gradiente.
+  En vez de calcular la solucion exacta, la BUSCAMOS iterativamente:
+
+  1. Empezamos con pesos aleatorios (o ceros).
+  2. Calculamos la prediccion: y_pred = X @ w
+  3. Calculamos el error: loss = mean((y_pred - y)²)
+  4. Calculamos el GRADIENTE: ¿en que direccion mover los pesos para bajar la loss?
+     dL/dw = (2/n) * X^T @ (X @ w - y)
+  5. Actualizamos: w = w - lr * gradiente
+  6. Repetimos desde el paso 2.
+
+Es como bajar una montana con los ojos vendados:
+  - El gradiente te dice "la pendiente es mas empinada hacia la izquierda".
+  - Das un paso a la izquierda (proporcional al learning rate).
+  - Repites hasta llegar al valle (minimo de la loss).
 """
 
 print("\n--- Regresion lineal con gradient descent ---")
@@ -700,6 +761,112 @@ print(f"  Loss final: {model_gd.loss_history[-1]:.6f}")
 print(f"  Loss inicial: {model_gd.loss_history[0]:.4f}")
 print(f"  Reduccion: {model_gd.loss_history[0] / model_gd.loss_history[-1]:.0f}x")
 
+
+print("\n" + "=" * 80)
+print("=== CAPITULO 11b: BACKPROPAGATION COMO ALGEBRA LINEAL ===")
+print("=" * 80)
+
+"""
+BACKPROPAGATION — La regla de la cadena ES multiplicacion de matrices.
+
+Cuando tienes una red con varias capas:
+  h = relu(W1 @ x + b1)     # Capa oculta
+  y = W2 @ h + b2            # Capa de salida
+  L = loss(y, target)        # Loss
+
+Necesitas calcular dL/dW1 y dL/dW2 para actualizar los pesos.
+La REGLA DE LA CADENA dice:
+
+  dL/dW2 = dL/dy * dy/dW2
+  dL/dW1 = dL/dy * dy/dh * dh/dW1
+
+Cada uno de esos "d algo / d algo" es una MATRIZ llamada JACOBIANO.
+Backpropagation = multiplicar Jacobianos de atras hacia adelante.
+
+POR QUE ES ALGEBRA LINEAL PURA:
+  - Para la capa lineal y = W @ x:
+    dy/dW es un producto exterior, dy/dx = W.
+  - Para ReLU: es una matriz diagonal (0 o 1 en cada posicion).
+  - Encadenar capas = multiplicar matrices.
+
+ESTO es lo que hace PyTorch con .backward(): multiplica Jacobianos.
+"""
+
+print("\n--- Backprop en una red de 2 capas ---")
+
+np.random.seed(42)
+
+# Arquitectura: 3 -> 4 -> 1
+input_dim, hidden_dim, output_dim = 3, 4, 1
+
+# Pesos iniciales (pequenos)
+W1 = np.random.randn(hidden_dim, input_dim) * 0.5   # (4, 3)
+b1 = np.zeros(hidden_dim)                             # (4,)
+W2 = np.random.randn(output_dim, hidden_dim) * 0.5   # (1, 4)
+b2 = np.zeros(output_dim)                             # (1,)
+
+# Datos: 1 muestra
+x = np.array([1.0, 2.0, 3.0])
+target = np.array([1.0])
+
+# ---- FORWARD PASS ----
+# Paso 1: capa oculta
+z1 = W1 @ x + b1                    # pre-activacion (4,)
+h = np.maximum(z1, 0)               # ReLU (4,)
+
+# Paso 2: capa de salida
+z2 = W2 @ h + b2                    # prediccion (1,)
+y_pred = z2
+
+# Paso 3: loss (MSE)
+loss = 0.5 * np.sum((y_pred - target) ** 2)
+
+print(f"  Input: {x}")
+print(f"  z1 (pre-ReLU): {z1}")
+print(f"  h (post-ReLU): {h}")
+print(f"  y_pred: {y_pred}")
+print(f"  Loss: {loss:.4f}")
+
+# ---- BACKWARD PASS (regla de la cadena) ----
+# Paso 3 -> 2: dL/dy
+dL_dy = y_pred - target              # (1,)
+
+# Paso 2 -> 1: dL/dW2, dL/dh
+dL_dW2 = np.outer(dL_dy, h)          # (1, 4) = outer(dL/dy, h)
+dL_db2 = dL_dy                        # (1,)
+dL_dh = W2.T @ dL_dy                  # (4,) = W2^T @ dL/dy
+
+# Paso 1 -> 0: dL/dW1 (a traves de ReLU)
+# ReLU'(z) = 1 si z > 0, 0 si z <= 0
+relu_mask = (z1 > 0).astype(float)    # (4,) de 0s y 1s
+dL_dz1 = dL_dh * relu_mask           # (4,) elemento a elemento
+dL_dW1 = np.outer(dL_dz1, x)         # (4, 3) = outer(dL/dz1, x)
+dL_db1 = dL_dz1                       # (4,)
+
+print(f"\n  --- Gradientes (backward) ---")
+print(f"  dL/dy (salida): {dL_dy}")
+print(f"  dL/dW2 shape: {dL_dW2.shape} (=outer(dL/dy, h))")
+print(f"  dL/dh (a traves de W2^T): {dL_dh}")
+print(f"  ReLU mask: {relu_mask}")
+print(f"  dL/dW1 shape: {dL_dW1.shape} (=outer(dL/dz1, x))")
+
+# Verificar con diferencias finitas
+print(f"\n  --- Verificacion numerica ---")
+eps = 1e-5
+# Verificar dL/dW1[0,0]
+W1_plus = W1.copy(); W1_plus[0, 0] += eps
+h_plus = np.maximum(W1_plus @ x + b1, 0)
+loss_plus = 0.5 * np.sum((W2 @ h_plus + b2 - target) ** 2)
+grad_numerico = (loss_plus - loss) / eps
+
+print(f"  dL/dW1[0,0] analitico: {dL_dW1[0, 0]:.6f}")
+print(f"  dL/dW1[0,0] numerico:  {grad_numerico:.6f}")
+print(f"  Coinciden: {np.isclose(dL_dW1[0, 0], grad_numerico, atol=1e-4)}")
+
+print(f"\n  CONCLUSION:")
+print(f"  Backprop = multiplicar W^T (transpuestas) de atras hacia adelante.")
+print(f"  Cada capa propaga el gradiente multiplicando por su Jacobiano.")
+print(f"  PyTorch hace EXACTAMENTE esto cuando llamas loss.backward().")
 
 print("\n" + "=" * 80)
 print("=== CAPITULO 12: RIDGE REGRESSION ===")
@@ -763,7 +930,30 @@ print("=== CAPITULO 13: MULTI-HEAD ATTENTION COMPLETO ===")
 print("=" * 80)
 
 """
-Multi-Head Attention como operaciones de algebra lineal.
+MULTI-HEAD ATTENTION — El mecanismo central de los Transformers.
+
+Antes del codigo, entiende la intuicion:
+
+  Imagina que lees: "El gato se sento en la alfombra porque estaba cansado."
+  ¿A que se refiere "estaba"? Al gato. El mecanismo de atencion permite
+  que cada palabra "mire" a las demas para decidir cuales son relevantes.
+
+  Q (Query):  "Que estoy buscando?" (cada posicion hace una pregunta)
+  K (Key):    "Que informacion tengo?" (cada posicion ofrece una clave)
+  V (Value):  "Que valor devuelvo si me seleccionan?" (el contenido real)
+
+Formula:
+  Attention(Q, K, V) = softmax(Q @ K^T / sqrt(d_k)) @ V
+
+  Q @ K^T = productos punto entre cada query y cada key ("similaridad").
+  / sqrt(d_k) = escalar para que los valores no sean demasiado grandes
+                (si no, softmax daria 0s y 1s, perdiendo matices).
+  softmax = convertir similaridades en probabilidades (suman 1).
+  @ V = media ponderada de los values segun la atencion.
+
+MULTI-HEAD: en vez de un solo attention, dividimos Q, K, V en n_heads
+  partes independientes. Cada "cabeza" puede atender a cosas distintas
+  (una al sujeto, otra al verbo, otra al contexto temporal...).
 """
 
 print("\n--- Multi-Head Attention ---")

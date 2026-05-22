@@ -1,0 +1,462 @@
+
+<style>
+  h2.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:var(--font-sans);color:var(--color-text-primary);padding:1rem 0}
+  .tabs{display:flex;gap:6px;margin-bottom:1.5rem;flex-wrap:wrap}
+  .tab{padding:6px 14px;border:0.5px solid var(--color-border-secondary);border-radius:20px;font-size:13px;cursor:pointer;background:var(--color-background-primary);color:var(--color-text-secondary);transition:all .15s}
+  .tab.active{background:var(--color-background-info);color:var(--color-text-info);border-color:var(--color-border-info)}
+  .panel{display:none}.panel.active{display:block}
+
+  /* Bloques de estudio */
+  .block{margin-bottom:1.5rem}
+  .block-header{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+  .block-badge{font-size:11px;font-weight:500;padding:3px 10px;border-radius:12px}
+  .b-pre{background:var(--color-background-warning);color:var(--color-text-warning)}
+  .b-1{background:var(--color-background-success);color:var(--color-text-success)}
+  .b-2{background:var(--color-background-info);color:var(--color-text-info)}
+  .b-3{background:#ede9fe;color:#5b21b6}
+  @media(prefers-color-scheme:dark){.b-3{background:#2e1065;color:#c4b5fd}}
+
+  .block-title{font-size:15px;font-weight:500}
+  .block-file{font-size:11px;color:var(--color-text-tertiary)}
+
+  .concepts{display:flex;flex-direction:column;gap:6px}
+  .concept{display:flex;align-items:flex-start;gap:10px;padding:8px 12px;border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);cursor:pointer;transition:background .1s}
+  .concept:hover{background:var(--color-background-secondary)}
+  .concept-num{font-size:12px;font-weight:500;color:var(--color-text-tertiary);min-width:24px;margin-top:1px}
+  .concept-body{flex:1}
+  .concept-name{font-size:14px;font-weight:500}
+  .concept-ml{font-size:12px;color:var(--color-text-secondary);margin-top:2px}
+  .priority{font-size:10px;padding:2px 7px;border-radius:8px;margin-left:6px;vertical-align:middle}
+  .p-core{background:var(--color-background-danger);color:var(--color-text-danger)}
+  .p-mid{background:var(--color-background-warning);color:var(--color-text-warning)}
+  .p-ext{background:var(--color-background-secondary);color:var(--color-text-secondary)}
+
+  /* Panel de huecos */
+  .gap-card{padding:12px 14px;border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-tertiary);margin-bottom:10px}
+  .gap-title{font-size:14px;font-weight:500;margin-bottom:4px;display:flex;align-items:center;gap:8px}
+  .gap-desc{font-size:13px;color:var(--color-text-secondary);line-height:1.6}
+  .gap-icon{font-size:16px}
+
+  /* Panel de método */
+  .method-step{display:flex;gap:14px;padding:12px 0;border-bottom:0.5px solid var(--color-border-tertiary)}
+  .method-step:last-child{border-bottom:none}
+  .step-num{width:28px;height:28px;border-radius:50%;background:var(--color-background-info);color:var(--color-text-info);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:500;flex-shrink:0}
+  .step-body{flex:1}
+  .step-title{font-size:14px;font-weight:500;margin-bottom:4px}
+  .step-desc{font-size:13px;color:var(--color-text-secondary);line-height:1.6}
+
+  /* Tip boxes */
+  .tip{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:10px 14px;font-size:13px;color:var(--color-text-secondary);margin-top:12px;line-height:1.6}
+  .tip strong{color:var(--color-text-primary);font-weight:500}
+
+  /* Legend */
+  .legend{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:1rem}
+  .legend-item{display:flex;align-items:center;gap:5px;font-size:12px;color:var(--color-text-secondary)}
+</style>
+
+<h2 class="sr-only">Guía de estudio: Álgebra Lineal con Python para ML</h2>
+
+<div class="tabs">
+  <div class="tab active" onclick="show('orden')">📋 Orden de estudio</div>
+  <div class="tab" onclick="show('huecos')">⚠️ Qué falta</div>
+  <div class="tab" onclick="show('metodo')">🧠 Cómo estudiarlo</div>
+</div>
+
+<!-- PANEL 1: ORDEN -->
+<div class="panel active" id="panel-orden">
+  <div class="legend">
+    <span class="legend-item"><span class="priority p-core">esencial</span> sin esto no avanzas</span>
+    <span class="legend-item"><span class="priority p-mid">importante</span> necesario para ML</span>
+    <span class="legend-item"><span class="priority p-ext">avanzado</span> puedes dejarlo para después</span>
+  </div>
+
+  <!-- BLOQUE 0 -->
+  <div class="block">
+    <div class="block-header">
+      <span class="block-badge b-pre">Prerrequisito</span>
+      <span class="block-title">Matemáticas base</span>
+      <span class="block-file">⚠️ No está en tus archivos — estudiar primero</span>
+    </div>
+    <div class="concepts">
+      <div class="concept" onclick="sendPrompt('Explícame la intuición geométrica de los vectores como flechas en el espacio, con ejemplos visuales')">
+        <span class="concept-num">0.1</span>
+        <div class="concept-body">
+          <div class="concept-name">Intuición geométrica de vectores <span class="priority p-core">esencial</span></div>
+          <div class="concept-ml">Vectores como flechas, direcciones, magnitud → base para todo lo demás</div>
+        </div>
+      </div>
+      <div class="concept" onclick="sendPrompt('Explícame qué es una derivada parcial y el gradiente de forma intuitiva, orientado a ML')">
+        <span class="concept-num">0.2</span>
+        <div class="concept-body">
+          <div class="concept-name">Derivada parcial y gradiente <span class="priority p-core">esencial</span></div>
+          <div class="concept-ml">Sin esto no puedes entender descenso de gradiente ni backprop</div>
+        </div>
+      </div>
+      <div class="concept" onclick="sendPrompt('Explícame las propiedades básicas de las funciones lineales y por qué son la base del álgebra lineal')">
+        <span class="concept-num">0.3</span>
+        <div class="concept-body">
+          <div class="concept-name">Funciones lineales y sus propiedades <span class="priority p-mid">importante</span></div>
+          <div class="concept-ml">T(a+b) = T(a)+T(b) — la propiedad que define todo el módulo</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BLOQUE 1 -->
+  <div class="block">
+    <div class="block-header">
+      <span class="block-badge b-1">Bloque 1</span>
+      <span class="block-title">Vectores y matrices</span>
+      <span class="block-file">01_vectores_y_matrices.py</span>
+    </div>
+    <div class="concepts">
+      <div class="concept" onclick="sendPrompt('Explícame con intuición la jerarquía escalar → vector → matriz → tensor y cómo aparece cada uno en ML')">
+        <span class="concept-num">1</span>
+        <div class="concept-body">
+          <div class="concept-name">Escalar → Vector → Matriz → Tensor <span class="priority p-core">esencial</span></div>
+          <div class="concept-ml">Learning rate, embeddings, pesos de capa, imágenes por batch</div>
+        </div>
+      </div>
+      <div class="concept" onclick="sendPrompt('Explícame las funciones de creación de arrays en NumPy: zeros, ones, randn, arange, linspace y cuándo usar cada una')">
+        <span class="concept-num">2</span>
+        <div class="concept-body">
+          <div class="concept-name">Creación de arrays NumPy <span class="priority p-core">esencial</span></div>
+          <div class="concept-ml">zeros, ones, randn, arange, linspace — la base de toda operación</div>
+        </div>
+      </div>
+      <div class="concept" onclick="sendPrompt('Explícame el producto punto (dot product) con intuición geométrica y por qué es fundamental en ML')">
+        <span class="concept-num">3</span>
+        <div class="concept-body">
+          <div class="concept-name">Producto punto (dot product) <span class="priority p-core">esencial</span></div>
+          <div class="concept-ml">a·b = |a||b|cos(θ) — base de similaridad, atención, capas lineales</div>
+        </div>
+      </div>
+      <div class="concept" onclick="sendPrompt('Explícame las normas L1, L2 e Infinito de un vector, con intuición geométrica y cuándo se usa cada una en ML')">
+        <span class="concept-num">4</span>
+        <div class="concept-body">
+          <div class="concept-name">Normas vectoriales L1, L2, L∞ <span class="priority p-core">esencial</span></div>
+          <div class="concept-ml">Regularización L1 (Lasso), L2 (Ridge), distancias, normalización</div>
+        </div>
+      </div>
+      <div class="concept" onclick="sendPrompt('Explícame la multiplicación de matrices (@), la transpuesta y la inversa con intuición geométrica')">
+        <span class="concept-num">5</span>
+        <div class="concept-body">
+          <div class="concept-name">Multiplicación matricial, transpuesta e inversa <span class="priority p-core">esencial</span></div>
+          <div class="concept-ml">(m,n)@(n,p)=(m,p) — el corazón de las capas neuronales</div>
+        </div>
+      </div>
+      <div class="concept" onclick="sendPrompt('Explícame el broadcasting en NumPy con las reglas y ejemplos prácticos, incluyendo errores comunes')">
+        <span class="concept-num">6</span>
+        <div class="concept-body">
+          <div class="concept-name">Broadcasting <span class="priority p-mid">importante</span></div>
+          <div class="concept-ml">Operar arrays de distintos shapes — clave para eficiencia en batches</div>
+        </div>
+      </div>
+      <div class="concept" onclick="sendPrompt('Explícame la similaridad coseno: fórmula, intuición y por qué se usa para comparar embeddings en búsqueda semántica')">
+        <span class="concept-num">7</span>
+        <div class="concept-body">
+          <div class="concept-name">Similaridad coseno <span class="priority p-mid">importante</span></div>
+          <div class="concept-ml">Búsqueda semántica, RAG, embeddings — ángulo entre vectores normalizados</div>
+        </div>
+      </div>
+      <div class="concept" onclick="sendPrompt('Explícame la indexación avanzada en NumPy: slicing, boolean indexing y fancy indexing con ejemplos')">
+        <span class="concept-num">8</span>
+        <div class="concept-body">
+          <div class="concept-name">Indexación avanzada <span class="priority p-mid">importante</span></div>
+          <div class="concept-ml">Slicing, boolean masks, fancy indexing — selección de embeddings por token</div>
+        </div>
+      </div>
+      <div class="concept" onclick="sendPrompt('Explícame la notación Einstein (einsum) en NumPy con ejemplos: dot product, matmul, batch dot, y attention scores')">
+        <span class="concept-num">9</span>
+        <div class="concept-body">
+          <div class="concept-name">Notación Einstein (einsum) <span class="priority p-ext">avanzado</span></div>
+          <div class="concept-ml">Expresar operaciones tensoriales complejas de forma compacta</div>
+        </div>
+      </div>
+      <div class="concept" onclick="sendPrompt('Explícame las matrices dispersas (sparse) en scipy: cuándo usarlas, formatos CSR y ejemplos con TF-IDF')">
+        <span class="concept-num">10</span>
+        <div class="concept-body">
+          <div class="concept-name">Matrices dispersas (sparse) <span class="priority p-ext">avanzado</span></div>
+          <div class="concept-ml">TF-IDF, one-hot encoding, grafos — ahorro de memoria cuando hay muchos ceros</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BLOQUE 2 -->
+  <div class="block">
+    <div class="block-header">
+      <span class="block-badge b-2">Bloque 2</span>
+      <span class="block-title">Transformaciones y sistemas</span>
+      <span class="block-file">02_transformaciones_y_sistemas.py</span>
+    </div>
+    <div class="concepts">
+      <div class="concept" onclick="sendPrompt('Explícame las transformaciones lineales con intuición geométrica: qué hacen, cómo se representan como matrices y la conexión con nn.Linear')">
+        <span class="concept-num">11</span>
+        <div class="concept-body">
+          <div class="concept-name">Transformaciones lineales <span class="priority p-core">esencial</span></div>
+          <div class="concept-ml">nn.Linear ES una transformación: y = W@x + b — el building block de redes</div>
+        </div>
+      </div>
+      <div class="concept" onclick="sendPrompt('Explícame cómo resolver sistemas de ecuaciones Ax=b en NumPy, cuándo hay solución única y qué es el número de condición')">
+        <span class="concept-num">12</span>
+        <div class="concept-body">
+          <div class="concept-name">Sistemas de ecuaciones (Ax = b) <span class="priority p-core">esencial</span></div>
+          <div class="concept-ml">np.linalg.solve — número de condición indica si el sistema es estable</div>
+        </div>
+      </div>
+      <div class="concept" onclick="sendPrompt('Explícame mínimos cuadrados OLS y por qué es exactamente lo mismo que regresión lineal, con la derivación matemática')">
+        <span class="concept-num">13</span>
+        <div class="concept-body">
+          <div class="concept-name">Mínimos cuadrados (OLS) = Regresión lineal <span class="priority p-core">esencial</span></div>
+          <div class="concept-ml">x=(AᵀA)⁻¹Aᵀb — conecta álgebra lineal directamente con ML supervisado</div>
+        </div>
+      </div>
+      <div class="concept" onclick="sendPrompt('Explícame el descenso de gradiente desde álgebra lineal: qué son los gradientes, el learning rate y cómo converge')">
+        <span class="concept-num">14</span>
+        <div class="concept-body">
+          <div class="concept-name">Descenso de gradiente <span class="priority p-core">esencial</span></div>
+          <div class="concept-ml">w -= lr * grad — el algoritmo de entrenamiento de todas las redes neuronales</div>
+        </div>
+      </div>
+      <div class="concept" onclick="sendPrompt('Explícame las proyecciones vectoriales y subespacios: qué es proyectar un vector sobre otro y su relación con PCA')">
+        <span class="concept-num">15</span>
+        <div class="concept-body">
+          <div class="concept-name">Proyecciones y subespacios <span class="priority p-mid">importante</span></div>
+          <div class="concept-ml">Base de PCA, attention y reducción de dimensionalidad</div>
+        </div>
+      </div>
+      <div class="concept" onclick="sendPrompt('Explícame rango matricial, independencia lineal y espacio nulo con ejemplos y su significado en ML')">
+        <span class="concept-num">16</span>
+        <div class="concept-body">
+          <div class="concept-name">Rango, espacio nulo e independencia lineal <span class="priority p-mid">importante</span></div>
+          <div class="concept-ml">Rango bajo = redundancia en datos — conecta con SVD truncado</div>
+        </div>
+      </div>
+      <div class="concept" onclick="sendPrompt('Explícame Ridge Regression como regularización L2 desde álgebra lineal y cómo evita el overfitting')">
+        <span class="concept-num">17</span>
+        <div class="concept-body">
+          <div class="concept-name">Ridge Regression (regularización L2) <span class="priority p-mid">importante</span></div>
+          <div class="concept-ml">(AᵀA + αI)x = Aᵀb — penaliza pesos grandes para evitar overfitting</div>
+        </div>
+      </div>
+      <div class="concept" onclick="sendPrompt('Explícame la regresión logística desde álgebra lineal: función sigmoide, binary cross-entropy y el cálculo de gradientes')">
+        <span class="concept-num">18</span>
+        <div class="concept-body">
+          <div class="concept-name">Regresión logística <span class="priority p-mid">importante</span></div>
+          <div class="concept-ml">sigmoid(W@x+b) — clasificación binaria con gradient descent</div>
+        </div>
+      </div>
+      <div class="concept" onclick="sendPrompt('Explícame SGD con momentum: cómo funciona la acumulación de velocidad y por qué converge más rápido que SGD puro')">
+        <span class="concept-num">19</span>
+        <div class="concept-body">
+          <div class="concept-name">SGD con momentum <span class="priority p-mid">importante</span></div>
+          <div class="concept-ml">Acumula velocidad — precursor de Adam, RMSprop, AdaGrad</div>
+        </div>
+      </div>
+      <div class="concept" onclick="sendPrompt('Explícame la estabilidad numérica en ML: el log-sum-exp trick, el número de condición y problemas de overflow en softmax')">
+        <span class="concept-num">20</span>
+        <div class="concept-body">
+          <div class="concept-name">Estabilidad numérica y log-sum-exp <span class="priority p-ext">avanzado</span></div>
+          <div class="concept-ml">Evitar overflow en softmax — crítico para implementaciones reales</div>
+        </div>
+      </div>
+      <div class="concept" onclick="sendPrompt('Explícame el proceso de Gram-Schmidt para construir bases ortonormales, con intuición geométrica')">
+        <span class="concept-num">21</span>
+        <div class="concept-body">
+          <div class="concept-name">Gram-Schmidt y bases ortonormales <span class="priority p-ext">avanzado</span></div>
+          <div class="concept-ml">Construir bases perpendiculares — base de QR y estabilidad numérica</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BLOQUE 3 -->
+  <div class="block">
+    <div class="block-header">
+      <span class="block-badge b-3">Bloque 3</span>
+      <span class="block-title">Eigenvalues, SVD y PCA</span>
+      <span class="block-file">03_eigenvalues_svd_y_aplicaciones.py</span>
+    </div>
+    <div class="concepts">
+      <div class="concept" onclick="sendPrompt('Explícame los eigenvalues y eigenvectors con intuición geométrica: qué significa A@v = λv y por qué son el concepto más importante del álgebra lineal')">
+        <span class="concept-num">22</span>
+        <div class="concept-body">
+          <div class="concept-name">Eigenvalues y eigenvectors <span class="priority p-core">esencial</span></div>
+          <div class="concept-ml">A@v = λv — vectores que no cambian dirección; base de PCA y PageRank</div>
+        </div>
+      </div>
+      <div class="concept" onclick="sendPrompt('Explícame SVD (Singular Value Decomposition): A = U@S@Vᵀ, qué significa cada parte y por qué funciona para cualquier matriz')">
+        <span class="concept-num">23</span>
+        <div class="concept-body">
+          <div class="concept-name">SVD (Singular Value Decomposition) <span class="priority p-core">esencial</span></div>
+          <div class="concept-ml">A = U@S@Vᵀ — la descomposición más general; base de PCA, LSA, compresión</div>
+        </div>
+      </div>
+      <div class="concept" onclick="sendPrompt('Explícame PCA desde cero paso a paso: centrar datos, covarianza, eigenvectors y cómo reduce dimensionalidad')">
+        <span class="concept-num">24</span>
+        <div class="concept-body">
+          <div class="concept-name">PCA (Principal Component Analysis) <span class="priority p-core">esencial</span></div>
+          <div class="concept-ml">Reducción de dimensionalidad — visualizar datos, preprocesamiento, compresión</div>
+        </div>
+      </div>
+      <div class="concept" onclick="sendPrompt('Explícame el SVD truncado y la aproximación de bajo rango: teorema de Eckart-Young y aplicaciones en compresión de imágenes y LSA')">
+        <span class="concept-num">25</span>
+        <div class="concept-body">
+          <div class="concept-name">SVD truncado (low-rank approximation) <span class="priority p-mid">importante</span></div>
+          <div class="concept-ml">Comprimir datos manteniendo la mayor varianza — teorema de Eckart-Young</div>
+        </div>
+      </div>
+      <div class="concept" onclick="sendPrompt('Explícame las matrices simétricas y positivas definidas: propiedades de sus eigenvalues y por qué la matriz de covarianza siempre es positiva semidefinida')">
+        <span class="concept-num">26</span>
+        <div class="concept-body">
+          <div class="concept-name">Matrices simétricas y positivas definidas <span class="priority p-mid">importante</span></div>
+          <div class="concept-ml">Covarianza, Hessiana — eigenvalues reales y positivos garantizados</div>
+        </div>
+      </div>
+      <div class="concept" onclick="sendPrompt('Explícame la Hessiana en ML: cómo sus eigenvalues describen la curvatura del loss landscape y por qué el condicionamiento afecta a SGD')">
+        <span class="concept-num">27</span>
+        <div class="concept-body">
+          <div class="concept-name">Hessiana y curvatura del loss <span class="priority p-mid">importante</span></div>
+          <div class="concept-ml">Eigenvalues de H = curvatura — explica por qué Adam > SGD en muchos casos</div>
+        </div>
+      </div>
+      <div class="concept" onclick="sendPrompt('Explícame K-Means vectorizado con NumPy: cómo se calculan los centroides y las distancias sin bucles')">
+        <span class="concept-num">28</span>
+        <div class="concept-body">
+          <div class="concept-name">K-Means vectorizado <span class="priority p-mid">importante</span></div>
+          <div class="concept-ml">Clustering con distancias pairwise — vectorización para eficiencia</div>
+        </div>
+      </div>
+      <div class="concept" onclick="sendPrompt('Explícame la diagonalización de matrices: A = V@D@V⁻¹ y cómo se usa para calcular potencias de matrices eficientemente')">
+        <span class="concept-num">29</span>
+        <div class="concept-body">
+          <div class="concept-name">Diagonalización de matrices <span class="priority p-ext">avanzado</span></div>
+          <div class="concept-ml">A^k = V@D^k@V⁻¹ — potencias eficientes, modelos de Markov</div>
+        </div>
+      </div>
+      <div class="concept" onclick="sendPrompt('Explícame el spectral clustering: Laplaciano del grafo, sus eigenvectors y por qué funciona donde K-Means falla')">
+        <span class="concept-num">30</span>
+        <div class="concept-body">
+          <div class="concept-name">Spectral Clustering <span class="priority p-ext">avanzado</span></div>
+          <div class="concept-ml">Eigenvectors del Laplaciano — detectar clusters con forma arbitraria</div>
+        </div>
+      </div>
+      <div class="concept" onclick="sendPrompt('Explícame PageRank como eigenvector dominante de la matriz de transición de un grafo web')">
+        <span class="concept-num">31</span>
+        <div class="concept-body">
+          <div class="concept-name">PageRank y power iteration <span class="priority p-ext">avanzado</span></div>
+          <div class="concept-ml">Eigenvector dominante de la matriz de transición — base del algoritmo de Google</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PANEL 2: HUECOS -->
+<div class="panel" id="panel-huecos">
+  <div class="tip" style="margin-bottom:1rem">Tus apuntes son muy sólidos en código NumPy. Estos son los huecos más importantes que deberías cubrir para tener una base completa.</div>
+
+  <div class="gap-card" style="border-left:3px solid var(--color-border-danger)">
+    <div class="gap-title"><span class="gap-icon">🔴</span> Prerrequisitos matemáticos — crítico</div>
+    <div class="gap-desc">Los tres archivos van directamente al código sin cubrir la intuición geométrica previa. Sin entender <strong>qué es un vector como flecha en el espacio</strong>, qué significa la dirección y la magnitud, y qué es una <strong>derivada parcial</strong>, muchos conceptos se quedan como fórmulas vacías. Estudia esto antes de empezar el Bloque 1.</div>
+  </div>
+
+  <div class="gap-card" style="border-left:3px solid var(--color-border-danger)">
+    <div class="gap-title"><span class="gap-icon">🔴</span> Visualizaciones — crítico para entender</div>
+    <div class="gap-desc">Tus archivos producen <em>números</em> pero no <em>imágenes</em>. No hay nada de matplotlib. Ver cómo una rotación mueve un punto, cómo PCA encuentra las direcciones de máxima varianza, o cómo el descenso de gradiente baja por una superficie de pérdida vale más que 100 líneas de output numérico. Añade un módulo de visualización con matplotlib.</div>
+  </div>
+
+  <div class="gap-card" style="border-left:3px solid var(--color-border-warning)">
+    <div class="gap-title"><span class="gap-icon">🟡</span> Descomposiciones LU y QR — importante</div>
+    <div class="gap-desc">Se mencionan en el archivo 02 (en el resumen final) pero no se implementan ni se explica la intuición. LU es la base de cómo solve() funciona internamente, y QR es fundamental para mínimos cuadrados numéricamente estable y para la factorización en redes neuronales. Añade un mini-módulo con ambas.</div>
+  </div>
+
+  <div class="gap-card" style="border-left:3px solid var(--color-border-warning)">
+    <div class="gap-title"><span class="gap-icon">🟡</span> Backpropagation como álgebra lineal — importante</div>
+    <div class="gap-desc">Tienes regresión logística y gradient descent, pero no el paso clave: cómo la regla de la cadena en backpropagation es <em>exactamente</em> multiplicación de jacobonianos (matrices de derivadas parciales). Es el puente directo entre álgebra lineal y entrenamiento de redes. Merece su propio apartado.</div>
+  </div>
+
+  <div class="gap-card" style="border-left:3px solid var(--color-border-warning)">
+    <div class="gap-title"><span class="gap-icon">🟡</span> Multi-head attention — necesita más contexto</div>
+    <div class="gap-desc">Está implementado en el archivo 02 pero sin el contexto de Transformers. Aparece de golpe sin explicar Q, K, V conceptualmente ni por qué el escalado por √d. Muévelo a un archivo propio o añade antes la explicación del mecanismo de atención desde cero.</div>
+  </div>
+
+  <div class="gap-card" style="border-left:3px solid var(--color-border-tertiary)">
+    <div class="gap-title"><span class="gap-icon">⚪</span> Ejercicios sin solución — para autoevaluar</div>
+    <div class="gap-desc">Todo el código ya tiene la respuesta escrita. Esto es bueno para referencia, pero malo para aprender. Crea un archivo separado con problemas propuestos (implementar PCA desde cero sin mirar el código, calcular la regresión Ridge a mano, etc.) para verificar que realmente entiendes.</div>
+  </div>
+
+  <div class="gap-card" style="border-left:3px solid var(--color-border-tertiary)">
+    <div class="gap-title"><span class="gap-icon">⚪</span> Tensores en profundidad — para después</div>
+    <div class="gap-desc">Se mencionan tensores 3D y 4D al principio pero luego casi no se trabajan. Las operaciones tensoriales (reshape, permute, einsum con múltiples ejes) son clave para entender PyTorch/TensorFlow. No es urgente, pero añádelo cuando llegues a redes neuronales.</div>
+  </div>
+</div>
+
+<!-- PANEL 3: MÉTODO -->
+<div class="panel" id="panel-metodo">
+  <div class="method-step">
+    <div class="step-num">1</div>
+    <div class="step-body">
+      <div class="step-title">Lee el código sin ejecutarlo (15 min por sección)</div>
+      <div class="step-desc">Antes de correr nada, lee el bloque de comentarios (las docstrings entre comillas triple). Son la teoría. Intenta predecir qué va a hacer el código antes de verlo ejecutar. Si no puedes predecirlo, el concepto aún no está asentado.</div>
+    </div>
+  </div>
+  <div class="method-step">
+    <div class="step-num">2</div>
+    <div class="step-body">
+      <div class="step-title">Ejecuta y observa los outputs</div>
+      <div class="step-desc">Corre el código y compara el output con tu predicción. Lo interesante es cuando te equivocas — ahí está el aprendizaje. No pases de largo cuando algo no coincide.</div>
+    </div>
+  </div>
+  <div class="method-step">
+    <div class="step-num">3</div>
+    <div class="step-body">
+      <div class="step-title">Cambia los números y observa qué rompe</div>
+      <div class="step-desc">Cambia la matriz A, usa un vector diferente, pon alpha=1000 en Ridge. El código es tu laboratorio. Intenta hacer que algo falle (matriz singular, norma cero) y entiende por qué falla. Esto consolida el concepto mucho más que leerlo.</div>
+    </div>
+  </div>
+  <div class="method-step">
+    <div class="step-num">4</div>
+    <div class="step-body">
+      <div class="step-title">Escribe la fórmula en papel (sin código)</div>
+      <div class="step-desc">Después de entender el código, cierra el ordenador y escribe: ¿qué hace este concepto en matemáticas? Por ejemplo: "el producto punto es Σᵢ aᵢbᵢ = |a||b|cos(θ)". Si no puedes escribirlo en papel, solo sabes programarlo, no entenderlo.</div>
+    </div>
+  </div>
+  <div class="method-step">
+    <div class="step-num">5</div>
+    <div class="step-body">
+      <div class="step-title">Conecta cada concepto con ML antes de pasar al siguiente</div>
+      <div class="step-desc">Pregúntate: ¿dónde aparece esto en una red neuronal? El producto punto → capas lineales. Las normas → regularización. Los eigenvalues → PCA → preprocesamiento. Esta conexión hace que los conceptos no se olviden.</div>
+    </div>
+  </div>
+  <div class="method-step">
+    <div class="step-num">6</div>
+    <div class="step-body">
+      <div class="step-title">Añade visualizaciones con matplotlib</div>
+      <div class="step-desc">Para cada concepto geométrico (vectores, transformaciones, proyecciones, PCA), dibújalo. Ver una rotación de 90° visualmente vale más que verla en números. Es el hueco más importante de tus apuntes.</div>
+    </div>
+  </div>
+  <div class="method-step">
+    <div class="step-num">7</div>
+    <div class="step-body">
+      <div class="step-title">Reimplementa un concepto desde cero (sin mirar)</div>
+      <div class="step-desc">Al terminar cada bloque, elige un concepto clave (ej: PCA, regresión lineal, KNN) y escríbelo en un archivo nuevo sin mirar el original. Si necesitas mirar más de una vez, vuelve atrás y estudia ese trozo de nuevo.</div>
+    </div>
+  </div>
+
+  <div class="tip">
+    <strong>Orden recomendado de tiempo:</strong> Bloque 0 (2-3h) → Bloque 1 (6-8h) → Bloque 2 (8-10h) → Bloque 3 (10-12h). No saltes al siguiente bloque si los conceptos <span class="priority p-core">esencial</span> del anterior no están claros. Los marcados como <span class="priority p-ext">avanzado</span> puedes dejarlos para un segundo repaso.
+  </div>
+</div>
+
+<script>
+function show(id){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('panel-'+id).classList.add('active');
+  event.target.classList.add('active');
+}
+</script>
