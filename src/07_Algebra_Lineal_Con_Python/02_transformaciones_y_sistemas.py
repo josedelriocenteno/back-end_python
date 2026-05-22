@@ -28,6 +28,13 @@
 
 import numpy as np
 import time
+import matplotlib
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
+import os
+
+PLOT_DIR = os.path.join(os.path.dirname(__file__), 'plots')
+os.makedirs(PLOT_DIR, exist_ok=True)
 
 
 # =====================================================================
@@ -177,6 +184,35 @@ resultado2 = T2 @ punto
 print(f"  Escalar 2x y rotar 45° (orden inverso):")
 print(f"  {punto} -> [{resultado2[0]:.3f}, {resultado2[1]:.3f}]")
 print(f"  Son diferentes: {not np.allclose(resultado, resultado2)}")
+
+# --- VISUALIZACION: transformaciones sobre un cuadrado ---
+# Creamos puntos de un cuadrado y aplicamos distintas transformaciones
+theta_pts = np.linspace(0, 2*np.pi, 100)
+shape_pts = np.column_stack([np.cos(theta_pts), np.sin(theta_pts)])  # circulo unitario
+
+fig, axes = plt.subplots(1, 4, figsize=(16, 4))
+transforms = [
+    ('Original', np.eye(2)),
+    ('Rotacion 45\u00b0', rotation_matrix(45)),
+    ('Escalado (2, 0.5)', scale_matrix(2, 0.5)),
+    ('Rot 45\u00b0 + Escala 2x', scale_matrix(2, 2) @ rotation_matrix(45)),
+]
+for ax, (nombre, T_mat) in zip(axes, transforms):
+    transformado = (T_mat @ shape_pts.T).T
+    ax.fill(shape_pts[:, 0], shape_pts[:, 1], alpha=0.15, color='#93c5fd')
+    ax.plot(shape_pts[:, 0], shape_pts[:, 1], '--', color='#93c5fd', lw=1, label='Original')
+    ax.fill(transformado[:, 0], transformado[:, 1], alpha=0.3, color='#f97316')
+    ax.plot(transformado[:, 0], transformado[:, 1], '-', color='#ea580c', lw=2, label='Transformado')
+    ax.set_title(nombre, fontsize=11)
+    ax.set_xlim(-3, 3); ax.set_ylim(-3, 3)
+    ax.set_aspect('equal'); ax.grid(True, alpha=0.3)
+    ax.axhline(0, color='k', lw=0.5); ax.axvline(0, color='k', lw=0.5)
+axes[0].legend(fontsize=8)
+plt.suptitle('Transformaciones lineales = multiplicar por una matriz', fontsize=13, y=1.02)
+plt.tight_layout()
+plt.savefig(os.path.join(PLOT_DIR, '02_transformaciones.png'), dpi=150, bbox_inches='tight')
+plt.close()
+print(f"\n  [PLOT guardado en plots/02_transformaciones.png]")
 
 
 # =====================================================================

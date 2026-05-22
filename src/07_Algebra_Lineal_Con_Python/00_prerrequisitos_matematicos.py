@@ -23,6 +23,14 @@
 # ===========================================================================
 
 import numpy as np
+import matplotlib
+matplotlib.use('Agg')  # Backend sin ventana (guarda PNG)
+import matplotlib.pyplot as plt
+import os
+
+# Crear carpeta para guardar los graficos
+PLOT_DIR = os.path.join(os.path.dirname(__file__), 'plots')
+os.makedirs(PLOT_DIR, exist_ok=True)
 
 
 # =====================================================================
@@ -94,6 +102,34 @@ print(f"  v1 = {v1}  (3 derecha, 2 arriba)")
 print(f"  v2 = {v2} (1 izquierda, 4 arriba)")
 print(f"  v1 + v2 = {suma}  (2 derecha, 6 arriba)")
 print(f"  Es como encadenar dos movimientos.")
+
+# --- VISUALIZACION: vectores como flechas ---
+fig, ax = plt.subplots(1, 1, figsize=(7, 6))
+origin = [0, 0]
+# v1 desde el origen (azul)
+ax.annotate('', xy=v1, xytext=origin,
+            arrowprops=dict(arrowstyle='->', color='#2563eb', lw=2.5))
+ax.text(v1[0]+0.1, v1[1]+0.1, f'v1={v1}', color='#2563eb', fontsize=11, fontweight='bold')
+# v2 desde el origen (naranja)
+ax.annotate('', xy=v2, xytext=origin,
+            arrowprops=dict(arrowstyle='->', color='#ea580c', lw=2.5))
+ax.text(v2[0]+0.1, v2[1]+0.1, f'v2={v2}', color='#ea580c', fontsize=11, fontweight='bold')
+# v2 desde la punta de v1 (naranja punteado — composicion)
+ax.annotate('', xy=suma, xytext=v1,
+            arrowprops=dict(arrowstyle='->', color='#ea580c', lw=1.5, linestyle='dashed'))
+# suma desde el origen (verde)
+ax.annotate('', xy=suma, xytext=origin,
+            arrowprops=dict(arrowstyle='->', color='#16a34a', lw=3))
+ax.text(suma[0]+0.1, suma[1]+0.1, f'v1+v2={suma}', color='#16a34a', fontsize=11, fontweight='bold')
+ax.set_xlim(-2, 4); ax.set_ylim(-1, 7)
+ax.set_aspect('equal'); ax.grid(True, alpha=0.3)
+ax.axhline(0, color='k', lw=0.5); ax.axvline(0, color='k', lw=0.5)
+ax.set_title('Suma de vectores = composicion de movimientos', fontsize=13)
+ax.set_xlabel('x'); ax.set_ylabel('y')
+plt.tight_layout()
+plt.savefig(os.path.join(PLOT_DIR, '00_vectores_suma.png'), dpi=150)
+plt.close()
+print(f"  [PLOT guardado en plots/00_vectores_suma.png]")
 
 
 # --- 1.3: Escalar un vector = estirar/encoger la flecha ---
@@ -388,6 +424,23 @@ for i in range(20):
 
 print(f"\n  En 20 pasos, de {historia[0]} llegamos a {punto}")
 print(f"  Cerca de [0, 0]: {np.allclose(punto, [0, 0], atol=0.01)}")
+
+# --- VISUALIZACION: descenso de gradiente sobre contorno ---
+fig, ax = plt.subplots(1, 1, figsize=(7, 6))
+xx, yy = np.meshgrid(np.linspace(-6, 6, 200), np.linspace(-4, 4, 200))
+zz = xx**2 + yy**2
+ax.contour(xx, yy, zz, levels=20, cmap='coolwarm', alpha=0.6)
+hist = np.array(historia)
+ax.plot(hist[:, 0], hist[:, 1], 'o-', color='#16a34a', markersize=5, lw=2, label='Camino GD')
+ax.plot(hist[0, 0], hist[0, 1], 's', color='#dc2626', markersize=12, label='Inicio', zorder=5)
+ax.plot(0, 0, '*', color='#eab308', markersize=15, label='Minimo real', zorder=5)
+ax.set_title('Descenso de gradiente: f(x,y) = x² + y²', fontsize=13)
+ax.set_xlabel('x'); ax.set_ylabel('y')
+ax.legend(fontsize=10); ax.set_aspect('equal'); ax.grid(True, alpha=0.3)
+plt.tight_layout()
+plt.savefig(os.path.join(PLOT_DIR, '00_gradient_descent.png'), dpi=150)
+plt.close()
+print(f"  [PLOT guardado en plots/00_gradient_descent.png]")
 
 
 # =====================================================================

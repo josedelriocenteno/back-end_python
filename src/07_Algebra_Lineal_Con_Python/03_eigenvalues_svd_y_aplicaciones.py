@@ -30,6 +30,13 @@
 
 import numpy as np
 import time
+import matplotlib
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
+import os
+
+PLOT_DIR = os.path.join(os.path.dirname(__file__), 'plots')
+os.makedirs(PLOT_DIR, exist_ok=True)
 
 
 # =====================================================================
@@ -406,6 +413,33 @@ V_k = eigenvectors[:, :n_components]
 X_pca = X_centered @ V_k
 print(f"\n  Proyeccion: {X.shape} -> {X_pca.shape}")
 print(f"  Varianza retenida: {varianza_acumulada[n_components-1]:.4f}")
+
+# --- VISUALIZACION: varianza explicada + proyeccion PCA ---
+fig, axes = plt.subplots(1, 2, figsize=(14, 5))
+
+# Panel 1: varianza explicada por componente
+ax1 = axes[0]
+colors = ['#2563eb' if i < n_components else '#d1d5db' for i in range(len(varianza_explicada))]
+ax1.bar(range(1, len(varianza_explicada)+1), varianza_explicada, color=colors, edgecolor='white')
+ax1.plot(range(1, len(varianza_acumulada)+1), varianza_acumulada, 'o-', color='#dc2626', lw=2, label='Acumulada')
+ax1.axhline(0.95, color='#16a34a', linestyle='--', alpha=0.7, label='95% threshold')
+ax1.set_xlabel('Componente principal'); ax1.set_ylabel('Varianza explicada')
+ax1.set_title('Varianza explicada por componente', fontsize=12)
+ax1.legend(fontsize=9); ax1.grid(True, alpha=0.3, axis='y')
+
+# Panel 2: datos proyectados en 2D
+ax2 = axes[1]
+ax2.scatter(X_pca[:, 0], X_pca[:, 1], c=np.sin(np.linspace(0, 4*np.pi, n_samples)),
+            cmap='coolwarm', s=15, alpha=0.7)
+ax2.set_xlabel(f'PC1 ({varianza_explicada[0]:.1%} var)')
+ax2.set_ylabel(f'PC2 ({varianza_explicada[1]:.1%} var)')
+ax2.set_title('Datos proyectados en 2 componentes principales', fontsize=12)
+ax2.grid(True, alpha=0.3); ax2.set_aspect('equal')
+
+plt.tight_layout()
+plt.savefig(os.path.join(PLOT_DIR, '03_pca_visualizacion.png'), dpi=150)
+plt.close()
+print(f"  [PLOT guardado en plots/03_pca_visualizacion.png]")
 
 
 print("\n--- PCA via SVD (mas eficiente) ---")

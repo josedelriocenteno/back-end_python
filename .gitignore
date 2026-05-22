@@ -4,6 +4,7 @@
 # Cachés Python
 __pycache__/
 *.pyc
+/src/*/plots/
 
 # VS Code
 .vscode/
