@@ -39,6 +39,13 @@
 
 import numpy as np
 import time
+import matplotlib
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
+import os
+
+PLOT_DIR = os.path.join(os.path.dirname(__file__), 'plots')
+os.makedirs(PLOT_DIR, exist_ok=True)
 
 # NumPy es la biblioteca central para algebra lineal en Python.
 # Trabaja con arrays multidimensionales que son mucho mas rapidos
@@ -294,6 +301,44 @@ print(f"  ||v||_inf:     {linf}")
 v_norm = v / np.linalg.norm(v)
 print(f"\n  v normalizado: {v_norm}")
 print(f"  ||v_norm||_2 = {np.linalg.norm(v_norm):.10f}")
+
+# --- VISUALIZACION: "bolas unitarias" de cada norma ---
+# La bola unitaria = todos los puntos con norma <= 1.
+# Cada norma define una FORMA distinta de "circulo".
+fig, axes = plt.subplots(1, 3, figsize=(13, 4))
+theta = np.linspace(0, 2*np.pi, 500)
+
+# L2: circulo perfecto (la forma "natural")
+ax = axes[0]
+ax.fill(np.cos(theta), np.sin(theta), alpha=0.2, color='#2563eb')
+ax.plot(np.cos(theta), np.sin(theta), color='#2563eb', lw=2)
+ax.set_title('Norma L2 (euclidea)\nRegularizacion Ridge', fontsize=11)
+ax.set_aspect('equal'); ax.grid(True, alpha=0.3)
+ax.set_xlim(-1.5, 1.5); ax.set_ylim(-1.5, 1.5)
+
+# L1: diamante (favorece coordenadas = 0 -> sparsity)
+ax = axes[1]
+l1_x = np.array([1, 0, -1, 0, 1])
+l1_y = np.array([0, 1, 0, -1, 0])
+ax.fill(l1_x, l1_y, alpha=0.2, color='#16a34a')
+ax.plot(l1_x, l1_y, color='#16a34a', lw=2)
+ax.set_title('Norma L1 (Manhattan)\nRegularizacion Lasso', fontsize=11)
+ax.set_aspect('equal'); ax.grid(True, alpha=0.3)
+ax.set_xlim(-1.5, 1.5); ax.set_ylim(-1.5, 1.5)
+
+# Linf: cuadrado (solo importa el max)
+ax = axes[2]
+ax.fill([-1, 1, 1, -1, -1], [-1, -1, 1, 1, -1], alpha=0.2, color='#dc2626')
+ax.plot([-1, 1, 1, -1, -1], [-1, -1, 1, 1, -1], color='#dc2626', lw=2)
+ax.set_title('Norma L\u221e (max)\nGradient clipping', fontsize=11)
+ax.set_aspect('equal'); ax.grid(True, alpha=0.3)
+ax.set_xlim(-1.5, 1.5); ax.set_ylim(-1.5, 1.5)
+
+plt.suptitle('Bolas unitarias: todos los puntos con ||v|| \u2264 1', fontsize=13, y=1.02)
+plt.tight_layout()
+plt.savefig(os.path.join(PLOT_DIR, '01_normas_bolas_unitarias.png'), dpi=150, bbox_inches='tight')
+plt.close()
+print(f"  [PLOT guardado en plots/01_normas_bolas_unitarias.png]")
 
 
 print("\n--- Producto exterior ---")
@@ -636,6 +681,46 @@ print(f"  {n_docs} embeddings de dim {embed_dim}")
 print(f"  Matriz de similaridad ({sim_matrix.shape}):")
 print(f"{np.array2string(sim_matrix, precision=2, suppress_small=True)}")
 print(f"  Diagonal (auto-similaridad): {np.diag(sim_matrix)}")
+
+# --- VISUALIZACION: similaridad coseno como angulos ---
+fig, axes = plt.subplots(1, 2, figsize=(13, 5))
+
+# Panel 1: vectores y angulos
+ax = axes[0]
+vectors = {
+    'rey': emb_rey[:2] / np.linalg.norm(emb_rey[:2]),
+    'reina': emb_reina[:2] / np.linalg.norm(emb_reina[:2]),
+    'gato': emb_gato[:2] / np.linalg.norm(emb_gato[:2]),
+}
+colors_v = {'rey': '#2563eb', 'reina': '#7c3aed', 'gato': '#dc2626'}
+for name, vec in vectors.items():
+    ax.annotate('', xy=vec*1.3, xytext=[0, 0],
+                arrowprops=dict(arrowstyle='->', color=colors_v[name], lw=2.5))
+    ax.text(vec[0]*1.45, vec[1]*1.45, name, color=colors_v[name],
+            fontsize=12, fontweight='bold', ha='center')
+ax.add_patch(plt.Circle((0, 0), 1, fill=False, color='#d1d5db', linestyle='--', lw=1))
+ax.set_xlim(-1.8, 1.8); ax.set_ylim(-1.8, 1.8)
+ax.set_aspect('equal'); ax.grid(True, alpha=0.3)
+ax.axhline(0, color='k', lw=0.5); ax.axvline(0, color='k', lw=0.5)
+ax.set_title('Vectores normalizados (primeras 2 dims)', fontsize=11)
+
+# Panel 2: heatmap de similaridad
+ax2 = axes[1]
+im = ax2.imshow(sim_matrix, cmap='RdYlBu_r', vmin=-1, vmax=1, aspect='equal')
+for i in range(n_docs):
+    for j in range(n_docs):
+        ax2.text(j, i, f'{sim_matrix[i,j]:.2f}', ha='center', va='center',
+                fontsize=10, color='white' if abs(sim_matrix[i,j]) > 0.5 else 'black')
+ax2.set_xticks(range(n_docs)); ax2.set_yticks(range(n_docs))
+ax2.set_xticklabels([f'doc{i}' for i in range(n_docs)])
+ax2.set_yticklabels([f'doc{i}' for i in range(n_docs)])
+ax2.set_title('Matriz de similaridad coseno', fontsize=11)
+plt.colorbar(im, ax=ax2, shrink=0.8)
+
+plt.tight_layout()
+plt.savefig(os.path.join(PLOT_DIR, '01_similaridad_coseno.png'), dpi=150)
+plt.close()
+print(f"  [PLOT guardado en plots/01_similaridad_coseno.png]")
 
 
 # =====================================================================
